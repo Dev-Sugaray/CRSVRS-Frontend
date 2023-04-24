@@ -1,0 +1,15 @@
+label {
+	font-weight: bold;
+}
+
+.cui-input {
+	color: var(--cui-gray);
+	background-color: var(--cui-white);
+	border: 2px solid var(--cui-light-gray);
+	outline: none;
+	transition: border 300ms ease-in;
+}
+
+.cui-input:focus {
+	border: 2px solid var(--cui-blue);
+}

@@ -1,20 +1,41 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+	{
+		path: '/',
+		name: 'login',
+		component: ()=> import(/* webpackChunkName: 'login' */ '../views/admin/IndexView.vue')
+	},
+	{
+		path: '/dashboard',
+		name: 'dashboard',
+		component: ()=> import(/* webpackChunkName: 'dashboard' */ '../views/admin/DashboardView.vue')
+	},
+	{
+		path: '/admin',
+		name: 'admin',
+		component: ()=> import(/* webpackChunkName: 'admin' */ '../views/admin/AdminView.vue')
+	},
+	{
+		path: '/owners',
+		name: 'owners',
+		component: ()=> import(/* webpackChunkName: 'owners' */ '../views/admin/OwnersView.vue')
+	},
+	{
+		path: '/drivers',
+		name: 'drivers',
+		component: ()=> import(/* webpackChunkName: 'drivers' */ '../views/admin/DriversView.vue')
+	},
+	{
+		path: '/lga',
+		name: 'lga',
+		component: ()=> import(/* webpackChunkName: 'lga' */ '../views/admin/LGAView.vue')
+	},
+	{
+		path: '/vehicle_type',
+		name: 'vehicle_type',
+		component: ()=> import(/* webpackChunkName: 'vehicle_type' */ '../views/admin/VehicleTypeView.vue')
+	},
 ]
 
 const router = createRouter({

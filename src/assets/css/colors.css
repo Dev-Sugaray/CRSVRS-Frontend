@@ -1,0 +1,13 @@
+* {
+	/* Color codes for the application */
+	--cui-blue: rgb(3,1,105);
+	--cui-blue-transparent: rgba(3,1,105,.8);
+	--cui-blue-very-transparent: rgba(3,1,105,.2);
+	--cui-white: rgb(255,255,255);
+	--cui-gray: rgb(24,24,24);
+	--cui-light-gray: rgb(180,181,198);
+	--cui-light-gray-transparent: rgba(180,181,198,.2);
+	--cui-green: rgb(37,36,77);
+	--cui-light-blue: rgb(86,85,146);
+	--cui-black: rgb(0,0,0);
+}

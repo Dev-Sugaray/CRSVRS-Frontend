@@ -1,0 +1,17 @@
+Todo list
+=> Create components for the system
+===> Buttons that are responsive with icons
+===> Create reactive cards grids
+===> Create responsive table component
+=====> Create table header component
+=====> Create table item component
+=====> Create table search component
+=====> Create pagination component
+===> Create input component
+===> Create loader component
+=> Create views for the system
+=> Create routes for views
+=> Create API services
+=> Create stores
+=> Generate QR code
+=> QR code scanner module for authorities
