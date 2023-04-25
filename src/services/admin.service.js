@@ -31,8 +31,8 @@ export const read = (payload)=>{
 
 export const create = payload =>{
 	const options = {
-		method: 'POST',
-		url: `${backend.value}/admin/create/`,
+		method: 'post',
+		url: `${backend.value}/admin/create.php`,
 		headers: {
 			'Authorization':`bearer ${token.value}`
 		},
@@ -53,7 +53,7 @@ export const create = payload =>{
 export const update = (payload) => {
 	const options = {
 		method: 'POST',
-		url: `${backend.value}/admin/update/`,
+		url: `${backend.value}/admin/update.php`,
 		headers: {
 			'Authorization':`bearer ${token.value}`
 		},
@@ -89,7 +89,7 @@ export const Delete = (payload) => {
 			reject(e);
 		})
 		req.withCredentials = true;
-		req.open('POST', `${backend.value}/admin/delete/`);
+		req.open('POST', `${backend.value}/admin/delete.php`);
 		req.setRequestHeader("Content-Type","application/json");
 		req.setRequestHeader("Authorization", `bearer ${token.value}`);
 		req.send(payload);
