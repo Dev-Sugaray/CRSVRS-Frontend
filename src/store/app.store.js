@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useAppStore = defineStore('app', ()=>{
-	const backend = ref('');
+	const backend = ref('/api');
 
 	const alertVisible = ref(false);
 	const alertMessage = ref('');

@@ -15,7 +15,7 @@ export const read = (payload)=>{
 		method: 'get',
 		url: `${backend.value}/admin/read/${payload ? payload : ""}`,
 		headers: {
-			'Authorization':`bearer ${token}`
+			'Authorization':`bearer ${token.value}`
 		}
 	}
 
@@ -34,7 +34,7 @@ export const create = payload =>{
 		method: 'POST',
 		url: `${backend.value}/admin/create/`,
 		headers: {
-			'Authorization':`bearer ${token}`
+			'Authorization':`bearer ${token.value}`
 		},
 		data: payload
 	}
@@ -55,7 +55,7 @@ export const update = (payload) => {
 		method: 'POST',
 		url: `${backend.value}/admin/update/`,
 		headers: {
-			'Authorization':`bearer ${token}`
+			'Authorization':`bearer ${token.value}`
 		},
 		data: payload
 	}
