@@ -28,7 +28,8 @@ export const useAuthStore = defineStore("auth", ()=>{
 		await login(payload)
 			.then((json)=>{
 				if(json.status == true){
-					token.value = json.token;
+					const { result } = json;
+					token.value = result.token;
 					vRouter.push('/dashboard');
 					appAlert(json.message);
 					toggleProcessLoader('');
