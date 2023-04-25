@@ -2,7 +2,7 @@ import { read, create, update, Delete} from '@/services/admin.service';
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import { defineStore, storeToRefs } from 'pinia';
-import { ref, unref, computed } from 'vue';
+import { ref, computed } from 'vue';
 
 export const useAdminStore = defineStore("admin", ()=>{
 
@@ -71,10 +71,30 @@ export const useAdminStore = defineStore("admin", ()=>{
 		.catch((e)=> console.log(e));
 	}
 
-	const createAdmin = async (payload)=>{
+	// Credentials for the new admin to add
+	const adminToAddSurname = ref('');
+	const adminToAddOthernames = ref('');
+	const adminToAddPhone = ref('');
+	const adminToAddPhone2 = ref('');
+	const adminToAddPassword = ref('');
+	const adminToAddAdminType = ref('admin')
+	
+
+
+	const createAdmin = async ()=>{
+		const payload = JSON.stringify({
+			surname: adminToAddSurname.value,
+			othernames: adminToAddOthernames.value,
+			phone: adminToAddPhone.value,
+			phone2: adminToAddPhone2.value,
+			password: adminToAddPassword.value,
+			admin_type: adminToAddAdminType.value,
+			registrar_id: currentAdminId.value
+		})
+
 		toggleProcessLoader('Creating new admin');
 
-		await create(unref(payload))
+		await create(payload)
 			.then((json)=>{
 				if(json.status == true){
 					// Add admin to admins arr
@@ -92,7 +112,7 @@ export const useAdminStore = defineStore("admin", ()=>{
 		toggleProcessLoader('Updating admin information');
 
 		const adminToUpdate = admins.value.filter((admin)=> admin.admin_id == id)[0];
-		const addEditorId = {...adminToUpdate, editor_id: adminToUpdate.admin_id};
+		const addEditorId = {...adminToUpdate, editor_id: currentAdminId.value};
 		await update(addEditorId)
 			.then((json)=>{
 				if(json.status == true){
@@ -144,6 +164,12 @@ export const useAdminStore = defineStore("admin", ()=>{
 		createAdmin,
 		currentAdminId,
 		updateAdmin,
-		deleteAdmin
+		deleteAdmin,
+		adminToAddSurname,
+		adminToAddPhone,
+		adminToAddOthernames,
+		adminToAddPassword,
+		adminToAddAdminType,
+		adminToAddPhone2
 	}
 })

@@ -8,23 +8,14 @@ import CuiSelect from '@/components/CuiSelect';
 // Pinia dependencies
 import { storeToRefs } from 'pinia';
 // Vue dependencies
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 // Pinia stores
 import { useAdminStore } from '@/store/admin.store';
 
 const adminStore = useAdminStore();
-const { admins, showAdmin, paginatedAdmins, range, currentAdminId, showIndex  } = storeToRefs(adminStore);
+const { admins, showAdmin, paginatedAdmins, range, showIndex } = storeToRefs(adminStore);
 const { readAdmin, createAdmin, updateAdmin, deleteAdmin } = adminStore;
 
-const addAdminPayload = ref({
-    "surname":"",
-    "othernames":"",
-    "phone":"",
-    "phone2":"",
-    "password":"",
-    "registrar_id": currentAdminId.value,
-    "admin_type":"admin"
-})
 
 onMounted(()=>{
 	readAdmin();
@@ -107,26 +98,6 @@ onMounted(()=>{
 
 	<!-- Button trigger modal -->
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Add admin modal -->
 	<div class="modal fade" id="addAdmin" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -139,32 +110,32 @@ onMounted(()=>{
 					<div class="row">
 						<div class="container">
 							<label>Surname</label>
-							<cui-input :state="addAdminPayload.surname" type="text" placeholder="Surname"></cui-input>
+							<cui-input :store="adminStore" stateKey="adminToAddSurname" type="text" placeholder="Surname"></cui-input>
 						</div>
 						<div class="container mt-2">
 							<label>Othernames</label>
-							<cui-input :state="addAdminPayload.othernames" type="text" placeholder="Othernames"></cui-input>
+							<cui-input :store="adminStore" stateKey="adminToAddOthernames" type="text" placeholder="Othernames"></cui-input>
 						</div>
 					</div>
 					<div class="row">
 						<div class="container mt-2">
 							<label>Phone</label>
-							<cui-input :state="addAdminPayload.phone" type="text" placeholder="phone"></cui-input>
+							<cui-input :store="adminStore" stateKey="adminToAddPhone" type="text" placeholder="phone"></cui-input>
 						</div>
 						<div class="container mt-2">
 							<label>Phone 2</label>
-							<cui-input :state="addAdminPayload.phone2" type="text" placeholder="phone 2"></cui-input>
+							<cui-input :store="adminStore" stateKey="adminToAddPhone2" type="text" placeholder="phone 2"></cui-input>
 						</div>
 					</div>
 					<div class="row">
 						
 						<div class="container mt-2">
 							<label>Password</label>
-							<cui-input :state="addAdminPayload.password" placeholder="password"></cui-input>
+							<cui-input :store="adminStore" stateKey="adminToAddPassword" placeholder="password"></cui-input>
 						</div>
 						<div class="container mt-2">
 							<label>Admin type</label>
-							<cui-select :state="addAdminPayload.admin_type" placeholder="password">
+							<cui-select :store="adminStore" stateKey="adminToAddAdminType">
 								<option value="admin">Admin</option>
 								<option value="global admin">Global admin</option>
 							</cui-select>

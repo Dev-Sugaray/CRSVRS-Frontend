@@ -34,6 +34,7 @@ export const create = payload =>{
 		method: 'post',
 		url: `${backend.value}/admin/create.php`,
 		headers: {
+			'Content-Type': 'application/json',
 			'Authorization':`bearer ${token.value}`
 		},
 		data: payload
@@ -55,6 +56,7 @@ export const update = (payload) => {
 		method: 'POST',
 		url: `${backend.value}/admin/update.php`,
 		headers: {
+			'Content-Type': 'application/json',
 			'Authorization':`bearer ${token.value}`
 		},
 		data: payload

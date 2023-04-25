@@ -5,10 +5,9 @@ import { storeToRefs } from 'pinia';
 const props = defineProps({
 	store: Object,
     stateKey: String,
-    property: String
 })
 
-const value = !props.property ? storeToRefs(props.store)[props.stateKey] : storeToRefs(props.store)[props.stateKey].value[props.property];
+const value = storeToRefs(props.store)[props.stateKey];
 
 </script>
 
