@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export const useAppStore = defineStore('app', ()=>{
-	const backend = ref('http://localhost/mac/vehicle_system/api');
+	const backend = ref('http://localhost/mac/vehicle_system/CRSVRS-Backend-API');
 
 	const alertVisible = ref(false);
 	const alertMessage = ref('');
