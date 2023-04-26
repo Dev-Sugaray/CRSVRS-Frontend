@@ -1,4 +1,4 @@
-import { read, create, update, Delete} from '@/services/admin.service';
+import { read, create, update, Delete, resetPassword} from '@/services/admin.service';
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import { defineStore, storeToRefs } from 'pinia';
@@ -22,7 +22,7 @@ export const useAdminStore = defineStore("admin", ()=>{
 
 	// Getters
 	const filteredAdmins = computed(()=>{
-		const arr = admins.value.filter((admin)=> JSON.stringify(admin).indexOf(searchStr.value) != -1);
+		const arr = admins.value.filter((admin)=> JSON.stringify(admin).toLowerCase().indexOf(searchStr.value.toLowerCase()) != -1);
 		return arr;
 	});
 
@@ -89,16 +89,18 @@ export const useAdminStore = defineStore("admin", ()=>{
 			phone2: adminToAddPhone2.value,
 			password: adminToAddPassword.value,
 			admin_type: adminToAddAdminType.value,
-			registrar_id: currentAdminId.value
+			operator_id: currentAdminId.value
 		})
 
 		toggleProcessLoader('Creating new admin');
-
 		await create(payload)
 			.then((json)=>{
 				if(json.status == true){
 					// Add admin to admins arr
+					const { result } = json;
+					admins.value.push(result);
 					appAlert(json.message);
+					location.reload();
 					toggleProcessLoader('');
 				}else {
 					appAlert(json.message);
@@ -110,13 +112,11 @@ export const useAdminStore = defineStore("admin", ()=>{
 
 	const updateAdmin = async (id)=>{
 		toggleProcessLoader('Updating admin information');
-
 		const adminToUpdate = admins.value.filter((admin)=> admin.admin_id == id)[0];
-		const addEditorId = {...adminToUpdate, editor_id: currentAdminId.value};
+		const addEditorId = JSON.stringify({...adminToUpdate, operator_id: currentAdminId.value});
 		await update(addEditorId)
 			.then((json)=>{
 				if(json.status == true){
-					// create admin to admins arr
 					appAlert(json.message);
 					toggleProcessLoader('');
 				}else {
@@ -130,16 +130,49 @@ export const useAdminStore = defineStore("admin", ()=>{
 	const deleteAdmin = async (id)=>{
 		toggleProcessLoader('Deleting admin');
 
-		const payload = {
+		const payload = JSON.stringify({
 			admin_id: id,
-			deleter_id: currentAdminId.value
-		}
+			operator_id: currentAdminId.value
+		})
 
 		await Delete(payload)
 			.then((json)=>{
 				if(json.status == true){
-					// create admin to admins arr
 					appAlert(json.message);
+					// delete admin from admins arr
+					location.reload();
+					const arr = admins.value.filter((admin)=> admin.admin_id != id);
+					admins.value = arr;
+					
+					toggleProcessLoader('');
+				}else {
+					appAlert(json.message);
+					toggleProcessLoader('');
+				}
+			})
+			.catch((e)=> console.log(e));
+	}
+
+	const oldPassword = ref('');
+	const newPassword = ref('');
+	const confirmNewPassword = ref('');
+
+	const resetAdminPassword = async (id)=>{
+		toggleProcessLoader('Resetting admin password');
+
+		const payload = JSON.stringify({
+			operator_id: currentAdminId.value,
+			admin_id: id,
+			password: oldPassword.value,
+			new_password_1: newPassword.value,
+			new_password_2: confirmNewPassword.value
+		})
+
+		await resetPassword(payload)
+			.then((json)=>{
+				if(json.status == true){
+					appAlert(json.message);
+	
 					toggleProcessLoader('');
 				}else {
 					appAlert(json.message);
@@ -170,6 +203,10 @@ export const useAdminStore = defineStore("admin", ()=>{
 		adminToAddOthernames,
 		adminToAddPassword,
 		adminToAddAdminType,
-		adminToAddPhone2
+		adminToAddPhone2,
+		resetAdminPassword,
+		oldPassword,
+		newPassword,
+		confirmNewPassword
 	}
 })

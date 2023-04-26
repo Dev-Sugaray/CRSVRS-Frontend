@@ -23,7 +23,7 @@ const value = !props.state ? storeToRefs(props.store)[props.stateKey] : props.st
 	</div>
 </template>
 
-<style scoped>
+<style>
 	.cui-input {
 		color: var(--cui-gray);
 		background-color: var(--cui-white);

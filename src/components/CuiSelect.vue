@@ -19,7 +19,7 @@ const value = storeToRefs(props.store)[props.stateKey];
 	</div>
 </template>
 
-<style scoped>
+<style>
 	.cui-select {
 		color: var(--cui-gray);
 		background-color: var(--cui-white);

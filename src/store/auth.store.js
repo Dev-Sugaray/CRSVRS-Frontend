@@ -14,7 +14,7 @@ export const useAuthStore = defineStore("auth", ()=>{
 	const phone = ref('');
 	const password = ref('');
 	const token = ref('');
-
+	const credentials = ref({});
 
 	const loginAdmin = async ()=>{
 		toggleProcessLoader('Logging you in');
@@ -24,12 +24,12 @@ export const useAuthStore = defineStore("auth", ()=>{
 		})
 
 
-
 		await login(payload)
 			.then((json)=>{
 				if(json.status == true){
 					const { result } = json;
 					token.value = result.token;
+					credentials.value = result;
 					vRouter.push('/dashboard');
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -46,6 +46,7 @@ export const useAuthStore = defineStore("auth", ()=>{
 		phone,
 		password,
 		token,
-		loginAdmin
+		loginAdmin,
+		credentials
 	}
 })
