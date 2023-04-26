@@ -72,7 +72,7 @@ onMounted(()=>{
 								</cui-button>&nbsp;
 								<cui-button data-bs-toggle="modal" :data-bs-target="'#driver'.concat(owner.vehicle_owner_id)">
 									<i class="fa fa-car"></i>
-									Add drivers
+									Add driver
 								</cui-button>&nbsp;
 								<cui-button data-bs-toggle="modal" :data-bs-target="'#edit_owner'.concat(owner.vehicle_owner_id)">
 									<i class="fa fa-pen"></i>
@@ -112,6 +112,11 @@ onMounted(()=>{
 					<h1 class="h5">Add new owner</h1>
 				</div>
 				<div class="modal-body">
+					<div class="container-fluid text-center">
+						<div class="photo d-inline-block">
+
+						</div>
+					</div>
 					<div class="row">
 						<div class="container">
 							<label>Surname</label>
@@ -154,6 +159,11 @@ onMounted(()=>{
 					<h1 class="h5">Add driver for <span style="text-transform: capitalize;">{{ owner.surname.toLowerCase() }} {{ owner.othernames.toLowerCase() }}</span></h1>
 				</div>
 				<div class="modal-body">
+					<div class="container-fluid text-center">
+						<div class="photo d-inline-block">
+
+						</div>
+					</div>
 					<div class="row">
 						<div class="container">
 							<label>Surname</label>
@@ -172,6 +182,57 @@ onMounted(()=>{
 						<div class="container mt-2">
 							<label>Phone 2</label>
 							<input class="p-2 rounded cui-input w-100" v-model="owner.phone2" type="text" placeholder="phone 2">
+						</div>
+					</div>
+					<div class="row">
+						<div class="container mt-2">
+							<label>Chassis number</label>
+							<input class="p-2 rounded cui-input w-100" v-model="owner.phone" type="text" placeholder="phone">
+						</div>
+						<div class="container mt-2">
+							<label>LGA</label>
+							<select class="p-2 rounded cui-select w-100" v-model="owner.phone2" type="text" placeholder="phone 2">
+								<option>--Select LGA of operation--</option>
+								<option
+									v-for="owner in owners"
+									:key="owner.owner_id">
+									{{  owner.surname }}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="container mt-2">
+							<label>Revenue head</label>
+							<input class="p-2 rounded cui-input w-100" v-model="owner.phone" type="text" disabled placeholder="Revenue head">
+						</div>
+						<div class="container mt-2">
+							<label>LGA</label>
+							<select class="p-2 rounded cui-select w-100" v-model="owner.phone2" type="text" placeholder="phone 2">
+								<option>--Select LGA of operation--</option>
+								<option
+									v-for="owner in owners"
+									:key="owner.owner_id">
+									{{  owner.surname }}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="container mt-2">
+							<label>Chassis number</label>
+							<input class="p-2 rounded cui-input w-100" v-model="owner.phone" type="text" placeholder="phone">
+						</div>
+						<div class="container mt-2">
+							<label>Vehicle type</label>
+							<select class="p-2 rounded cui-select w-100" v-model="owner.phone2" type="text" placeholder="phone 2">
+								<option>--Select Vehicle type--</option>
+								<option
+									v-for="owner in owners"
+									:key="owner.owner_id">
+									{{  owner.surname }}
+								</option>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -195,6 +256,11 @@ onMounted(()=>{
 					<h1 class="h5">Edit owner</h1>
 				</div>
 				<div class="modal-body">
+					<div class="container-fluid text-center">
+						<div class="photo d-inline-block">
+
+						</div>
+					</div>
 					<div class="row">
 						<div class="container">
 							<label>Surname</label>
@@ -265,5 +331,12 @@ onMounted(()=>{
 
 .phone_number {
 	color: var(--cui-light-gray)
+}
+
+.photo {
+	width: 10rem;
+	height: 10rem;
+	border-radius: 100%;
+	background-color: gold;
 }
 </style>

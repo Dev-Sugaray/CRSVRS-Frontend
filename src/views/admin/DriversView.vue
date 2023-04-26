@@ -109,6 +109,7 @@ onMounted(()=>{
 					<h1 class="h5">Add new driver</h1>
 				</div>
 				<div class="modal-body">
+					
 					<div class="row">
 						<div class="container">
 							<label>Surname</label>
@@ -219,6 +220,8 @@ onMounted(()=>{
 }
 
 .phone_number {
+	
 	color: var(--cui-light-gray)
 }
+
 </style>
