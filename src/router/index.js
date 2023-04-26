@@ -22,6 +22,16 @@ const routes = [
 		component: ()=> import(/* webpackChunkName: 'owners' */ '../views/admin/OwnersView.vue')
 	},
 	{
+		path: '/add_driver_1',
+		name: 'Add driver step 1',
+		component: ()=> import(/* webpackChunkName: 'add_driver_view_1' */ '../views/admin/AddDriverView_1.vue')
+	},
+	{
+		path: '/add_driver_2',
+		name: 'Add driver step 2',
+		component: ()=> import(/* webpackChunkName: 'add_driver_view_2' */ '../views/admin/AddDriverView_2.vue')
+	},
+	{
 		path: '/drivers',
 		name: 'drivers',
 		component: ()=> import(/* webpackChunkName: 'drivers' */ '../views/admin/DriversView.vue')

@@ -10,11 +10,28 @@ import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 // Pinia stores
 import { useOwnerStore } from '@/store/owners.store';
-
+import { useDriverStore } from '@/store/driver.store';
+// Vue-router
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const ownerStore = useOwnerStore();
 const { owners, showOwner, paginatedOwners, range, showIndex } = storeToRefs(ownerStore);
 const { readOwner, createOwner, updateOwner, deleteOwner } = ownerStore;
 
+
+const driverStore = useDriverStore();
+const { driverToAddVehicleOwnerId, driverToAddPhoto } = storeToRefs(driverStore);
+console.log(driverToAddVehicleOwnerId);
+
+
+const addDriver = (ownerId)=>{
+	// Set the owner id
+	driverToAddVehicleOwnerId.value = ownerId;
+	// Reset the add driver image
+	driverToAddPhoto.value = "";
+	// Go to the add driver route
+	router.push('/add_driver_1');
+}
 
 onMounted(()=>{
 	readOwner();
@@ -66,11 +83,7 @@ onMounted(()=>{
 							
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
 							<div class="table-row-col col col">
-								<cui-button data-bs-toggle="modal" :data-bs-target="'#driver'.concat(owner.vehicle_owner_id)">
-									<i class="fa fa-camera"></i>
-									Upload photo
-								</cui-button>&nbsp;
-								<cui-button data-bs-toggle="modal" :data-bs-target="'#driver'.concat(owner.vehicle_owner_id)">
+								<cui-button @click="addDriver(owner.vehicle_owner_id)">
 									<i class="fa fa-car"></i>
 									Add driver
 								</cui-button>&nbsp;
@@ -148,104 +161,6 @@ onMounted(()=>{
 		</div>
 	</div>
 <!-- End of add owner modal -->
-
-
-
-<!-- Add car driver modal -->
-<div v-for="owner in owners" data-backdrop="static" :key="owner.vehicle_owner_id" class="modal fade" :id="'driver'.concat(owner.vehicle_owner_id)">
-		<div class="modal-dialog">
-			<div class="modal-content" style="overflow-y: auto; max-height:85%;  margin-top: 50px; margin-bottom:50px;">
-				<div class="modal-header">
-					<h1 class="h5">Add driver for <span style="text-transform: capitalize;">{{ owner.surname.toLowerCase() }} {{ owner.othernames.toLowerCase() }}</span></h1>
-				</div>
-				<div class="modal-body">
-					<div class="container-fluid text-center">
-						<div class="photo d-inline-block">
-
-						</div>
-					</div>
-					<div class="row">
-						<div class="container">
-							<label>Surname</label>
-							<input class="p-2 rounded cui-input w-100"  v-model="owner.surname" type="text" placeholder="Surname">
-						</div>
-						<div class="container mt-2">
-							<label>Othernames</label>
-							<input class="p-2 rounded cui-input w-100" v-model="owner.othernames" type="text" placeholder="Othernames">
-						</div>
-					</div>
-					<div class="row">
-						<div class="container mt-2">
-							<label>Phone</label>
-							<input class="p-2 rounded cui-input w-100" v-model="owner.phone" type="text" placeholder="phone">
-						</div>
-						<div class="container mt-2">
-							<label>Phone 2</label>
-							<input class="p-2 rounded cui-input w-100" v-model="owner.phone2" type="text" placeholder="phone 2">
-						</div>
-					</div>
-					<div class="row">
-						<div class="container mt-2">
-							<label>Chassis number</label>
-							<input class="p-2 rounded cui-input w-100" v-model="owner.phone" type="text" placeholder="phone">
-						</div>
-						<div class="container mt-2">
-							<label>LGA</label>
-							<select class="p-2 rounded cui-select w-100" v-model="owner.phone2" type="text" placeholder="phone 2">
-								<option>--Select LGA of operation--</option>
-								<option
-									v-for="owner in owners"
-									:key="owner.owner_id">
-									{{  owner.surname }}
-								</option>
-							</select>
-						</div>
-					</div>
-					<div class="row">
-						<div class="container mt-2">
-							<label>Revenue head</label>
-							<input class="p-2 rounded cui-input w-100" v-model="owner.phone" type="text" disabled placeholder="Revenue head">
-						</div>
-						<div class="container mt-2">
-							<label>LGA</label>
-							<select class="p-2 rounded cui-select w-100" v-model="owner.phone2" type="text" placeholder="phone 2">
-								<option>--Select LGA of operation--</option>
-								<option
-									v-for="owner in owners"
-									:key="owner.owner_id">
-									{{  owner.surname }}
-								</option>
-							</select>
-						</div>
-					</div>
-					<div class="row">
-						<div class="container mt-2">
-							<label>Chassis number</label>
-							<input class="p-2 rounded cui-input w-100" v-model="owner.phone" type="text" placeholder="phone">
-						</div>
-						<div class="container mt-2">
-							<label>Vehicle type</label>
-							<select class="p-2 rounded cui-select w-100" v-model="owner.phone2" type="text" placeholder="phone 2">
-								<option>--Select Vehicle type--</option>
-								<option
-									v-for="owner in owners"
-									:key="owner.owner_id">
-									{{  owner.surname }}
-								</option>
-							</select>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger" class="">Cancel</cui-button>&nbsp;
-						<cui-button @click="updateOwner(owner.vehicle_owner_id)" class="">Add driver</cui-button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- End of Add driver modal -->
 
 
 <!-- Edit owner modal -->
@@ -331,12 +246,5 @@ onMounted(()=>{
 
 .phone_number {
 	color: var(--cui-light-gray)
-}
-
-.photo {
-	width: 10rem;
-	height: 10rem;
-	border-radius: 100%;
-	background-color: gold;
 }
 </style>
