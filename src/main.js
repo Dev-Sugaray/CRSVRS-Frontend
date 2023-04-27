@@ -18,9 +18,23 @@ import '@/assets/css/fontawesome-all.min.css';
 import '@/assets/css/colors.css';
 // App css
 import '@/assets/css/app.css';
+import localforage from 'localforage';
 
 const pinia = createPinia();
-pinia.use(createPersistedStatePlugin());
+pinia.use(createPersistedStatePlugin({
+    storage: {
+        getItem: async (key) => {
+            return localforage.getItem(key)
+        },
+        setItem: async (key, value) => {
+            return localforage.setItem(key, value)
+        },
+        removeItem: async (key) => {
+            return localforage.removeItem(key)
+        }
+    }
+}));
+
 const app = createApp(App);
 app.use(pinia);
 app.use(router);
