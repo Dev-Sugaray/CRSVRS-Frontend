@@ -22,6 +22,11 @@ const routes = [
 		component: ()=> import(/* webpackChunkName: 'owners' */ '../views/admin/OwnersView.vue')
 	},
 	{
+		path: '/edit_owner',
+		name: 'edit owner',
+		component: ()=> import(/* webpackChunkName: 'owners_edit' */ '../views/admin/EditOwnerView.vue')
+	},
+	{
 		path: '/add_driver_1',
 		name: 'Add driver step 1',
 		component: ()=> import(/* webpackChunkName: 'add_driver_view_1' */ '../views/admin/AddDriverView_1.vue')
@@ -35,6 +40,16 @@ const routes = [
 		path: '/drivers',
 		name: 'drivers',
 		component: ()=> import(/* webpackChunkName: 'drivers' */ '../views/admin/DriversView.vue')
+	},
+	{
+		path: '/edit_driver',
+		name: 'edit driver',
+		component: ()=> import(/* webpackChunkName: 'edit_driver' */ '../views/admin/EditDriverView.vue')
+	},
+	{
+		path: '/more_driver_info',
+		name: 'more_driver info',
+		component: ()=> import(/* webpackChunkName: 'more_driver_info' */ '../views/admin/DriverInfoView.vue')
 	},
 	{
 		path: '/lga',

@@ -148,7 +148,7 @@ const resetPasswordClick = (id)=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger">Cancel</cui-button>
+						<cui-button data-bs-dismiss="modal" type="danger" :id="'create_admin_btn_'.concat(id)">Cancel</cui-button>
 						<cui-button @click="createAdmin">Add new admin</cui-button>
 					</div>
 				</div>
@@ -197,7 +197,7 @@ const resetPasswordClick = (id)=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger" class="">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" class="" :id="'edit_admin_btn'.concat(id)">Cancel</cui-button>&nbsp;
 						<cui-button @click="updateAdmin(admin.admin_id)" class="">Edit</cui-button>
 					</div>
 				</div>
@@ -219,7 +219,7 @@ const resetPasswordClick = (id)=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" class="">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" class="" :id="'delete_admin_btn_'.concat(id)">Cancel</cui-button>&nbsp;
 						<cui-button type="danger" @click="deleteAdmin(admin.admin_id)">Delete</cui-button>
 					</div>
 				</div>
@@ -255,7 +255,7 @@ const resetPasswordClick = (id)=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" :id="'reset_admin_password_btn_'.concat(id)">Cancel</cui-button>&nbsp;
 						<cui-button @click="resetPasswordClick(admin.admin_id)">Reset password</cui-button>
 					</div>
 				</div>

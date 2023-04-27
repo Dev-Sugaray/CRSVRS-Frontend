@@ -116,7 +116,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" :id="'create_lga_btn_'.concat(id)">Cancel</cui-button>&nbsp;
 						<cui-button @click="createLGA">Add new lga</cui-button>
 					</div>
 				</div>
@@ -146,7 +146,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger" class="">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" class="" :id="'edit_lga_btn_'.concat(id)">Cancel</cui-button>&nbsp;
 						<cui-button @click="updateLGA(lga.lga_id)" class="">Edit</cui-button>
 					</div>
 				</div>
@@ -157,7 +157,7 @@ onMounted(()=>{
 
 
 <!-- delete lga modal -->
-	<div v-for="lga in lgas" data-backdrop="static" :key="lga.lga_id" class="modal fade" :id="'delete_lga'.concat(lga.lga_id)">
+	<div v-for="lga in lgas" data-backdrop="static" :key="lga.lga_id" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -168,7 +168,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" class="">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" class="" :id="'delete_lga_btn_'.concat(id)">Cancel</cui-button>&nbsp;
 						<cui-button type="danger" @click="deleteLGA(lga.lga_id)">Delete</cui-button>
 					</div>
 				</div>

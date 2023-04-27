@@ -100,8 +100,10 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 					const { result } = json;
 					vehicleTypes.value.push(result);
 					appAlert(json.message);
-					location.reload();
+					
 					toggleProcessLoader('');
+
+					document.querySelector("#create_vehicle_type_btn_".concat(result.vehicle_type_id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -119,6 +121,8 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 				if(json.status == true){
 					appAlert(json.message);
 					toggleProcessLoader('');
+
+					document.querySelector("#update_vehicle_type_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -140,11 +144,13 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 				if(json.status == true){
 					appAlert(json.message);
 					// delete vehicleType from vehicleTypes arr
-					location.reload();
+					
 					const arr = vehicleTypes.value.filter((vehicleType)=> vehicleType.vehicleType_id != id);
 					vehicleTypes.value = arr;
 					
 					toggleProcessLoader('');
+
+					document.querySelector("#delete_vehicle_type_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');

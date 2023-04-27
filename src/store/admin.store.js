@@ -102,6 +102,7 @@ export const useAdminStore = defineStore("admin", ()=>{
 					appAlert(json.message);
 					location.reload();
 					toggleProcessLoader('');
+					document.querySelector("#create_admin_btn_".concat(result.admin_id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -119,6 +120,7 @@ export const useAdminStore = defineStore("admin", ()=>{
 				if(json.status == true){
 					appAlert(json.message);
 					toggleProcessLoader('');
+					document.querySelector("#update_admin_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -145,6 +147,8 @@ export const useAdminStore = defineStore("admin", ()=>{
 					admins.value = arr;
 					
 					toggleProcessLoader('');
+
+					document.querySelector("#delete_admin_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -174,6 +178,8 @@ export const useAdminStore = defineStore("admin", ()=>{
 					appAlert(json.message);
 	
 					toggleProcessLoader('');
+
+					document.querySelector(`#reset_admin_password_btn_${id}`).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');

@@ -82,6 +82,8 @@ export const useLGAStore = defineStore("lga", ()=>{
 					appAlert(json.message);
 					location.reload();
 					toggleProcessLoader('');
+
+					document.querySelector("#create_lga_btn_".concat(result.lga_id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -99,6 +101,8 @@ export const useLGAStore = defineStore("lga", ()=>{
 				if(json.status == true){
 					appAlert(json.message);
 					toggleProcessLoader('');
+
+					document.querySelector("#update_lga_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -125,6 +129,8 @@ export const useLGAStore = defineStore("lga", ()=>{
 					lgas.value = arr;
 					
 					toggleProcessLoader('');
+
+					document.querySelector("#delete_lga_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');

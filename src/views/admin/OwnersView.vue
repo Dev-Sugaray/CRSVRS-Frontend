@@ -4,10 +4,11 @@ import CuiHeader from '@/components/CuiHeader';
 import CuiMenu from '@/components/CuiMenu';
 import CuiBody from '@/components/CuiBody'
 import CuiInput from '@/components/CuiInput';
+import OwnerPhoto from '@/components/OwnerPhoto';
 // Pinia dependencies
 import { storeToRefs } from 'pinia';
 // Vue dependencies
-import { onMounted } from 'vue';
+// import { onBeforeMount } from 'vue';
 // Pinia stores
 import { useOwnerStore } from '@/store/owners.store';
 import { useDriverStore } from '@/store/driver.store';
@@ -15,13 +16,13 @@ import { useDriverStore } from '@/store/driver.store';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 const ownerStore = useOwnerStore();
-const { owners, showOwner, paginatedOwners, range, showIndex } = storeToRefs(ownerStore);
+const { owners, showOwner, paginatedOwners, range, showIndex, ownerToEditId } = storeToRefs(ownerStore);
 const { readOwner, createOwner, updateOwner, deleteOwner } = ownerStore;
 
 
 const driverStore = useDriverStore();
 const { driverToAddVehicleOwnerId, driverToAddPhoto } = storeToRefs(driverStore);
-console.log(driverToAddVehicleOwnerId);
+// console.log(driverToAddVehicleOwnerId);
 
 
 const addDriver = (ownerId)=>{
@@ -33,10 +34,15 @@ const addDriver = (ownerId)=>{
 	router.push('/add_driver_1');
 }
 
-onMounted(()=>{
-	readOwner();
-})
+const editOwner = (id)=>{
+	
+	ownerToEditId.value = id;
+	router.push('/edit_owner');
 
+}
+
+
+readOwner();
 </script>
 
 <template>
@@ -76,7 +82,7 @@ onMounted(()=>{
 						<div 
 							class="table-row row bg-light rounded shadow align-items-center mt-2"
 							v-for="owner in showOwner"
-							:key="owner.id"
+							:key="owner.vehicle_owner_id"
 						>
 							<div class="table-row-col col col">{{ owner.surname }} {{ owner.othernames }} <br><small class="phone_number">{{ owner.phone }}</small></div>
 							<div class="table-row-col col col">{{ owner.date_registered }}</div>
@@ -87,7 +93,7 @@ onMounted(()=>{
 									<i class="fa fa-car"></i>
 									Add driver
 								</cui-button>&nbsp;
-								<cui-button data-bs-toggle="modal" :data-bs-target="'#edit_owner'.concat(owner.vehicle_owner_id)">
+								<cui-button @click="editOwner(owner.vehicle_owner_id)">
 									<i class="fa fa-pen"></i>
 									Edit
 								</cui-button>&nbsp;
@@ -126,9 +132,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-body">
 					<div class="container-fluid text-center">
-						<div class="photo d-inline-block">
-
-						</div>
+						<owner-photo></owner-photo>
 					</div>
 					<div class="row">
 						<div class="container">
@@ -153,7 +157,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" id="create_owner_btn">Cancel</cui-button>&nbsp;
 						<cui-button @click="createOwner">Add new owner</cui-button>
 					</div>
 				</div>
@@ -172,9 +176,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-body">
 					<div class="container-fluid text-center">
-						<div class="photo d-inline-block">
-
-						</div>
+						<owner-photo mode="edit"></owner-photo>
 					</div>
 					<div class="row">
 						<div class="container">
@@ -199,7 +201,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger" class="">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" class="" :id="'edit_owner_btn'.concat(owner.vehicle_owner_id)">Cancel</cui-button>&nbsp;
 						<cui-button @click="updateOwner(owner.vehicle_owner_id)" class="">Edit</cui-button>
 					</div>
 				</div>
@@ -221,7 +223,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" class="">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" class="" :id="'delete_owner_btn_'.concat(owner.vehicle_owner_id)">Cancel</cui-button>&nbsp;
 						<cui-button type="danger" @click="deleteOwner(owner.vehicle_owner_id)">Delete</cui-button>
 					</div>
 				</div>

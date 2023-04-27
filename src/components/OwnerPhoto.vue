@@ -2,11 +2,11 @@
 import { storeToRefs } from 'pinia';
 import { defineProps } from 'vue';
 import { useFileDialog } from '@vueuse/core'
-import { useDriverStore } from '@/store/driver.store';
+import { useOwnerStore } from '@/store/owners.store';
 import { useAppStore } from '@/store/app.store';
-const driverStore = useDriverStore();
-const { driverToAddPhoto, driverPhotoToEdit } = storeToRefs(driverStore);
-const { addDriverPhoto, editDriverPhoto } = driverStore;
+const ownerStore = useOwnerStore();
+const { ownerToAddPhoto, ownerPhotoToEdit } = storeToRefs(ownerStore);
+const { addOwnerPhoto, editOwnerPhoto } = ownerStore;
 
 const appStore = useAppStore();
 const { toggleProcessLoader } = appStore;
@@ -22,9 +22,9 @@ const props = defineProps({
 const { open, onChange } = useFileDialog()
 onChange((files) => {
 	if(props.mode == 'edit'){
-		editDriverPhoto(files[0]);
+		editOwnerPhoto(files[0]);
 	}else {
-		addDriverPhoto(files[0]);
+		addOwnerPhoto(files[0]);
 	}
   
 })
@@ -37,12 +37,12 @@ const choosePhoto = ()=>{
 </script>
 <template>
 	<div v-if="props.mode == 'edit'">
-		<img src="@/assets/img/profile.svg" @click="choosePhoto" class="photo d-inline-block" v-if="driverPhotoToEdit.length == 0">
-		<img :src="driverPhotoToEdit" @click="open" class="photo d-inline-block" v-else>
+		<img src="@/assets/img/profile.svg" @click="choosePhoto" class="photo d-inline-block" v-if="ownerPhotoToEdit.length == 0">
+		<img :src="ownerPhotoToEdit" @click="open" class="photo d-inline-block" v-else>
 	</div>
 	<div v-else>
-		<img src="@/assets/img/profile.svg" @click="choosePhoto" class="photo d-inline-block" v-if="driverToAddPhoto.length == 0">
-		<img :src="driverToAddPhoto" @click="open" class="photo d-inline-block" v-else>
+		<img src="@/assets/img/profile.svg" @click="choosePhoto" class="photo d-inline-block" v-if="ownerToAddPhoto.length == 0">
+		<img :src="ownerToAddPhoto" @click="open" class="photo d-inline-block" v-else>
 	</div>
 	
 </template>

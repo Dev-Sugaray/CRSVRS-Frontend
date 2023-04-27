@@ -14,23 +14,30 @@ import { computed, onMounted, ref } from 'vue';
 import { useDriverStore } from '@/store/driver.store';
 
 const driverStore = useDriverStore();
-const { createdDriverCredentials, lgas, vehicleTypes } = storeToRefs(driverStore);
-// const { readAdmin, createAdmin, updateAdmin, deleteAdmin, resetAdminPassword } = adminStore;
+const { driverToView, lgas, vehicleTypes } = storeToRefs(driverStore);
+const { getLGAs, getVehicleTypes } = driverStore;
+
+
 
 const driverLGA = computed(()=>{
-	const res = lgas.value.filter((lga)=> lga.lga_id == createdDriverCredentials.value.lga_id)[0];
+	const res = lgas.value.filter((lga)=> lga.lga_id == driverToView.value.lga_id)[0];
 	return res;
 })
 
 const driverVehicleType = computed(()=>{
-	const res = vehicleTypes.value.filter((vehicleType)=> vehicleType.vehicle_type_id == createdDriverCredentials.value.vehicle_type_id)[0];
+	const res = vehicleTypes.value.filter((vehicleType)=> vehicleType.vehicle_type_id == driverToView.value.vehicle_type_id)[0];
 	return res;
 })
+
+
 
 const img = ref(null);
 
 onMounted(()=>{
-	getDriverImage(createdDriverCredentials.value.photo).then((data)=> {
+
+    getVehicleTypes();
+    getLGAs();
+	getDriverImage(driverToView.value.photo).then((data)=> {
 		img.value = data;
 	})
 })
@@ -49,20 +56,20 @@ onMounted(()=>{
 						<img :src="img" class="photo d-inline-block">
 					</div>
 					<ul>
-						<li><b>Surname:</b> {{ createdDriverCredentials.surname }}</li>
-						<li><b>Othernames:</b> {{ createdDriverCredentials.othernames }}</li>
-						<li><b>Phone:</b> {{ createdDriverCredentials.phone }}</li>
-						<li><b>Alternative phone number:</b> {{ createdDriverCredentials.phone2 }}</li>
-						<li><b>Vehicle security registration no:</b> {{ createdDriverCredentials.vehicle_security_registration_no }}</li>
+						<li><b>Surname:</b> {{ driverToView.surname }}</li>
+						<li><b>Othernames:</b> {{ driverToView.othernames }}</li>
+						<li><b>Phone:</b> {{ driverToView.phone }}</li>
+						<li><b>Alternative phone number:</b> {{ driverToView.phone2 }}</li>
+						<li><b>Vehicle security registration no:</b> {{ driverToView.vehicle_security_registration_no }}</li>
 						<li><b>LGA:</b> {{ driverLGA.lga }}</li>
 						<li><b>Vehicle type:</b> {{ driverVehicleType.vehicle_type }}</li>
-                        <li><b>Chassis number:</b> {{ createdDriverCredentials.chassis_no }}</li>
-                        <li><b>License number:</b> {{ createdDriverCredentials.license_no }}</li>
-                        <li><b>Revenue head:</b> {{ createdDriverCredentials.revenue_head }}</li>
-						<li><b>Amount:</b> {{ createdDriverCredentials.amount }}</li>
-						<li><b>Issue date</b> {{ createdDriverCredentials.issue_date_description }}</li>
-						<li><b>Expiry date</b> {{ createdDriverCredentials.expiry_date_description }}</li>
-                        <li><b>Certificate status</b> {{ createdDriverCredentials.status }}</li>
+                        <li><b>Chassis number:</b> {{ driverToView.chassis_no }}</li>
+                        <li><b>License number:</b> {{ driverToView.license_no }}</li>
+                        <li><b>Revenue head:</b> {{ driverToView.revenue_head }}</li>
+						<li><b>Amount:</b> {{ driverToView.amount }}</li>
+						<li><b>Issue date</b> {{ driverToView.issue_date_description }}</li>
+						<li><b>Expiry date</b> {{ driverToView.expiry_date_description }}</li>
+                        <li><b>Certificate status</b> {{ driverToView.status }}</li>
 					</ul>
 				</div>
 				<div class="container">
