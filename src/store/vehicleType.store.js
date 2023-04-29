@@ -10,7 +10,7 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 	const { appAlert, toggleProcessLoader } = appStore;
 
 	const authStore = useAuthStore();
-	const { phone } = storeToRefs(authStore);
+	const { credentials } = storeToRefs(authStore);
 
 	// Credentials
 	const vehicleTypes = ref([]);
@@ -40,19 +40,23 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 	})
 
 	const showVehicleType = computed(()=>{
+		if(showIndex.value > paginatedVehicleTypes.value.length){
+			showIndex.value = paginatedVehicleTypes.value.length-1;
+		}else if(showIndex.value < 0){
+			showIndex.value = 0
+		}
+
 		const current =  paginatedVehicleTypes.value[showIndex.value];
 		return current;
 	})
 
-	const currentVehicleTypeId = computed(()=>{
-		try {
-			const id = vehicleTypes.value.filter((vehicleType)=> vehicleType.phone == phone.value)[0].vehicleType_id;
-			return id;
-		}catch(e){
-			return undefined
-		}
-		
-	})
+	const increaseShowIndex = ()=>{
+		showIndex.value++;
+	}
+
+	const decreaseShowIndex = ()=>{
+		showIndex.value--;
+	}
 
 	const readVehicleType = async (id)=>{
 		toggleProcessLoader('Getting vehicleTypes');
@@ -61,7 +65,7 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 			.then((json)=>{
 				if(json.status == true){
 					vehicleTypes.value = json.result;
-					appAlert(json.message);
+					// appAlert(json.message);
 					toggleProcessLoader('');
 				}else {
 					appAlert(json.message);
@@ -72,24 +76,13 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 	}
 
 	// Credentials for the new vehicleType to add
-	const vehicleTypeToAddSurname = ref('');
-	const vehicleTypeToAddOthernames = ref('');
-	const vehicleTypeToAddPhone = ref('');
-	const vehicleTypeToAddPhone2 = ref('');
-	const vehicleTypeToAddPassword = ref('');
-	const vehicleTypeToAddVehicleTypeType = ref('vehicleType')
-	
+	const vehicleTypeName = ref('');
 
 
 	const createVehicleType = async ()=>{
 		const payload = JSON.stringify({
-			surname: vehicleTypeToAddSurname.value,
-			othernames: vehicleTypeToAddOthernames.value,
-			phone: vehicleTypeToAddPhone.value,
-			phone2: vehicleTypeToAddPhone2.value,
-			password: vehicleTypeToAddPassword.value,
-			vehicleType_type: vehicleTypeToAddVehicleTypeType.value,
-			registrar_id: currentVehicleTypeId.value
+			vehicle_type: vehicleTypeName.value,
+			operator_id: credentials.value.admin_id
 		})
 
 		toggleProcessLoader('Creating new vehicleType');
@@ -97,13 +90,24 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 			.then((json)=>{
 				if(json.status == true){
 					// Add vehicleType to vehicleTypes arr
-					const { result } = json;
-					vehicleTypes.value.push(result);
-					appAlert(json.message);
-					
-					toggleProcessLoader('');
+				
+					read()
+						.then((json)=>{
+							if(json.status == true){
+								vehicleTypes.value = json.result;
+								appAlert("Successfully created vehicle type");
+								toggleProcessLoader('');
 
-					document.querySelector("#create_vehicle_type_btn_".concat(result.vehicle_type_id)).click();
+								// Reset the vehicle type variable that hold the payload value
+								vehicleTypeName.value = "";
+							}else {
+								appAlert(json.message);
+								toggleProcessLoader('');
+							}
+						})
+					.catch((e)=> console.log(e));
+
+					document.querySelector("#create_vehicle_type_btn").click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -114,13 +118,27 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 
 	const updateVehicleType = async (id)=>{
 		toggleProcessLoader('Updating vehicleType information');
-		const vehicleTypeToUpdate = vehicleTypes.value.filter((vehicleType)=> vehicleType.vehicleType_id == id)[0];
-		const addEditorId = JSON.stringify({...vehicleTypeToUpdate, editor_id: currentVehicleTypeId.value});
+		const vehicleTypeToUpdate = vehicleTypes.value.filter((vehicleType)=> vehicleType.vehicle_type_id == id)[0];
+
+		const addEditorId = JSON.stringify({...vehicleTypeToUpdate, operator_id: credentials.value.admin_id});
+
 		await update(addEditorId)
 			.then((json)=>{
 				if(json.status == true){
-					appAlert(json.message);
-					toggleProcessLoader('');
+
+
+					read(id)
+						.then((json)=>{
+							if(json.status == true){
+								vehicleTypes.value = json.result;
+								appAlert('Successfully updated vehicle type');
+								toggleProcessLoader('');
+							}else {
+								appAlert(json.message);
+								toggleProcessLoader('');
+							}
+						})
+					.catch((e)=> console.log(e));
 
 					document.querySelector("#update_vehicle_type_btn_".concat(id)).click();
 				}else {
@@ -136,7 +154,7 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 
 		const payload = JSON.stringify({
 			vehicleType_id: id,
-			deleter_id: currentVehicleTypeId.value
+			operator_id: credentials.value.admin_id
 		})
 
 		await Delete(payload)
@@ -145,7 +163,7 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 					appAlert(json.message);
 					// delete vehicleType from vehicleTypes arr
 					
-					const arr = vehicleTypes.value.filter((vehicleType)=> vehicleType.vehicleType_id != id);
+					const arr = vehicleTypes.value.filter((vehicleType)=> vehicleType.vehicle_type_id != id);
 					vehicleTypes.value = arr;
 					
 					toggleProcessLoader('');
@@ -172,14 +190,10 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 		searchStr,
 		range,
 		createVehicleType,
-		currentVehicleTypeId,
 		updateVehicleType,
 		deleteVehicleType,
-		vehicleTypeToAddSurname,
-		vehicleTypeToAddPhone,
-		vehicleTypeToAddOthernames,
-		vehicleTypeToAddPassword,
-		vehicleTypeToAddVehicleTypeType,
-		vehicleTypeToAddPhone2
+		vehicleTypeName,
+		increaseShowIndex,
+		decreaseShowIndex
 	}
 })

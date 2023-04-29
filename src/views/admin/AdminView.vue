@@ -11,11 +11,15 @@ import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 // Pinia stores
 import { useAdminStore } from '@/store/admin.store';
+import { useAuthStore } from '@/store/auth.store';
 
 const adminStore = useAdminStore();
-const { admins, showAdmin, paginatedAdmins, range, showIndex, oldPassword, newPassword, confirmNewPassword } = storeToRefs(adminStore);
+const { admins, showAdmin, paginatedAdmins, range, showIndex, newPassword, confirmNewPassword } = storeToRefs(adminStore);
 const { readAdmin, createAdmin, updateAdmin, deleteAdmin, resetAdminPassword } = adminStore;
 
+
+const authStore = useAuthStore();
+const { credentials } = storeToRefs(authStore);
 
 onMounted(()=>{
 	readAdmin();
@@ -38,7 +42,7 @@ const resetPasswordClick = (id)=>{
 					<cui-button @click="readAdmin()"><i class="fa fa-spinner"></i> Refresh</cui-button>
 				</div>
 				<div class="col-6">
-					<cui-input :store="adminStore" stateKey="searchStr" placeholder="Search admins"></cui-input>
+					<cui-input data-aos="slide-left" :store="adminStore" stateKey="searchStr" placeholder="Search admins"></cui-input>
 				</div>
 				<div class="col-1">
 					<select v-model="range" class="p-2 rounded range">
@@ -65,19 +69,19 @@ const resetPasswordClick = (id)=>{
 							v-for="admin in showAdmin"
 							:key="admin.id"
 						>
-							<div class="table-row-col col col">{{ admin.surname }} {{ admin.othernames }} <br><small class="phone_number">{{ admin.phone }}</small></div>
-							<div class="table-row-col col col">{{ admin.admin_type }}</div>
+							<div data-aos="slide-left" class="table-row-col col col">{{ admin.surname }} {{ admin.othernames }} <br><small class="phone_number">{{ admin.phone }}</small></div>
+							<div data-aos="slide-right" class="table-row-col col col">{{ admin.admin_type }}</div>
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
 							<div class="table-row-col col col">
-								<cui-button data-bs-toggle="modal" :data-bs-target="'#reset_password'.concat(admin.admin_id)">
+								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#reset_password'.concat(admin.admin_id)">
 									<i class="fa fa-key"></i>
 									Reset password
 								</cui-button>&nbsp;
-								<cui-button data-bs-toggle="modal" :data-bs-target="'#edit_admin'.concat(admin.admin_id)">
+								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#edit_admin'.concat(admin.admin_id)">
 									<i class="fa fa-pen"></i>
 									Edit
 								</cui-button>&nbsp;
-								<cui-button type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_admin'.concat(admin.admin_id)">
+								<cui-button type='danger' v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#delete_admin'.concat(admin.admin_id)">
 									<i class="fa fa-trash"></i>
 									Delete
 								</cui-button>
@@ -148,7 +152,7 @@ const resetPasswordClick = (id)=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger" :id="'create_admin_btn_'.concat(id)">Cancel</cui-button>
+						<cui-button data-bs-dismiss="modal" type="danger" id="create_admin_btn">Cancel</cui-button>&nbsp;&nbsp;
 						<cui-button @click="createAdmin">Add new admin</cui-button>
 					</div>
 				</div>
@@ -197,7 +201,7 @@ const resetPasswordClick = (id)=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger" class="" :id="'edit_admin_btn'.concat(id)">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" class="" :id="'update_admin_btn_'.concat(admin.admin_id)">Cancel</cui-button>&nbsp;
 						<cui-button @click="updateAdmin(admin.admin_id)" class="">Edit</cui-button>
 					</div>
 				</div>
@@ -237,25 +241,20 @@ const resetPasswordClick = (id)=>{
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="container">
-							<label>Old password</label>
-							<input class="p-2 rounded cui-input w-100"  v-model="oldPassword" type="text" placeholder="Password">
-						</div>
+						
 						<div class="container mt-2">
-							<label>Othernames</label>
+							<label>New password</label>
 							<input class="p-2 rounded cui-input w-100" v-model="newPassword" type="text" placeholder="New Password">
 						</div>
-					</div>
-					<div class="row">
 						<div class="container mt-2">
-							<label>Phone</label>
+							<label>Confirm new password</label>
 							<input class="p-2 rounded cui-input w-100" v-model="confirmNewPassword" type="text" placeholder="Confirm new password">
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger" :id="'reset_admin_password_btn_'.concat(id)">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" :id="'reset_admin_password_btn_'.concat(admin.admin_id)">Cancel</cui-button>&nbsp;
 						<cui-button @click="resetPasswordClick(admin.admin_id)">Reset password</cui-button>
 					</div>
 				</div>

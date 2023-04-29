@@ -43,10 +43,29 @@ export const useOwnerStore = defineStore("owner", ()=>{
 		return result;
 	})
 
+	const regulatedShowIndex = ()=>{
+		if(showIndex.value > paginatedOwners.value.length){
+			showIndex.value = paginatedOwners.value.length-1;
+		}else if(showIndex.value < 0){
+			showIndex.value = 0
+		}
+	}
+
 	const showOwner = computed(()=>{
+		regulatedShowIndex();
 		const current =  paginatedOwners.value[showIndex.value];
 		return current;
 	})
+
+	const increaseShowIndex = ()=>{
+		showIndex.value++;
+	}
+
+	const decreaseShowIndex = ()=>{
+		showIndex.value--;
+	}
+
+	const ownerToEditId = ref(null);
 
 	const ownerToAddPhoto = ref('');
 	const ownerPhotoToEdit = ref('');
@@ -59,7 +78,7 @@ export const useOwnerStore = defineStore("owner", ()=>{
 			.then((json)=>{
 				if(json.status == true){
 					owners.value = json.result;
-					appAlert(json.message);
+					// appAlert(json.message);
 					toggleProcessLoader('');
 				}else {
 					appAlert(json.message);
@@ -77,7 +96,7 @@ export const useOwnerStore = defineStore("owner", ()=>{
 	const ownerToAddPassport = ref('');
 	const ownerToAddOwnerType = ref('owner')
 
-	const ownerToEditId = ref(null);
+	const ownerToView = ref({});
 	
 
 
@@ -217,6 +236,9 @@ export const useOwnerStore = defineStore("owner", ()=>{
 		ownerToAddPhoto,
 		addOwnerPhoto,
 		editOwnerPhoto,
-		ownerToEditId
+		ownerToEditId,
+		ownerToView,
+		increaseShowIndex,
+		decreaseShowIndex
 	}
 })

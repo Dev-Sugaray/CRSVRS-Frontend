@@ -40,9 +40,23 @@ export const useLGAStore = defineStore("lga", ()=>{
 	})
 
 	const showLGA = computed(()=>{
+		if(showIndex.value > paginatedLGAs.value.length){
+			showIndex.value = paginatedLGAs.value.length-1;
+		}else if(showIndex.value < 0){
+			showIndex.value = 0
+		}
+
 		const current =  paginatedLGAs.value[showIndex.value];
 		return current;
 	})
+
+	const increaseShowIndex = ()=>{
+		showIndex.value++;
+	}
+
+	const decreaseShowIndex = ()=>{
+		showIndex.value--;
+	}
 
 	const readLGA = async (id)=>{
 		toggleProcessLoader('Getting lgas');
@@ -51,7 +65,7 @@ export const useLGAStore = defineStore("lga", ()=>{
 			.then((json)=>{
 				if(json.status == true){
 					lgas.value = json.result;
-					appAlert(json.message);
+					// appAlert(json.message);
 					toggleProcessLoader('');
 				}else {
 					appAlert(json.message);
@@ -76,14 +90,21 @@ export const useLGAStore = defineStore("lga", ()=>{
 		await create(payload)
 			.then((json)=>{
 				if(json.status == true){
-					// Add lga to lgas arr
-					const { result } = json;
-					lgas.value.push(result);
-					appAlert(json.message);
-					location.reload();
-					toggleProcessLoader('');
-
-					document.querySelector("#create_lga_btn_".concat(result.lga_id)).click();
+					// Refresh the store
+					read()
+						.then((json)=>{
+							if(json.status == true){
+								lgas.value = json.result;
+								appAlert("Successfully added LGA");
+								toggleProcessLoader('');
+							}else {
+								appAlert(json.message);
+								toggleProcessLoader('');
+							}
+						})
+					.catch((e)=> console.log(e));
+					
+					document.querySelector("#create_lga_btn").click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -99,8 +120,22 @@ export const useLGAStore = defineStore("lga", ()=>{
 		await update(addEditorId)
 			.then((json)=>{
 				if(json.status == true){
-					appAlert(json.message);
-					toggleProcessLoader('');
+
+					// Refresh the store
+					read()
+						.then((json)=>{
+							if(json.status == true){
+								lgas.value = json.result;
+								appAlert("Successfully updated LGA information");
+								toggleProcessLoader('');	
+							}else {
+								appAlert(json.message);
+								toggleProcessLoader('');
+							}
+						})
+					.catch((e)=> console.log(e));
+
+					
 
 					document.querySelector("#update_lga_btn_".concat(id)).click();
 				}else {
@@ -124,12 +159,12 @@ export const useLGAStore = defineStore("lga", ()=>{
 				if(json.status == true){
 					appAlert(json.message);
 					// delete lga from lgas arr
-					location.reload();
+					
 					const arr = lgas.value.filter((lga)=> lga.lga_id != id);
 					lgas.value = arr;
 					
 					toggleProcessLoader('');
-
+				
 					document.querySelector("#delete_lga_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
@@ -153,6 +188,8 @@ export const useLGAStore = defineStore("lga", ()=>{
 		updateLGA,
 		deleteLGA,
         lgaToAddLGA,
-        lgaToAddLGAInitial
+        lgaToAddLGAInitial,
+		increaseShowIndex,
+		decreaseShowIndex
 	}
 })

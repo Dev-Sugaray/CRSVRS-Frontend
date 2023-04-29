@@ -44,9 +44,22 @@ export const useDriverStore = defineStore("driver", ()=>{
 	})
 
 	const showDriver = computed(()=>{
+		if(showIndex.value > paginatedDrivers.value.length){
+			showIndex.value = paginatedDrivers.value.length-1;
+		}else if(showIndex.value < 0){
+			showIndex.value = 0
+		}
 		const current =  paginatedDrivers.value[showIndex.value];
 		return current;
 	})
+
+	const increaseShowIndex = ()=>{
+		showIndex.value++;
+	}
+
+	const decreaseShowIndex = ()=>{
+		showIndex.value--;
+	}
 
 
 	const readDriver = async (id)=>{
@@ -56,7 +69,7 @@ export const useDriverStore = defineStore("driver", ()=>{
 			.then((json)=>{
 				if(json.status == true){
 					drivers.value = json.result;
-					appAlert(json.message);
+					// appAlert(json.message);
 					toggleProcessLoader('');
 				}else {
 					appAlert(json.message);
@@ -325,6 +338,8 @@ export const useDriverStore = defineStore("driver", ()=>{
 		driverToEditId,
 		driverPhotoToEdit,
 		editDriverPhoto,
-		driverToView
+		driverToView,
+		increaseShowIndex,
+		decreaseShowIndex
 	}
 })

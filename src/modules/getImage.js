@@ -34,7 +34,7 @@ export const getDriverImage = (phone)=>{
 export const getOwnerImage = (phone)=>{
     const options = {
         method: 'GET',
-        url: `${backend.value}/owner/image.php?phone=${phone}`,
+        url: `${backend.value}/vehicle_owner/image.php?phone=${phone}`,
         headers: {
             Authorization: `bearer ${token.value}`
         }

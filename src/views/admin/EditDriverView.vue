@@ -61,11 +61,11 @@ const updateBtnClick = ()=>{
 			</div>
 		</div>
 		<div class="row">
-			<div class="container mt-2 col">
-				<label>Chassis number</label>
-				<input class="p-2 rounded cui-input w-100" v-model="payload.chassis_no" type="text" placeholder="Chassis number">
+			<div class="container mt-2 col" v-if="false">
+				<label>Revenue head</label>
+				<input class="p-2 rounded cui-input w-100" v-model="payload.revenue_head" readonly>
 			</div>
-			<div class="container mt-2 col">
+			<div class="container mt-2 col" v-if="false">
 				<label>LGA</label>
 				<select class="p-2 rounded cui-select w-100" v-model="payload.lga_id">
 					<option
@@ -98,13 +98,13 @@ const updateBtnClick = ()=>{
 		</div>
 		<div class="row">
 			<div class="container mt-2 col">
-				<label>License number</label>
-				<input class="p-2 rounded cui-input w-100" v-model="payload.license_no" type="text" placeholder="License number">
+				<label>Chassis number</label>
+				<input class="p-2 rounded cui-input w-100" v-model="payload.chassis_no" type="text" placeholder="Chassis number">
 			</div>
 			<div class="container mt-2 col">
-				<label>Revenue head</label>
-				<input class="p-2 rounded cui-input w-100" v-model="payload.revenue_head" readonly>
-			</div>
+				<label>License number</label>
+				<input class="p-2 rounded cui-input w-100" v-model="payload.license_no" type="text" placeholder="License number">
+			</div>	
 		</div>
 		<div class="container p-2 mt-4">
 			<cui-button @click="updateBtnClick" class="w-100">Edit driver</cui-button>

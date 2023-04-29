@@ -12,11 +12,17 @@ import { onMounted } from 'vue';
 import { useDriverStore } from '@/store/driver.store';
 // Vue router
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/store/auth.store';
 const router = useRouter();
 
 const driverStore = useDriverStore();
 const { drivers, showDriver, paginatedDrivers, range, showIndex, driverToEditId, driverToView } = storeToRefs(driverStore);
 const { readDriver, createDriver, deleteDriver } = driverStore;
+
+
+const authStore = useAuthStore();
+const { credentials } = storeToRefs(authStore);
+
 
 const editDriver = (id)=>{
 	
@@ -24,6 +30,8 @@ const editDriver = (id)=>{
 	router.push('/edit_driver');
 
 }
+
+
 
 onMounted(()=>{
 	readDriver();
@@ -90,11 +98,11 @@ const moreDriverInfo = (driverId)=>{
 									<i class="fa fa-eye"></i>
 									More
 								</cui-button>&nbsp;
-								<cui-button @click="editDriver(driver.driver_id)">
+								<cui-button v-if="credentials.admin_type != 'admin'" @click="editDriver(driver.driver_id)">
 									<i class="fa fa-pen"></i>
 									Edit
 								</cui-button>&nbsp;
-								<cui-button type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_driver'.concat(driver.driver_id)">
+								<cui-button v-if="credentials.admin_type != 'admin'" type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_driver'.concat(driver.driver_id)">
 									<i class="fa fa-trash"></i>
 									Delete
 								</cui-button>

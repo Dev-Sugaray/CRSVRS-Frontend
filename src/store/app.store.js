@@ -3,7 +3,12 @@ import { ref } from 'vue';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export const useAppStore = defineStore('app', ()=>{
+	// For offline
 	const backend = ref('http://localhost/mac/vehicle_system/api');
+	const backendRaw = ref('http://localhost/mac/vehicle_system/');
+	// For online
+	// const backend = ref('/api');
+	// const backendRaw = ref('/');
 
 	const alertVisible = ref(false);
 	const alertMessage = ref('');
@@ -47,7 +52,8 @@ export const useAppStore = defineStore('app', ()=>{
 		processLoaderVisible, 
 		processLoaderMessage,
 		toggleProcessLoader,
-		closeAllBoostrapModals
+		closeAllBoostrapModals,
+		backendRaw
 	}
 }, 
 {

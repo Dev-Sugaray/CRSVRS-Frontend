@@ -10,6 +10,11 @@ import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 // Pinia stores
 import { useLGAStore } from '@/store/lga.store';
+import { useAuthStore } from '@/store/auth.store';
+
+const authStore = useAuthStore();
+const { credentials } = storeToRefs(authStore);
+
 
 const lgaStore = useLGAStore();
 const { lgas, showLGA, paginatedLGAs, range, showIndex } = storeToRefs(lgaStore);
@@ -65,11 +70,11 @@ onMounted(()=>{
 							<div class="table-row-col col col">{{ lga.lga_initial }}</div>
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
 							<div class="table-row-col col col">
-								<cui-button data-bs-toggle="modal" :data-bs-target="'#edit_lga'.concat(lga.lga_id)">
+								<cui-button  v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#edit_lga'.concat(lga.lga_id)">
 									<i class="fa fa-pen"></i>
 									Edit
 								</cui-button>&nbsp;
-								<cui-button type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_lga'.concat(lga.lga_id)">
+								<cui-button  v-if="credentials.admin_type != 'admin'" type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_lga'.concat(lga.lga_id)">
 									<i class="fa fa-trash"></i>
 									Delete
 								</cui-button>
@@ -116,7 +121,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger" :id="'create_lga_btn_'.concat(id)">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" id="create_lga_btn">Cancel</cui-button>&nbsp;
 						<cui-button @click="createLGA">Add new lga</cui-button>
 					</div>
 				</div>
@@ -146,7 +151,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger" class="" :id="'edit_lga_btn_'.concat(id)">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" class="" :id="'update_lga_btn_'.concat(lga.lga_id)">Cancel</cui-button>&nbsp;
 						<cui-button @click="updateLGA(lga.lga_id)" class="">Edit</cui-button>
 					</div>
 				</div>
@@ -157,7 +162,7 @@ onMounted(()=>{
 
 
 <!-- delete lga modal -->
-	<div v-for="lga in lgas" data-backdrop="static" :key="lga.lga_id" class="modal fade">
+	<div v-for="lga in lgas" data-backdrop="static" :key="lga.lga_id" class="modal fade" :id="'delete_lga'.concat(lga.lga_id)">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -168,7 +173,7 @@ onMounted(()=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" class="" :id="'delete_lga_btn_'.concat(id)">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" class="" :id="'delete_lga_btn_'.concat(lga.lga_id)">Cancel</cui-button>&nbsp;
 						<cui-button type="danger" @click="deleteLGA(lga.lga_id)">Delete</cui-button>
 					</div>
 				</div>

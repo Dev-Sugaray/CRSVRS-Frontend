@@ -4,6 +4,8 @@ import CuiHeader from '@/components/CuiHeader';
 import CuiMenu from '@/components/CuiMenu';
 import CuiBody from '@/components/CuiBody'
 
+import { generateCertificate } from '@/modules/certificate';
+import { generateReceipt } from '@/modules/receipt';
 // Modules
 import { getDriverImage } from '@/modules/getImage';
 // Pinia dependencies
@@ -42,6 +44,50 @@ onMounted(()=>{
 	})
 })
 
+// const img1 = await extractImage(coatOfArm);
+// console.log({img1});
+// const img2 = await extractImage(crossRiverLogo);
+
+const generateDriverCertificate = ()=>{
+	const payload = {
+		full_name: `${driverToView.value.surname} ${driverToView.value.othernames}`,
+		phone: `${driverToView.value.phone}`,
+		phone2: `${driverToView.value.phone2}`,
+		vehicle_security_registration_no: `${driverToView.value.vehicle_security_registration_no}`,
+		photo: `${driverToView.value.photo}`,
+		lga: `${driverToView.value.lga}`,
+		vehicle_type: `${driverToView.value.vehicle_type}`,
+		chassis_no: `${driverToView.value.chassis_no}`,
+		license_no: `${driverToView.value.license_no}`,
+		revenue_head: `${driverToView.value.revenue_head}`,
+		amount: `${driverToView.value.amount}`,
+		issue_date: `${driverToView.value.issue_date_description}`,
+		expiry_date: `${driverToView.value.expiry_date_description}`,
+	}
+
+	generateCertificate(payload);
+}
+
+const generateDriverReceipt = ()=>{
+	const payload = {
+		full_name: `${driverToView.value.surname} ${driverToView.value.othernames}`,
+		phone: `${driverToView.value.phone}`,
+		phone2: `${driverToView.value.phone2}`,
+		vehicle_security_registration_no: `${driverToView.value.vehicle_security_registration_no}`,
+		photo: `${driverToView.value.photo}`,
+		lga: `${driverToView.value.lga}`,
+		vehicle_type: `${driverToView.value.vehicle_type}`,
+		chassis_no: `${driverToView.value.chassis_no}`,
+		license_no: `${driverToView.value.license_no}`,
+		revenue_head: `${driverToView.value.revenue_head}`,
+		amount: `${driverToView.value.amount}`,
+		issue_date: `${driverToView.value.issue_date_description}`,
+		expiry_date: `${driverToView.value.expiry_date_description}`,
+	}
+
+	generateReceipt(payload);
+}
+
 </script>
 
 <template>
@@ -73,8 +119,8 @@ onMounted(()=>{
 					</ul>
 				</div>
 				<div class="container">
-					<cui-button>Print receipt</cui-button>&nbsp;
-					<cui-button>Print certificate</cui-button>
+					<cui-button @click="generateDriverReceipt">Print receipt</cui-button>&nbsp;
+					<cui-button @click="generateDriverCertificate">Print certificate</cui-button>
 				</div>
 			</div>
 		</cui-body>
