@@ -21,7 +21,6 @@ const { readOwner, createOwner, updateOwner, deleteOwner } = ownerStore;
 
 const driverStore = useDriverStore();
 const { driverToAddVehicleOwnerId, driverToAddPhoto } = storeToRefs(driverStore);
-console.log(driverToAddVehicleOwnerId);
 
 
 const addDriver = (ownerId)=>{

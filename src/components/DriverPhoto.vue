@@ -31,7 +31,7 @@ const choosePhoto = ()=>{
 	width: 10rem;
 	height: 10rem;
 	border-radius: 100%;
-	background-color: gold;
+	background-color: gray;
 	cursor: pointer;
 }
 </style>

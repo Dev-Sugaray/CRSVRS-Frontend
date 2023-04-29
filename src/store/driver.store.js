@@ -254,6 +254,7 @@ export const useDriverStore = defineStore("driver", ()=>{
 		getLGAs,
 		vehicleTypes,
 		getVehicleTypes,
-		addDriverPhoto
+		addDriverPhoto,
+		createdDriverCredentials
 	}
 })
