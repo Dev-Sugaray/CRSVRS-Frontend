@@ -16,11 +16,9 @@ import '@/assets/css/fontawesome-all.min.css';
 import '@/assets/css/colors.css';
 // App css
 import '@/assets/css/app.css';
-import localforage from 'localforage';
 
 // Pinia, pinia-plugin-persistedstate-2 and localforage for persistent statemanagement
 import localforage from 'localforage'
-let appStorage = window.indexedDB ? localforage : localStorage;
 import { createPersistedStatePlugin } from 'pinia-plugin-persistedstate-2'
 import { createPinia } from 'pinia'
 
