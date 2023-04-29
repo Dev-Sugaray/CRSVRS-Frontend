@@ -46,7 +46,7 @@ export const create = payload =>{
 
 		axios(options).then( res =>{
 			const { data } = res;
-			console.log(data)
+			
 			resolve(data);
 		}, (err)=>{
 			reject(err);
@@ -104,7 +104,28 @@ export const Delete = (payload) => {
 export const resetPassword = (payload) => {
 	const options = {
 		method: 'POST',
-		url: `${backend.value}/admin/reset_password`,
+		url: `${backend.value}/admin/reset_password.php`,
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `bearer ${token.value}`
+		},
+		data: payload
+	}
+
+	return new Promise((resolve, reject) => {
+		axios(options).then(res => {
+			const { data } = res;
+			resolve(data);
+		}, (err)=>{
+			reject(err);
+		});
+	})
+}
+
+export const globalResetPassword = (payload) => {
+	const options = {
+		method: 'POST',
+		url: `${backend.value}/admin/reset_admin_password.php`,
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `bearer ${token.value}`

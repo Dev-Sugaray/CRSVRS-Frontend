@@ -26,7 +26,6 @@ const { createdDriverCredentials } = storeToRefs(driverStore);
 // 	resetAdminPassword(id);
 // }
 
-const localGovernment = '';
 </script>
 
 <template>

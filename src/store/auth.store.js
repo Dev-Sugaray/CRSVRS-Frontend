@@ -31,7 +31,7 @@ export const useAuthStore = defineStore("auth", ()=>{
 					token.value = result.token;
 					credentials.value = result;
 					vRouter.push('/dashboard');
-					appAlert(json.message);
+					// appAlert(json.message);
 					toggleProcessLoader('');
 				}else {
 					appAlert(json.message);
@@ -39,7 +39,16 @@ export const useAuthStore = defineStore("auth", ()=>{
 				}
 			})
 		.catch((e)=> console.log(e));
-		}
+	}
+
+	const logoutAdmin = async ()=> {
+		toggleProcessLoader('Logging out');
+
+		token.value = "";
+		vRouter.push('/');
+
+		toggleProcessLoader('')
+	}
 	
 
 	return {
@@ -47,6 +56,7 @@ export const useAuthStore = defineStore("auth", ()=>{
 		password,
 		token,
 		loginAdmin,
-		credentials
+		credentials,
+		logoutAdmin
 	}
 })

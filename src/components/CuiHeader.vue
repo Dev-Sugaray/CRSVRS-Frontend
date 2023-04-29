@@ -1,7 +1,12 @@
 <script setup>
 import CuiButton from '@/components/CuiButton';
+import { useRoute } from 'vue-router';
 
+import { useAuthStore } from '@/store/auth.store';
+const authStore = useAuthStore();
+const { logoutAdmin } = authStore;
 
+const route = useRoute();
 </script>
 
 <template>
@@ -11,10 +16,11 @@ import CuiButton from '@/components/CuiButton';
 					<i class="fa fa-bars fa-1x"></i>
 				</div>
 			</div>
-			<div class="col-9">
+			<div class="col-9" data-aos="slide-right">
+				<b>{{ route.meta.displayName }}</b>
 			</div>
 			<div class="col-2" style="text-align: right">
-				<div class="logout-btn p-3 rounded" v-ripple="'rgba(0,0,0,.2)'">
+				<div @click="logoutAdmin" class="logout-btn p-3 rounded" v-ripple="'rgba(0,0,0,.2)'">
 					<i class='fa fa-power-off fa-1x'></i>&nbsp;Logout
 				</div>
 			</div>
@@ -26,7 +32,7 @@ import CuiButton from '@/components/CuiButton';
 			<div class="search-container">
 			</div>
 			<div class="logout-container">
-				<cui-button><i class='fa fa-power-off'></i> Logout</cui-button>
+				<cui-button @click="logoutAdmin"><i class='fa fa-power-off'></i> Logout</cui-button>
 			</div>
 		</header>
 </template>
@@ -60,6 +66,6 @@ import CuiButton from '@/components/CuiButton';
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
+	cursor: pointer;
 }
 </style>

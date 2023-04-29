@@ -24,14 +24,14 @@ const { loginAdmin } = authStore;
 		<div class="col d-flex align-items-center justify-content-center">
 			<div class="container">
 				<div class="text-center">
-					<img class="logo" src="../../assets/img/logo_with_bg.jpg">
+					<img class="logo" src="../../assets/img/logo_with_bg.jpg" data-aos="slide-right">
 				</div>
-				<h1 class='p-2'>Login To Your Dashboard</h1>
-				<div class="container">
+				<h1 class='p-2' data-aos="fade">Login to your dashboard</h1>
+				<div class="container" data-aos="fade">
 					<label>Phone number</label>
 					<cui-input :store='authStore' stateKey='phone' type="text" placeholder="Phone number"></cui-input>
 				</div>
-				<div class="container mt-2">
+				<div class="container mt-2" data-aos="fade">
 					<label>Password</label>
 					<cui-input :store='authStore' stateKey='password' type="password" placeholder="Password"></cui-input>
 				</div>

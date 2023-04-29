@@ -44,9 +44,22 @@ export const useDriverStore = defineStore("driver", ()=>{
 	})
 
 	const showDriver = computed(()=>{
+		if(showIndex.value > paginatedDrivers.value.length){
+			showIndex.value = paginatedDrivers.value.length-1;
+		}else if(showIndex.value < 0){
+			showIndex.value = 0
+		}
 		const current =  paginatedDrivers.value[showIndex.value];
 		return current;
 	})
+
+	const increaseShowIndex = ()=>{
+		showIndex.value++;
+	}
+
+	const decreaseShowIndex = ()=>{
+		showIndex.value--;
+	}
 
 
 	const readDriver = async (id)=>{
@@ -56,7 +69,7 @@ export const useDriverStore = defineStore("driver", ()=>{
 			.then((json)=>{
 				if(json.status == true){
 					drivers.value = json.result;
-					appAlert(json.message);
+					// appAlert(json.message);
 					toggleProcessLoader('');
 				}else {
 					appAlert(json.message);
@@ -81,9 +94,9 @@ export const useDriverStore = defineStore("driver", ()=>{
 	const driverToAddLGA = ref('');
 	const driverToAddPhoto = ref('');
 	const driverToAddAmount = ref(0);
-
-	const createdDriverCredentials = ref({});
 	
+	const driverToView = ref({});
+
 
 	const createDriver = async ()=>{
 
@@ -111,11 +124,39 @@ export const useDriverStore = defineStore("driver", ()=>{
 					// Add driver to drivers arr
 					const { result } = json;
 					drivers.value.push(result);
-					createdDriverCredentials.value = result;
-					vRouter.push('/add_driver_2');
 
-					appAlert(json.message);
-					toggleProcessLoader('');
+					// Reset information
+
+					read()
+						.then((json)=>{
+							if(json.status == true){
+								drivers.value = json.result;
+
+								
+								driverToAddVehicleOwnerId.value = "";
+								driverToAddSurname.value = "";
+								driverToAddOthernames.value = "";
+								driverToAddPhone.value = "";
+								driverToAddPhone2.value = "";
+								driverToAddPassword.value = "";
+								driverToAddChassisNumber.value = "";
+								driverToAddLicenseNumber.value = "";
+								driverToAddVehicleType.value = "";
+								driverToAddLGA.value = "";
+								driverToAddAmount.value;
+							
+								driverToView.value = drivers.value.filter(driver => driver.driver_id == result.driver_id)[0];
+								router.push('/more_driver_info');
+
+								appAlert("Successfully created driver");
+								toggleProcessLoader('');
+							}else {
+								appAlert(json.message);
+								toggleProcessLoader('');
+							}
+						})
+					.catch((e)=> console.log(e));
+
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -124,15 +165,52 @@ export const useDriverStore = defineStore("driver", ()=>{
 			.catch((e)=> console.log(e));
 	}
 
-	const updateDriver = async (id)=>{
+	const driverToEditId = ref(0);
+	const driverToEdit = computed(()=>{
+		const res = drivers.value.filter((driver)=> driver.driver_id == driverToEditId.value)[0];
+		return res;
+	})
+
+	const driverPhotoToEdit = ref('');
+	const editDriverPhoto = (file)=>{
+		toggleProcessLoader("Using passport")
+		const fileReader = new FileReader();
+		fileReader.addEventListener("load", ()=>{
+			driverPhotoToEdit.value =  fileReader.result;
+			toggleProcessLoader("");
+		});
+		fileReader.readAsDataURL(file);
+	}
+
+	const updateDriver = async (payload)=>{
 		toggleProcessLoader('Updating driver information');
-		const driverToUpdate = drivers.value.filter((driver)=> driver.driver_id == id)[0];
-		const addEditorId = JSON.stringify({...driverToUpdate, operator_id: credentials.value.admin_id});
-		await update(addEditorId)
+		const body = JSON.stringify({
+			driver_id: payload.value.driver_id,
+			surname: payload.value.surname,
+			othernames: payload.value.othernames,
+			phone: payload.value.phone,
+			phone2: payload.value.phone2,
+			photo: driverPhotoToEdit.value,
+			license_no: payload.value.license_no,
+			chassis_no: payload.value.chassis_no,
+			lga_id: payload.value.lga_id,
+			vehicle_type_id: payload.value.vehicle_type_id,
+			vehicle_security_registration_no: payload.value.vehicle_security_registration_no,
+			revenue_head: payload.value.revenue_head,
+			amount: payload.value.amount,
+			vehicle_owner_id: payload.value.vehicle_owner_id,
+			operator_id: credentials.value.admin_id
+		});
+
+
+		await update(body)
 			.then((json)=>{
 				if(json.status == true){
+					vRouter.back();
+
 					appAlert(json.message);
 					toggleProcessLoader('');
+					driverPhotoToEdit.value = "";
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -146,7 +224,7 @@ export const useDriverStore = defineStore("driver", ()=>{
 
 		const payload = JSON.stringify({
 			driver_id: id,
-			deleter_id: credentials.value.admin_id
+			operator_id: credentials.value.admin_id
 		})
 
 		await Delete(payload)
@@ -154,11 +232,12 @@ export const useDriverStore = defineStore("driver", ()=>{
 				if(json.status == true){
 					appAlert(json.message);
 					// delete driver from drivers arr
-					location.reload();
 					const arr = drivers.value.filter((driver)=> driver.driver_id != id);
 					drivers.value = arr;
-					
+
 					toggleProcessLoader('');
+
+					document.querySelector("#delete_driver_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -256,5 +335,13 @@ export const useDriverStore = defineStore("driver", ()=>{
 		getVehicleTypes,
 		addDriverPhoto,
 		createdDriverCredentials
+		driverToEdit,
+		driverToEditId,
+		driverPhotoToEdit,
+		editDriverPhoto,
+		driverToView,
+		increaseShowIndex,
+		decreaseShowIndex
+>>>>>>> ee8dfb4a09e0d5d8548880ffb0bb4c25c3a7112a
 	}
 })

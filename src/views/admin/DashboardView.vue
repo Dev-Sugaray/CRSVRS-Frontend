@@ -1,16 +1,10 @@
 <script setup>
-import CuiButton from '@/components/CuiButton';
+// import CuiButton from '@/components/CuiButton';
 import CuiHeader from '@/components/CuiHeader';
 import CuiMenu from '@/components/CuiMenu';
 import CuiBody from '@/components/CuiBody'
-// // Pinia dependencies
-// // import { storeToRefs } from 'pinia';
-// // Pinia stores
-// import { useAuthStore } from '@/store/auth.store';
-
-// const authStore = useAuthStore();
-// const { loginAdmin } = authStore;
-
+import ReportBarChart from '@/components/ReportBarChart';
+import RevenueBarChart from '@/components/RevenueBarChart';
 </script>
 
 <template>
@@ -18,13 +12,14 @@ import CuiBody from '@/components/CuiBody'
 		<cui-header></cui-header>
 		<cui-menu></cui-menu>
 		<cui-body>
-			<cui-button><i class="fa fa-plus"></i> Add</cui-button>
-			<select>
-				<option>Show 5</option>
-				<option>Show 10</option>
-				<option>Show 20</option>
-				<option>Show 50</option>
-			</select>
+			<div class="row">
+				<div class="container w-50 col">
+					<report-bar-chart></report-bar-chart>
+				</div>
+				<div class="container w-50 col">
+					<revenue-bar-chart></revenue-bar-chart>
+				</div>
+			</div>
 		</cui-body>
 	</div>
 </template>

@@ -16,6 +16,7 @@ import '@/assets/css/fontawesome-all.min.css';
 import '@/assets/css/colors.css';
 // App css
 import '@/assets/css/app.css';
+import localforage from 'localforage';
 
 // Pinia, pinia-plugin-persistedstate-2 and localforage for persistent statemanagement
 import localforage from 'localforage'
@@ -24,21 +25,20 @@ import { createPersistedStatePlugin } from 'pinia-plugin-persistedstate-2'
 import { createPinia } from 'pinia'
 
 const pinia = createPinia();
-pinia.use(
-    createPersistedStatePlugin({
-        storage: {
-            async getItem(key){
-                return appStorage.getItem(key)
-            },
-            async setItem(key, value){
-                return appStorage.setItem(key, value)
-            },
-            async removeItem(key){
-                return appStorage.removeItem(key)
-            }
+
+pinia.use(createPersistedStatePlugin({
+    storage: {
+        getItem: async (key) => {
+            return localforage.getItem(key)
+        },
+        setItem: async (key, value) => {
+            return localforage.setItem(key, value)
+        },
+        removeItem: async (key) => {
+            return localforage.removeItem(key)
         }
-    })
-)
+    }
+}));
 
 const app = createApp(App);
 app.use(pinia);

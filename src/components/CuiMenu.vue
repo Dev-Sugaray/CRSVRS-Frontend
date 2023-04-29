@@ -10,10 +10,12 @@
 		<ul>
 			<li><router-link v-ripple="'rgba(0,0,0,.2)'" to="/dashboard" class="p-3 rounded"><i class="fa fa-tachometer"></i> Dashboard</router-link></li>
 			<li><router-link v-ripple="'rgba(0,0,0,.2)'" class="p-3 rounded" to="/admin"><i class="fa fa-user"></i> Admin</router-link></li>
-			<li><router-link v-ripple="'rgba(0,0,0,.2)'" class="p-3 rounded" to="/owners"><i class="fa fa-users"></i> Owners</router-link></li>
+			<li><router-link v-ripple="'rgba(0,0,0,.2)'" class="p-3 rounded" to="/owners"><i class="fa fa-users"></i>Vehicle owners</router-link></li>
 			<li><router-link v-ripple="'rgba(0,0,0,.2)'" class="p-3 rounded" to="/drivers"><i class="fa fa-steering-wheel"></i> Drivers</router-link></li>
 			<li><router-link v-ripple="'rgba(0,0,0,.2)'" class="p-3 rounded" to="/lga"><i class="fa fa-map"></i> LGA</router-link></li>
 			<li><router-link v-ripple="'rgba(0,0,0,.2)'" class="p-3 rounded" to="/vehicle_type"><i class="fa fa-car"></i> Vehicle types</router-link></li>
+			<li><router-link v-ripple="'rgba(0,0,0,.2)'" class="p-3 rounded" to="/reset_password"><i class="fa fa-key"></i> Reset password</router-link></li>
+			<li><router-link v-ripple="'rgba(0,0,0,.2)'" class="p-3 rounded" to="/report"><i class="fa fa-analytics"></i> Report</router-link></li>
 		</ul>
 	</div>
 </template>

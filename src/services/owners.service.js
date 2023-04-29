@@ -46,7 +46,7 @@ export const create = payload =>{
 
 		axios(options).then( res =>{
 			const { data } = res;
-			console.log(data)
+			
 			resolve(data);
 		}, (err)=>{
 			reject(err);

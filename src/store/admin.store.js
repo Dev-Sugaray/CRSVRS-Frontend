@@ -1,4 +1,4 @@
-import { read, create, update, Delete, resetPassword} from '@/services/admin.service';
+import { read, create, update, Delete, globalResetPassword} from '@/services/admin.service';
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import { defineStore, storeToRefs } from 'pinia';
@@ -40,6 +40,12 @@ export const useAdminStore = defineStore("admin", ()=>{
 	})
 
 	const showAdmin = computed(()=>{
+		if(showIndex.value > paginatedAdmins.value.length){
+			showIndex.value = paginatedAdmins.value.length-1;
+		}else if(showIndex.value < 0){
+			showIndex.value = 0
+		}
+
 		const current =  paginatedAdmins.value[showIndex.value];
 		return current;
 	})
@@ -54,6 +60,14 @@ export const useAdminStore = defineStore("admin", ()=>{
 		
 	})
 
+	const increaseShowIndex = ()=>{
+		showIndex.value++;
+	}
+
+	const decreaseShowIndex = ()=>{
+		showIndex.value--;
+	}
+
 	const readAdmin = async (id)=>{
 		toggleProcessLoader('Getting admins');
 
@@ -61,7 +75,7 @@ export const useAdminStore = defineStore("admin", ()=>{
 			.then((json)=>{
 				if(json.status == true){
 					admins.value = json.result;
-					appAlert(json.message);
+					// appAlert(json.message);
 					toggleProcessLoader('');
 				}else {
 					appAlert(json.message);
@@ -92,6 +106,7 @@ export const useAdminStore = defineStore("admin", ()=>{
 			operator_id: currentAdminId.value
 		})
 
+		
 		toggleProcessLoader('Creating new admin');
 		await create(payload)
 			.then((json)=>{
@@ -100,8 +115,17 @@ export const useAdminStore = defineStore("admin", ()=>{
 					const { result } = json;
 					admins.value.push(result);
 					appAlert(json.message);
-					location.reload();
 					toggleProcessLoader('');
+					document.querySelector("#create_admin_btn").click();
+
+					// reset Credentials for the new admin to add
+					adminToAddSurname.value = "";
+					adminToAddOthernames.value = "";
+					adminToAddPhone.value = "";
+					adminToAddPhone2.value = "";
+					adminToAddPassword.value = "";
+					adminToAddAdminType .value= 'admin';
+
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -119,6 +143,7 @@ export const useAdminStore = defineStore("admin", ()=>{
 				if(json.status == true){
 					appAlert(json.message);
 					toggleProcessLoader('');
+					document.querySelector("#update_admin_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -140,11 +165,12 @@ export const useAdminStore = defineStore("admin", ()=>{
 				if(json.status == true){
 					appAlert(json.message);
 					// delete admin from admins arr
-					location.reload();
 					const arr = admins.value.filter((admin)=> admin.admin_id != id);
 					admins.value = arr;
 					
 					toggleProcessLoader('');
+
+					document.querySelector("#delete_admin_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -153,7 +179,6 @@ export const useAdminStore = defineStore("admin", ()=>{
 			.catch((e)=> console.log(e));
 	}
 
-	const oldPassword = ref('');
 	const newPassword = ref('');
 	const confirmNewPassword = ref('');
 
@@ -163,17 +188,18 @@ export const useAdminStore = defineStore("admin", ()=>{
 		const payload = JSON.stringify({
 			operator_id: currentAdminId.value,
 			admin_id: id,
-			password: oldPassword.value,
 			new_password_1: newPassword.value,
 			new_password_2: confirmNewPassword.value
 		})
 
-		await resetPassword(payload)
+		await globalResetPassword(payload)
 			.then((json)=>{
 				if(json.status == true){
 					appAlert(json.message);
 	
 					toggleProcessLoader('');
+
+					document.querySelector(`#reset_admin_password_btn_${id}`).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -205,8 +231,10 @@ export const useAdminStore = defineStore("admin", ()=>{
 		adminToAddAdminType,
 		adminToAddPhone2,
 		resetAdminPassword,
-		oldPassword,
 		newPassword,
-		confirmNewPassword
+		confirmNewPassword,
+		increaseShowIndex,
+		decreaseShowIndex,
+		globalResetPassword
 	}
 })

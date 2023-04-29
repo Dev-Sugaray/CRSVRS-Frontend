@@ -1,10 +1,13 @@
 import { read, create, update, Delete } from '@/services/owners.service';
 import { useAppStore } from '@/store/app.store';
 import { defineStore, storeToRefs } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref, computed, markRaw } from 'vue';
 import { useAuthStore } from './auth.store';
+import router from '@/router/index';
 
 export const useOwnerStore = defineStore("owner", ()=>{
+	
+	const vRouter = markRaw(router);
 
 	const appStore = useAppStore();
 	const { appAlert, toggleProcessLoader } = appStore;
@@ -40,10 +43,33 @@ export const useOwnerStore = defineStore("owner", ()=>{
 		return result;
 	})
 
+	const regulatedShowIndex = ()=>{
+		if(showIndex.value > paginatedOwners.value.length){
+			showIndex.value = paginatedOwners.value.length-1;
+		}else if(showIndex.value < 0){
+			showIndex.value = 0
+		}
+	}
+
 	const showOwner = computed(()=>{
+		regulatedShowIndex();
 		const current =  paginatedOwners.value[showIndex.value];
 		return current;
 	})
+
+	const increaseShowIndex = ()=>{
+		showIndex.value++;
+	}
+
+	const decreaseShowIndex = ()=>{
+		showIndex.value--;
+	}
+
+	const ownerToEditId = ref(null);
+
+	const ownerToAddPhoto = ref('');
+	const ownerPhotoToEdit = ref('');
+
 
 	const readOwner = async (id)=>{
 		toggleProcessLoader('Getting owners');
@@ -52,7 +78,7 @@ export const useOwnerStore = defineStore("owner", ()=>{
 			.then((json)=>{
 				if(json.status == true){
 					owners.value = json.result;
-					appAlert(json.message);
+					// appAlert(json.message);
 					toggleProcessLoader('');
 				}else {
 					appAlert(json.message);
@@ -69,6 +95,8 @@ export const useOwnerStore = defineStore("owner", ()=>{
 	const ownerToAddPhone2 = ref('');
 	const ownerToAddPassport = ref('');
 	const ownerToAddOwnerType = ref('owner')
+
+	const ownerToView = ref({});
 	
 
 
@@ -78,20 +106,30 @@ export const useOwnerStore = defineStore("owner", ()=>{
 			othernames: ownerToAddOthernames.value,
 			phone: ownerToAddPhone.value,
 			phone2: ownerToAddPhone2.value,
-			photo: ownerToAddPassport.value,
+			photo: ownerToAddPhoto.value,
 			operator_id: credentials.value.admin_id
 		})
+
+		ownerToAddSurname.value = "";
+		ownerToAddOthernames.value = "";
+		ownerToAddPhone.value = "";
+		ownerToAddPhone2.value = "";
+		ownerToAddPassport.value = "";
+		ownerToAddOwnerType.value = "";
+		ownerToAddPhoto.value = "";
 
 		toggleProcessLoader('Creating new owner');
 		await create(payload)
 			.then((json)=>{
 				if(json.status == true){
 					// Add owner to owners arr
-					const { result } = json;
-					owners.value.push(result);
+					
+					readOwner();
 					appAlert(json.message);
-					location.reload();
+					
 					toggleProcessLoader('');
+
+					document.querySelector("#create_owner_btn").click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -100,15 +138,26 @@ export const useOwnerStore = defineStore("owner", ()=>{
 			.catch((e)=> console.log(e));
 	}
 
-	const updateOwner = async (id)=>{
+	const updateOwner = async (payload)=>{
 		toggleProcessLoader('Updating owner information');
-		const ownerToUpdate = owners.value.filter((owner)=> owner.vehicle_owner_id == id)[0];
-		const addEditorId = JSON.stringify({...ownerToUpdate, operator_id: credentials.value.admin_id});
-		await update(addEditorId)
+
+		const body = JSON.stringify({
+			vehicle_owner_id: payload.value.vehicle_owner_id,
+			surname: payload.value.surname,
+			othernames: payload.value.othernames,
+			phone: payload.value.phone,
+			phone2: payload.value.phone2,
+			photo: ownerPhotoToEdit.value,
+			operator_id: credentials.value.admin_id
+		})
+
+		await update(body)
 			.then((json)=>{
 				if(json.status == true){
 					appAlert(json.message);
 					toggleProcessLoader('');
+					ownerPhotoToEdit.value = "";
+					vRouter.back();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -129,12 +178,13 @@ export const useOwnerStore = defineStore("owner", ()=>{
 			.then((json)=>{
 				if(json.status == true){
 					appAlert(json.message);
-					// delete owner from owners arr
-					location.reload();
-					// const arr = owners.value.filter((owner)=> owner.owner_id != id);
-					// owners.value = arr;
+
+					const arr = owners.value.filter((owner)=> owner.vehicle_owner_id != id);
+					owners.value = arr;
 					
 					toggleProcessLoader('');
+
+					document.querySelector("#delete_owner_btn_".concat(id)).click();
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -143,7 +193,25 @@ export const useOwnerStore = defineStore("owner", ()=>{
 			.catch((e)=> console.log(e));
 	}
 
+	const addOwnerPhoto = (file)=>{
+		toggleProcessLoader("Using passport")
+		const fileReader = new FileReader();
+		fileReader.addEventListener("load", ()=>{
+			ownerToAddPhoto.value =  fileReader.result;
+			toggleProcessLoader("");
+		});
+		fileReader.readAsDataURL(file);
+	}
 
+	const editOwnerPhoto = (file)=> {
+		toggleProcessLoader("Using passport")
+		const fileReader = new FileReader();
+		fileReader.addEventListener("load", ()=>{
+			ownerPhotoToEdit.value =  fileReader.result;
+			toggleProcessLoader("");
+		});
+		fileReader.readAsDataURL(file);
+	}
 	
 
 	return {
@@ -163,6 +231,14 @@ export const useOwnerStore = defineStore("owner", ()=>{
 		ownerToAddOthernames,
 		ownerToAddPassport,
 		ownerToAddOwnerType,
-		ownerToAddPhone2
+		ownerToAddPhone2,
+		ownerPhotoToEdit,
+		ownerToAddPhoto,
+		addOwnerPhoto,
+		editOwnerPhoto,
+		ownerToEditId,
+		ownerToView,
+		increaseShowIndex,
+		decreaseShowIndex
 	}
 })
