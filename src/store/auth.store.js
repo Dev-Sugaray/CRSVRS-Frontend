@@ -29,7 +29,7 @@ export const useAuthStore = defineStore("auth", ()=>{
 				if(json.status == true){
 					const { result } = json;
 					token.value = result.token;
-					credentials.value = result;
+					credentials.value = result.data.data;
 					vRouter.push('/dashboard');
 					// appAlert(json.message);
 					toggleProcessLoader('');
