@@ -22,3 +22,8 @@ label {
 .cui-input:focus {
 	border: 2px solid var(--cui-blue);
 }
+
+.table-wrapper {
+	overflow-y: auto;
+	height: 70vh;
+}

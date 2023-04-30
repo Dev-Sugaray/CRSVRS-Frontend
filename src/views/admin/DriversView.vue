@@ -69,7 +69,7 @@ const moreDriverInfo = (driverId)=>{
 				
 			</div>
 			
-			<div class="container">
+			<div class="container table-wrapper">
 				
 				<div class="table">
 					<div class="table-header row align-items-center pt-2 pb-2">
