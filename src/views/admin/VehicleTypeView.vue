@@ -166,7 +166,7 @@ onMounted(()=>{
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
 						<cui-button data-bs-dismiss="modal" class="" :id="'delete_vehicle_type_btn_'.concat(vehicleType.vehicle_type_id)">Cancel</cui-button>&nbsp;
-						<cui-button type="danger" @click="deleteVehicleType(vehicleType.vehicleType_id)">Delete</cui-button>
+						<cui-button type="danger" @click="deleteVehicleType(vehicleType.vehicle_type_id)">Delete</cui-button>
 					</div>
 				</div>
 			</div>
