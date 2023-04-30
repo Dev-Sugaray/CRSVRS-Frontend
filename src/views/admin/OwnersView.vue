@@ -84,6 +84,9 @@ readOwner();
 						<div class="table-header-col col">Fullname</div>
 						<div class="table-header-col col">Date registered</div>
 						<div class="table-header-col col"></div>
+						<div class="table-header-col col"></div>
+						<div class="table-header-col col"></div>
+						<div class="table-header-col col"></div>
 					</div>
 					<div class="table-body">
 						<div 
@@ -99,15 +102,21 @@ readOwner();
 								<cui-button @click="addDriver(owner.vehicle_owner_id)">
 									<i class="fa fa-car"></i>
 									Add driver
-								</cui-button>&nbsp;
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button @click="moreOwnerInfo(owner.vehicle_owner_id)">
 									<i class="fa fa-eye"></i>
 									More
-								</cui-button>&nbsp;
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button @click="editOwner(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
 									<i class="fa fa-pen"></i>
 									Edit
-								</cui-button>&nbsp;
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_owner'.concat(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
 									<i class="fa fa-trash"></i>
 									Delete

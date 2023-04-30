@@ -78,6 +78,8 @@ const moreDriverInfo = (driverId)=>{
 						<div class="table-header-col col">Certificate status</div>
 						<div class="table-header-col col">Expiry date</div>
 						<div class="table-header-col col"></div>
+						<div class="table-header-col col"></div>
+						<div class="table-header-col col"></div>
 					</div>
 					<div class="table-body">
 						<div 
@@ -92,15 +94,19 @@ const moreDriverInfo = (driverId)=>{
 							<div data-aos="zoom-in" class="table-header-col col">{{ driver.expiry_date_description }}</div>
 							
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
-							<div class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button @click="moreDriverInfo(driver.driver_id)">
 									<i class="fa fa-eye"></i>
 									More
-								</cui-button>&nbsp;
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button v-if="credentials.admin_type != 'admin'" @click="editDriver(driver.driver_id)">
 									<i class="fa fa-pen"></i>
 									Edit
-								</cui-button>&nbsp;
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button v-if="credentials.admin_type != 'admin'" type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_driver'.concat(driver.driver_id)">
 									<i class="fa fa-trash"></i>
 									Delete

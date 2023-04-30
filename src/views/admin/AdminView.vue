@@ -62,6 +62,8 @@ const resetPasswordClick = (id)=>{
 						<div class="table-header-col col">Fullname</div>
 						<div class="table-header-col col">Type</div>
 						<div class="table-header-col col"></div>
+						<div class="table-header-col col"></div>
+						<div class="table-header-col col"></div>
 					</div>
 					<div class="table-body">
 						<div 
@@ -76,11 +78,15 @@ const resetPasswordClick = (id)=>{
 								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#reset_password'.concat(admin.admin_id)">
 									<i class="fa fa-key"></i>
 									Reset password
-								</cui-button>&nbsp;
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#edit_admin'.concat(admin.admin_id)">
 									<i class="fa fa-pen"></i>
 									Edit
-								</cui-button>&nbsp;
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button type='danger' v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#delete_admin'.concat(admin.admin_id)">
 									<i class="fa fa-trash"></i>
 									Delete

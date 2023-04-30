@@ -59,6 +59,7 @@ onMounted(()=>{
 						<div class="table-header-col col">LGA</div>
 						<div class="table-header-col col">LGA Initial</div>
 						<div class="table-header-col col"></div>
+						<div class="table-header-col col"></div>
 					</div>
 					<div class="table-body">
 						<div 
@@ -73,7 +74,9 @@ onMounted(()=>{
 								<cui-button  v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#edit_lga'.concat(lga.lga_id)">
 									<i class="fa fa-pen"></i>
 									Edit
-								</cui-button>&nbsp;
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button  v-if="credentials.admin_type != 'admin'" type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_lga'.concat(lga.lga_id)">
 									<i class="fa fa-trash"></i>
 									Delete
