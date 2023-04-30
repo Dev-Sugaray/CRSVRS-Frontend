@@ -334,7 +334,6 @@ export const useDriverStore = defineStore("driver", ()=>{
 		vehicleTypes,
 		getVehicleTypes,
 		addDriverPhoto,
-		createdDriverCredentials
 		driverToEdit,
 		driverToEditId,
 		driverPhotoToEdit,
@@ -342,6 +341,5 @@ export const useDriverStore = defineStore("driver", ()=>{
 		driverToView,
 		increaseShowIndex,
 		decreaseShowIndex
->>>>>>> ee8dfb4a09e0d5d8548880ffb0bb4c25c3a7112a
 	}
 })
