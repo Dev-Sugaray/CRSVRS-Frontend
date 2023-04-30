@@ -150,8 +150,6 @@ export const useAdminStore = defineStore("admin", ()=>{
 	const deleteAdmin = async (id)=>{
 		toggleProcessLoader('Deleting admin');
 
-		alert(currentAdminId.value)
-
 		const payload = JSON.stringify({
 			admin_id: id,
 			operator_id: currentAdminId.value
