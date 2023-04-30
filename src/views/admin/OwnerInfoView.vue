@@ -31,7 +31,7 @@ onMounted(()=>{
 		<cui-header></cui-header>
 		<cui-menu></cui-menu>
 		<cui-body>
-			<h1 class="m-2 bg-light rounded">Vehicle owner information information</h1>
+			<h1 class="m-2 bg-light rounded">Vehicle owner information</h1>
 			<div class="container mt-2 rounded bg-light p-1">
 				<div class="container">
 					<div class="container">
