@@ -10,7 +10,7 @@ export const useAdminStore = defineStore("admin", ()=>{
 	const { appAlert, toggleProcessLoader } = appStore;
 
 	const authStore = useAuthStore();
-	const { phone } = storeToRefs(authStore);
+	const { credentials } = storeToRefs(authStore);
 
 	// Credentials
 	const admins = ref([]);
@@ -48,16 +48,11 @@ export const useAdminStore = defineStore("admin", ()=>{
 
 		const current =  paginatedAdmins.value[showIndex.value];
 		return current;
-	})
+	});
 
-	const currentAdminId = computed(()=>{
-		try {
-			const id = admins.value.filter((admin)=> admin.phone == phone.value)[0].admin_id;
-			return id;
-		}catch(e){
-			return undefined
-		}
-		
+	const currentAdminId = computed(()=> {
+		const id = credentials.value.admin_id;
+		return id;
 	})
 
 	const increaseShowIndex = ()=>{
@@ -154,6 +149,8 @@ export const useAdminStore = defineStore("admin", ()=>{
 
 	const deleteAdmin = async (id)=>{
 		toggleProcessLoader('Deleting admin');
+
+		alert(currentAdminId.value)
 
 		const payload = JSON.stringify({
 			admin_id: id,
