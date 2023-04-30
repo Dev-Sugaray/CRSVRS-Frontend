@@ -6,6 +6,8 @@ import CuiBody from '@/components/CuiBody'
 
 import { generateCertificate } from '@/modules/certificate';
 import { generateReceipt } from '@/modules/receipt';
+// Vue router
+import { useRouter } from 'vue-router';
 // Modules
 import { getDriverImage } from '@/modules/getImage';
 // Pinia dependencies
@@ -88,6 +90,7 @@ const generateDriverReceipt = ()=>{
 	generateReceipt(payload);
 }
 
+const router = useRouter();
 </script>
 
 <template>
@@ -119,6 +122,7 @@ const generateDriverReceipt = ()=>{
 					</ul>
 				</div>
 				<div class="container">
+					<cui-button @click="router.back()">Go back</cui-button>&nbsp;
 					<cui-button @click="generateDriverReceipt">Print receipt</cui-button>&nbsp;
 					<cui-button @click="generateDriverCertificate">Print certificate</cui-button>
 				</div>
