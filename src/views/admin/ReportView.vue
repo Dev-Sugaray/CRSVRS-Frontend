@@ -22,7 +22,6 @@ readReport();
 
 			<div class="row">
 				<div class="col-4">
-					<cui-button data-bs-toggle="modal" data-bs-target="#addOwner"><i class="fa fa-plus"></i> Add new</cui-button> &nbsp;
 					<cui-button @click="readReport()"><i class="fa fa-spinner"></i> Refresh</cui-button>
 				</div>
 				<div class="col-6">
