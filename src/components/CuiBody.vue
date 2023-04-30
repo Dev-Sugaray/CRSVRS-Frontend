@@ -17,6 +17,5 @@
 		right: 10px;
 		top: 4rem;
 		bottom: 10px;
-		overflow-y: auto;
 	}
 </style>
