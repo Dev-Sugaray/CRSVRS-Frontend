@@ -153,7 +153,7 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 		toggleProcessLoader('Deleting vehicle type');
 
 		const payload = JSON.stringify({
-			vehicleType_id: id,
+			vehicle_type_id: id,
 			operator_id: credentials.value.admin_id
 		})
 
