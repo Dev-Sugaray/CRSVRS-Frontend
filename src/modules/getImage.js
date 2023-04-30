@@ -11,28 +11,6 @@ const { backend } = storeToRefs(appStore);
 const authStore = useAuthStore();
 const { token } = storeToRefs(authStore);
 
-export const getDriverImage = (phonenumber)=>{
-	const options = {
-		method: 'GET',
-		url: `${backend.value}/driver/image/${phonenumber}`,
-	}
-
-	return new Promise((resolve, reject)=>{
-		axios(options).then((res)=> {
-			const { data } = res;
-			resolve(data);
-		}).catch((err)=> {
-			reject(err);
-		})
-	})
-
-}
-
-export const getVehicleOwnerImage = (phonenumber)=>{
-
-const authStore = useAuthStore();
-const { token } = storeToRefs(authStore);
-
 export const getDriverImage = (phone)=>{
     const options = {
         method: 'GET',
@@ -74,5 +52,4 @@ export const getOwnerImage = (phone)=>{
             }
         }).catch(e => reject(e.message));
     })
->>>>>>> ee8dfb4a09e0d5d8548880ffb0bb4c25c3a7112a
 }
