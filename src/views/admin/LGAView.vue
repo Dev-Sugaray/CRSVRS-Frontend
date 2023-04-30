@@ -66,10 +66,10 @@ onMounted(()=>{
 							v-for="lga in showLGA"
 							:key="lga.id"
 						>
-							<div class="table-row-col col col">{{ lga.lga }}</div>
-							<div class="table-row-col col col">{{ lga.lga_initial }}</div>
+							<div data-aos="zoom-in" class="table-row-col col col">{{ lga.lga }}</div>
+							<div data-aos="zoom-in" class="table-row-col col col">{{ lga.lga_initial }}</div>
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
-							<div class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button  v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#edit_lga'.concat(lga.lga_id)">
 									<i class="fa fa-pen"></i>
 									Edit

@@ -55,14 +55,14 @@ readReport();
 							v-for="report, index in showReport"
 							:key="'report'.concat(index)"
 						>
-							<div class="table-row-col col col">{{ index+1 }}</div>
-							<div class="table-row-col col col">{{ report.total_payer }}</div>
-                            <div class="table-row-col col col">&#x20A6;{{ Number(report.total_sum).toLocaleString("en-US") }}</div>
-                            <div class="table-row-col col col">{{ report.paydate_description }}</div>
-                            <div class="table-row-col col col">&#x20A6;{{ Number(report.portal_charge).toLocaleString("en-US") }}</div>
+							<div data-aos="zoom-in" class="table-row-col col col">{{ index+1 }}</div>
+							<div data-aos="zoom-in" class="table-row-col col col">{{ report.total_payer }}</div>
+                            <div data-aos="zoom-in" class="table-row-col col col">&#x20A6;{{ Number(report.total_sum).toLocaleString("en-US") }}</div>
+                            <div data-aos="zoom-in" class="table-row-col col col">{{ report.paydate_description }}</div>
+                            <div data-aos="zoom-in" class="table-row-col col col">&#x20A6;{{ Number(report.portal_charge).toLocaleString("en-US") }}</div>
 							
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
-							<div class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button data-bs-toggle="modal" :data-bs-target="'#report_modal_'.concat(report.paydate)">
 									<i class="fa fa-users"></i>
 									See beneficiaries

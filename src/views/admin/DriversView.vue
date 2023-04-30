@@ -85,11 +85,11 @@ const moreDriverInfo = (driverId)=>{
 							v-for="driver in showDriver"
 							:key="driver.id"
 						>
-							<div class="table-row-col col col">{{ driver.surname }} {{ driver.othernames }} <br><small class="phone_number">{{ driver.phone }}</small></div>
-							<div class="table-row-col col col">{{ driver.vehicle_security_registration_no }}</div>
-							<div class="table-row-col col col">{{ driver.chassis_no }}</div>
-							<div :class="['table-header-col col', driver.status.toLowerCase() == 'active' ? 'text-success' : 'text-danger']">{{ driver.status }}</div>
-							<div class="table-header-col col">{{ driver.expiry_date_description }}</div>
+							<div data-aos="zoom-in" class="table-row-col col col">{{ driver.surname }} {{ driver.othernames }} <br><small class="phone_number">{{ driver.phone }}</small></div>
+							<div data-aos="zoom-in" class="table-row-col col col">{{ driver.vehicle_security_registration_no }}</div>
+							<div data-aos="zoom-in" class="table-row-col col col">{{ driver.chassis_no }}</div>
+							<div data-aos="zoom-in" :class="['table-header-col col', driver.status.toLowerCase() == 'active' ? 'text-success' : 'text-danger']">{{ driver.status }}</div>
+							<div data-aos="zoom-in" class="table-header-col col">{{ driver.expiry_date_description }}</div>
 							
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
 							<div class="table-row-col col col">

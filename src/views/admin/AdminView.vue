@@ -42,7 +42,7 @@ const resetPasswordClick = (id)=>{
 					<cui-button @click="readAdmin()"><i class="fa fa-spinner"></i> Refresh</cui-button>
 				</div>
 				<div class="col-6">
-					<cui-input data-aos="slide-left" :store="adminStore" stateKey="searchStr" placeholder="Search admins"></cui-input>
+					<cui-input data-aos="zoom-in" :store="adminStore" stateKey="searchStr" placeholder="Search admins"></cui-input>
 				</div>
 				<div class="col-1">
 					<select v-model="range" class="p-2 rounded range">
@@ -69,10 +69,10 @@ const resetPasswordClick = (id)=>{
 							v-for="admin in showAdmin"
 							:key="admin.id"
 						>
-							<div data-aos="slide-left" class="table-row-col col col">{{ admin.surname }} {{ admin.othernames }} <br><small class="phone_number">{{ admin.phone }}</small></div>
+							<div data-aos="zoom-in" class="table-row-col col col">{{ admin.surname }} {{ admin.othernames }} <br><small class="phone_number">{{ admin.phone }}</small></div>
 							<div data-aos="slide-right" class="table-row-col col col">{{ admin.admin_type }}</div>
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
-							<div class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#reset_password'.concat(admin.admin_id)">
 									<i class="fa fa-key"></i>
 									Reset password

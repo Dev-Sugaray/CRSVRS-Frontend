@@ -91,11 +91,11 @@ readOwner();
 							v-for="owner in showOwner"
 							:key="owner.vehicle_owner_id"
 						>
-							<div class="table-row-col col col">{{ owner.surname }} {{ owner.othernames }} <br><small class="phone_number">{{ owner.phone }}</small></div>
+							<div data-aos="zoom-in" class="table-row-col col col">{{ owner.surname }} {{ owner.othernames }} <br><small class="phone_number">{{ owner.phone }}</small></div>
 							<div class="table-row-col col col">{{ new Date(owner.date_registered).toDateString() }}</div>
 							
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
-							<div class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button @click="addDriver(owner.vehicle_owner_id)">
 									<i class="fa fa-car"></i>
 									Add driver
