@@ -59,7 +59,7 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 	}
 
 	const readVehicleType = async (id)=>{
-		toggleProcessLoader('Getting vehicleTypes');
+		toggleProcessLoader('Getting vehicle types');
 
 		await read(id)
 			.then((json)=>{
@@ -85,7 +85,7 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 			operator_id: credentials.value.admin_id
 		})
 
-		toggleProcessLoader('Creating new vehicleType');
+		toggleProcessLoader('Creating new vehicle type');
 		await create(payload)
 			.then((json)=>{
 				if(json.status == true){
@@ -117,7 +117,7 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 	}
 
 	const updateVehicleType = async (id)=>{
-		toggleProcessLoader('Updating vehicleType information');
+		toggleProcessLoader('Updating vehicle type information');
 		const vehicleTypeToUpdate = vehicleTypes.value.filter((vehicleType)=> vehicleType.vehicle_type_id == id)[0];
 
 		const addEditorId = JSON.stringify({...vehicleTypeToUpdate, operator_id: credentials.value.admin_id});
@@ -150,7 +150,7 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 	}
 
 	const deleteVehicleType = async (id)=>{
-		toggleProcessLoader('Deleting vehicleType');
+		toggleProcessLoader('Deleting vehicle type');
 
 		const payload = JSON.stringify({
 			vehicleType_id: id,
