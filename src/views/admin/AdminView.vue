@@ -223,7 +223,7 @@ const resetPasswordClick = (id)=>{
 				</div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" class="" :id="'delete_admin_btn_'.concat(id)">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" class="" :id="'delete_admin_btn_'.concat(admin.admin_id)">Cancel</cui-button>&nbsp;
 						<cui-button type="danger" @click="deleteAdmin(admin.admin_id)">Delete</cui-button>
 					</div>
 				</div>
