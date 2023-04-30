@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-	<button v-ripple="'rgba(255,255,255,.6)'" :class="'cui-button-'.concat(props.type)" class="cui-button p-2 rounded">
+	<button data-aos="fade-in" v-ripple="'rgba(255,255,255,.6)'" :class="'cui-button-'.concat(props.type)" class="cui-button p-2 rounded">
 		<slot></slot>
 	</button>
 </template>
