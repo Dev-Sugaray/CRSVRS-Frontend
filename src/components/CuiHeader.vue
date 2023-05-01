@@ -1,10 +1,14 @@
 <script setup>
 import CuiButton from '@/components/CuiButton';
 import { useRoute } from 'vue-router';
-
+import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/store/auth.store';
+import { useAppStore } from '@/store/app.store';
 const authStore = useAuthStore();
 const { logoutAdmin } = authStore;
+
+const appStore = useAppStore();
+const { isMenuActive } = storeToRefs(appStore);
 
 const route = useRoute();
 </script>
@@ -12,7 +16,7 @@ const route = useRoute();
 <template>
 	<header class="header-lg-screen row">
 			<div class="col-1"> 
-				<div class="menu-btn p-3" v-ripple="'rgba(0,0,0,.2)'">
+				<div class="menu-btn p-3" @click="isMenuActive = !isMenuActive" v-ripple="'rgba(0,0,0,.2)'">
 					<i class="fa fa-bars fa-1x"></i>
 				</div>
 			</div>

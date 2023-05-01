@@ -27,6 +27,8 @@ export const useAppStore = defineStore('app', ()=>{
 		processLoaderVisible.value = !processLoaderVisible.value;
 	}
 
+	const isMenuActive = ref(false);
+
 	return { 
 		backend,
 		alertVisible,
@@ -35,7 +37,8 @@ export const useAppStore = defineStore('app', ()=>{
 		closeAlert,
 		processLoaderVisible, 
 		processLoaderMessage,
-		toggleProcessLoader
+		toggleProcessLoader,
+		isMenuActive
 	}
 }, 
 {

@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { useAuthStore } from '@/store/auth.store'
+import { useAuthStore } from '@/store/auth.store';
+import { useAppStore } from '@/store/app.store';
 import { storeToRefs } from 'pinia'
 
 const routes = [
@@ -142,7 +143,14 @@ const router = createRouter({
 })
 
 router.beforeEach((to)=>{
+	// This is to disable the menu once the user changes route
+	const appStore = useAppStore();
+	const { isMenuActive } = storeToRefs(appStore);
+	isMenuActive.value = false;
+
+	// This handles navigation guard for unauthorized access
 	if(to.meta.requireAuth){
+
 		const authStore = useAuthStore();
 		const {token} = storeToRefs(authStore);
 

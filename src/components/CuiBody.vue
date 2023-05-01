@@ -18,4 +18,10 @@
 		top: 4rem;
 		bottom: 10px;
 	}
+
+	@media only screen and (max-width: 767px) {
+		.cui-body {
+			left: 10px;
+		}
+	}
 </style>
