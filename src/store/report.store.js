@@ -47,11 +47,18 @@ export const useReportStore = defineStore("report", ()=>{
 	})
 
 	const increaseShowIndex = ()=>{
-		showIndex.value++;
+		const maxValue = paginatedReports.value.length-1;
+		if(showIndex.value < maxValue){
+			showIndex.value++;
+		}
+		
 	}
 
 	const decreaseShowIndex = ()=>{
-		showIndex.value--;
+		const leastValue = 0;
+		if(showIndex.value > leastValue){
+			showIndex.value--;
+		}
 	}
 
 	const readReport = async ()=>{

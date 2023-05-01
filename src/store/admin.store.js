@@ -56,11 +56,18 @@ export const useAdminStore = defineStore("admin", ()=>{
 	})
 
 	const increaseShowIndex = ()=>{
-		showIndex.value++;
+		const maxValue = paginatedAdmins.value.length-1;
+		if(showIndex.value < maxValue){
+			showIndex.value++;
+		}
+		
 	}
 
 	const decreaseShowIndex = ()=>{
-		showIndex.value--;
+		const leastValue = 0;
+		if(showIndex.value > leastValue){
+			showIndex.value--;
+		}
 	}
 
 	const readAdmin = async (id)=>{

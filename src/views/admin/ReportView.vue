@@ -9,7 +9,7 @@ import { storeToRefs } from 'pinia';
 import { useReportStore } from '@/store/report.store';
 const reportStore = useReportStore();
 const { showReport, range, showIndex } = storeToRefs(reportStore);
-const { readReport } = reportStore;
+const { readReport, increaseShowIndex, decreaseShowIndex  } = reportStore;
 
 readReport();
 </script>
@@ -74,14 +74,14 @@ readReport();
 			</div>
 
 			<div class="pagination">
-				<cui-button class="m-1"><i class="fa fa-chevron-left"></i></cui-button>
+				<cui-button @click="decreaseShowIndex" class="m-1"><i class="fa fa-chevron-left"></i></cui-button>
 				<cui-button class="m-1"
 					v-for="i, index in paginatedOwners"
 					:key="'pag_'.concat(index)"
 					@click="showIndex = index"
 				>{{index+1}}</cui-button>
 
-				<cui-button class="m-1"><i class="fa fa-chevron-right"></i></cui-button>
+				<cui-button @click="increaseShowIndex" class="m-1"><i class="fa fa-chevron-right"></i></cui-button>
 			</div>
 		</cui-body>
 	</div>
