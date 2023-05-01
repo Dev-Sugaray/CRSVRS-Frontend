@@ -98,27 +98,27 @@ const router = useRouter();
 		<cui-header></cui-header>
 		<cui-menu></cui-menu>
 		<cui-body>
-			<h1 class="m-2 bg-light rounded">Driver information</h1>
-			<div class="container mt-2 rounded bg-light p-1">
+			<h1 class="mt-1 mb-1 bg-light rounded h3 p-3">Driver information</h1>
+			<div class="container mt-2 rounded bg-light p-1" style="overflow-y: auto">
 				<div class="container">
-					<div class="container">
+					<div class="container p-2 mt-4">
 						<img :src="img" class="photo d-inline-block">
 					</div>
-					<ul>
-						<li><b>Surname:</b> {{ driverToView.surname }}</li>
-						<li><b>Othernames:</b> {{ driverToView.othernames }}</li>
-						<li><b>Phone:</b> {{ driverToView.phone }}</li>
-						<li><b>Alternative phone number:</b> {{ driverToView.phone2 }}</li>
-						<li><b>Vehicle security registration no:</b> {{ driverToView.vehicle_security_registration_no }}</li>
-						<li><b>LGA:</b> {{ driverLGA.lga }}</li>
-						<li><b>Vehicle type:</b> {{ driverVehicleType.vehicle_type }}</li>
-                        <li><b>Chassis number:</b> {{ driverToView.chassis_no }}</li>
-                        <li><b>License number:</b> {{ driverToView.license_no }}</li>
-                        <li><b>Revenue head:</b> {{ driverToView.revenue_head }}</li>
-						<li><b>Amount:</b> {{ driverToView.amount }}</li>
-						<li><b>Issue date</b> {{ driverToView.issue_date_description }}</li>
-						<li><b>Expiry date</b> {{ driverToView.expiry_date_description }}</li>
-                        <li><b>Certificate status</b> {{ driverToView.status }}</li>
+					<ul class="mt-4">
+						<li class="m-1 p-2 rounded"><b>Surname:</b> {{ driverToView.surname }}</li>
+						<li class="m-1 p-2 rounded"><b>Othernames:</b> {{ driverToView.othernames }}</li>
+						<li class="m-1 p-2 rounded"><b>Phone:</b> {{ driverToView.phone }}</li>
+						<li class="m-1 p-2 rounded"><b>Alternative phone number:</b> {{ driverToView.phone2 }}</li>
+						<li class="m-1 p-2 rounded"><b>Vehicle security registration no:</b> {{ driverToView.vehicle_security_registration_no }}</li>
+						<li class="m-1 p-2 rounded"><b>LGA:</b> {{ driverLGA.lga }}</li>
+						<li class="m-1 p-2 rounded"><b>Vehicle type:</b> {{ driverVehicleType.vehicle_type }}</li>
+                        <li class="m-1 p-2 rounded"><b>Chassis number:</b> {{ driverToView.chassis_no }}</li>
+                        <li class="m-1 p-2 rounded"><b>License number:</b> {{ driverToView.license_no }}</li>
+                        <li class="m-1 p-2 rounded"><b>Revenue head:</b> {{ driverToView.revenue_head }}</li>
+						<li class="m-1 p-2 rounded"><b>Amount:</b> {{ driverToView.amount }}</li>
+						<li class="m-1 p-2 rounded"><b>Issue date:</b> {{ driverToView.issue_date_description }}</li>
+						<li class="m-1 p-2 rounded"><b>Expiry date:</b> {{ driverToView.expiry_date_description }}</li>
+                        <li class="m-1 p-2 rounded"><b>Certificate status:</b> {{ driverToView.status }}</li>
 					</ul>
 				</div>
 				<div class="container">
@@ -153,7 +153,16 @@ const router = useRouter();
 	height: 10rem;
 	border-radius: 100%;
 	background-color: white;
-	box-shadow: 0px 0px 5px black;
 	cursor: pointer;
+}
+
+ul {
+	list-style: none;
+	margin-left: -2rem;
+}
+
+li {
+	background-color: white;
+	display: inline-block;
 }
 </style>

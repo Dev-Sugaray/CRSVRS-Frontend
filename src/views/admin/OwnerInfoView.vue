@@ -31,17 +31,17 @@ onMounted(()=>{
 		<cui-header></cui-header>
 		<cui-menu></cui-menu>
 		<cui-body>
-			<h1 class="m-2 bg-light rounded">Vehicle owner information</h1>
-			<div class="container mt-2 rounded bg-light p-1">
+			<h1 class="mt-1 mb-1 bg-light rounded h3 p-3">Vehicle owner information</h1>
+			<div class="container mt-2 rounded bg-light p-2">
 				<div class="container">
-					<div class="container">
+					<div class="container mt-3">
 						<img :src="img" class="photo d-inline-block">
 					</div>
-					<ul>
-						<li><b>Surname:</b> {{ ownerToView.surname }}</li>
-						<li><b>Othernames:</b> {{ ownerToView.othernames }}</li>
-						<li><b>Phone number:</b> {{ ownerToView.phone }}</li>
-						<li><b>Alternative phone number:</b> {{ ownerToView.phone2 }}</li>
+					<ul class="mt-4">
+						<li class="m-1 p-2 rounded"><b>Surname:</b> {{ ownerToView.surname }}</li>
+						<li class="m-1 p-2 rounded"><b>Othernames:</b> {{ ownerToView.othernames }}</li>
+						<li class="m-1 p-2 rounded"><b>Phone number:</b> {{ ownerToView.phone }}</li>
+						<li class="m-1 p-2 rounded"><b>Alternative phone number:</b> {{ ownerToView.phone2 }}</li>
 					</ul>
 				</div>
 				<div class="container">
@@ -76,5 +76,15 @@ onMounted(()=>{
 	background-color: white;
 	box-shadow: 0px 0px 5px black;
 	cursor: pointer;
+}
+
+ul {
+	list-style: none;
+	margin-left: -2rem;
+}
+
+li {
+	background-color: white;
+	display: inline-block;
 }
 </style>
