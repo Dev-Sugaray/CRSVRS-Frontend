@@ -1,5 +1,5 @@
 <script setup>
-import CuiButton from '@/components/CuiButton';
+// import CuiButton from '@/components/CuiButton';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/store/auth.store';
@@ -14,45 +14,31 @@ const route = useRoute();
 </script>
 
 <template>
-	<header class="header-lg-screen row">
-			<div class="col-1"> 
-				<div class="menu-btn p-3" @click="isMenuActive = !isMenuActive" v-ripple="'rgba(0,0,0,.2)'">
-					<i class="fa fa-bars fa-1x"></i>
-				</div>
+	<header class="cui-header">
+		<div class="header-item text-left"> 
+			<div class="menu-btn p-3" @click="isMenuActive = true" v-ripple="'rgba(0,0,0,.2)'">
+				<i class="fa fa-bars fa-1x"></i>
 			</div>
-			<div class="col-9" data-aos="slide-right">
-				<b>{{ route.meta.displayName }}</b>
+		</div>
+		<div class="header-item" data-aos="slide-right">
+			<b>{{ route.meta.displayName }}</b>
+		</div>
+		<div class="header-item" style="text-align: right">
+			<div @click="logoutAdmin" class="logout-btn p-3 rounded" v-ripple="'rgba(0,0,0,.2)'">
+				<i class='fa fa-power-off fa-1x'></i>&nbsp;Logout
 			</div>
-			<div class="col-2" style="text-align: right">
-				<div @click="logoutAdmin" class="logout-btn p-3 rounded" v-ripple="'rgba(0,0,0,.2)'">
-					<i class='fa fa-power-off fa-1x'></i>&nbsp;Logout
-				</div>
-			</div>
-		</header>
-		<header class="header-sm-screen">
-			<div class="menu-btn">
-				<i class="fa fa-bars"></i>
-			</div>
-			<div class="search-container">
-			</div>
-			<div class="logout-container">
-				<cui-button @click="logoutAdmin"><i class='fa fa-power-off'></i> Logout</cui-button>
-			</div>
-		</header>
+		</div>
+	</header>
 </template>
 
 <style scoped>
-.header-lg-screen {
+.cui-header {
 	width: calc(100% - 10rem);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	position: absolute;
 	left: 10rem;
-}
-
-.header-sm-screen {
-	display: none;
 }
 
 .menu-btn {
@@ -71,5 +57,16 @@ const route = useRoute();
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+}
+
+@media only screen and (max-width: 767px) {
+	.cui-header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+	}
+
 }
 </style>
