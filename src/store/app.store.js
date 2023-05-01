@@ -1,14 +1,10 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import config from '@/config/api.config'
 
 export const useAppStore = defineStore('app', ()=>{
-	// For offline
-	const backend = ref('http://localhost/mac/vehicle_system/api');
-	const backendRaw = ref('http://localhost/mac/vehicle_system/');
-	// For online
-	// const backend = ref('/api');
-	// const backendRaw = ref('/');
+
+	const backend = ref(process.env.NODE_ENV === 'production' ? config.apiUrl.production : config.apiUrl.development)
 
 	const alertVisible = ref(false);
 	const alertMessage = ref('');
@@ -31,18 +27,6 @@ export const useAppStore = defineStore('app', ()=>{
 		processLoaderVisible.value = !processLoaderVisible.value;
 	}
 
-	const closeAllBoostrapModals = ()=>{
-		// const modals = document.querySelectorAll('.modal'); // Select all modal elements
-		// modals.forEach(modal => {
-		// 	// if(modal.classList.contains('show')) {
-		// 			// check if the modal is currently shown
-		// 	// const bootstrapModal = new bootstrap.Modal(modal); // create a Bootstrap modal instance
-		// 	// bootstrapModal.hide(); // call the Bootstrap modal's hide() method to close the modal
-		// 	// }
-		// 	?
-		// });		  
-	}
-
 	return { 
 		backend,
 		alertVisible,
@@ -51,9 +35,7 @@ export const useAppStore = defineStore('app', ()=>{
 		closeAlert,
 		processLoaderVisible, 
 		processLoaderMessage,
-		toggleProcessLoader,
-		closeAllBoostrapModals,
-		backendRaw
+		toggleProcessLoader
 	}
 }, 
 {
