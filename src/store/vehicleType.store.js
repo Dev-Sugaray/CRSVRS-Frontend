@@ -51,11 +51,18 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 	})
 
 	const increaseShowIndex = ()=>{
-		showIndex.value++;
+		const maxValue = paginatedVehicleTypes.value.length-1;
+		if(showIndex.value < maxValue){
+			showIndex.value++;
+		}
+		
 	}
 
 	const decreaseShowIndex = ()=>{
-		showIndex.value--;
+		const leastValue = 0;
+		if(showIndex.value > leastValue){
+			showIndex.value--;
+		}
 	}
 
 	const readVehicleType = async (id)=>{

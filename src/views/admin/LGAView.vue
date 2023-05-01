@@ -18,7 +18,7 @@ const { credentials } = storeToRefs(authStore);
 
 const lgaStore = useLGAStore();
 const { lgas, showLGA, paginatedLGAs, range, showIndex } = storeToRefs(lgaStore);
-const { readLGA, createLGA, updateLGA, deleteLGA } = lgaStore;
+const { readLGA, createLGA, updateLGA, deleteLGA, increaseShowIndex, decreaseShowIndex  } = lgaStore;
 
 
 onMounted(()=>{
@@ -88,14 +88,14 @@ onMounted(()=>{
 			</div>
 
 			<div class="pagination">
-				<cui-button class="m-1"><i class="fa fa-chevron-left"></i></cui-button>
+				<cui-button @click="decreaseShowIndex" class="m-1"><i class="fa fa-chevron-left"></i></cui-button>
 				<cui-button class="m-1"
 					v-for="i, index in paginatedLGAs"
 					:key="'pag_'.concat(index)"
 					@click="showIndex = index"
 				>{{index+1}}</cui-button>
 
-				<cui-button class="m-1"><i class="fa fa-chevron-right"></i></cui-button>
+				<cui-button @click="increaseShowIndex" class="m-1"><i class="fa fa-chevron-right"></i></cui-button>
 			</div>
 		</cui-body>
 	</div>

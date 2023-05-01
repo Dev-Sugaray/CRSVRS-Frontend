@@ -15,7 +15,7 @@ import { useAuthStore } from '@/store/auth.store';
 
 const adminStore = useAdminStore();
 const { admins, showAdmin, paginatedAdmins, range, showIndex, newPassword, confirmNewPassword } = storeToRefs(adminStore);
-const { readAdmin, createAdmin, updateAdmin, deleteAdmin, resetAdminPassword } = adminStore;
+const { readAdmin, createAdmin, updateAdmin, deleteAdmin, resetAdminPassword, increaseShowIndex, decreaseShowIndex } = adminStore;
 
 
 const authStore = useAuthStore();
@@ -98,14 +98,14 @@ const resetPasswordClick = (id)=>{
 			</div>
 
 			<div class="pagination">
-				<cui-button class="m-1"><i class="fa fa-chevron-left"></i></cui-button>
+				<cui-button class="m-1" @click="decreaseShowIndex"><i class="fa fa-chevron-left"></i></cui-button>
 				<cui-button class="m-1"
 					v-for="i, index in paginatedAdmins"
 					:key="'pag_'.concat(index)"
 					@click="showIndex = index"
 				>{{index+1}}</cui-button>
 
-				<cui-button class="m-1"><i class="fa fa-chevron-right"></i></cui-button>
+				<cui-button @click="increaseShowIndex" class="m-1"><i class="fa fa-chevron-right"></i></cui-button>
 			</div>
 		</cui-body>
 	</div>
