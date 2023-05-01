@@ -14,7 +14,7 @@ const { token } = storeToRefs(authStore);
 export const getDriverImage = (phone)=>{
     const options = {
         method: 'GET',
-        url: `${backend.value}/driver/image.php?phone=${phone}`,
+        url: `${backend.value}/api/driver/image.php?phone=${phone}`,
         headers: {
             Authorization: `bearer ${token.value}`
         }
@@ -36,7 +36,7 @@ export const getDriverImage = (phone)=>{
 export const getOwnerImage = (phone)=>{
     const options = {
         method: 'GET',
-        url: `${backend.value}/vehicle_owner/image.php?phone=${phone}`,
+        url: `${backend.value}/api/vehicle_owner/image.php?phone=${phone}`,
         headers: {
             Authorization: `bearer ${token.value}`
         }
