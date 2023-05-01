@@ -10,6 +10,8 @@ import { getOwnerImage } from '@/modules/getImage';
 import { storeToRefs } from 'pinia';
 // // Vue dependencies
 import { onMounted, ref } from 'vue';
+// Vue router
+import { useRouter } from 'vue-router';
 // // Pinia stores
 import { useOwnerStore } from '@/store/owners.store';
 
@@ -24,6 +26,8 @@ onMounted(()=>{
 	})
 })
 
+
+const router = useRouter();
 </script>
 
 <template>
@@ -45,7 +49,7 @@ onMounted(()=>{
 					</ul>
 				</div>
 				<div class="container">
-					<router-link to="/owners/"><cui-button>Go back</cui-button></router-link>
+					<cui-button @click="router.back()">Go back</cui-button>
 				</div>
 			</div>
 		</cui-body>

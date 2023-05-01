@@ -91,7 +91,7 @@ certificateHTML.innerHTML = `<head>
     </tr>
     <tr>
         <td colspan="2"  style="text-align: right;">
-            <img class="qr-code" src="images/image4.png" alt="">
+            <img class="qr-code" alt="">
             <hr>
             COMMISSIONER OF TRANSPORT
         </td>

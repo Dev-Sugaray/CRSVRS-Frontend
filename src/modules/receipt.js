@@ -69,9 +69,9 @@ receiptHTML.innerHTML = `<head>
     </tr>
     <tr>
         <td colspan="2"  style="text-align: right;">
-            <img class="qr-code" src="images/image4.png" alt="">
+            <img class="qr-code" alt="" style="margin-right: 2rem">
             <hr>
-            COMMISSIONER OF TRANSPORT
+            <span style="margin-left: 2rem; display: inline-block">COMMISSIONER OF TRANSPORT</span>
         </td>
     </tr>
 </table>
