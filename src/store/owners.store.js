@@ -58,11 +58,18 @@ export const useOwnerStore = defineStore("owner", ()=>{
 	})
 
 	const increaseShowIndex = ()=>{
-		showIndex.value++;
+		const maxValue = paginatedOwners.value.length-1;
+		if(showIndex.value < maxValue){
+			showIndex.value++;
+		}
+		
 	}
 
 	const decreaseShowIndex = ()=>{
-		showIndex.value--;
+		const leastValue = 0;
+		if(showIndex.value > leastValue){
+			showIndex.value--;
+		}
 	}
 
 	const ownerToEditId = ref(null);
