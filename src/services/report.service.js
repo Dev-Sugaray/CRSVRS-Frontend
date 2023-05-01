@@ -13,7 +13,7 @@ const { token } = storeToRefs(authStore);
 export const read = ()=>{
 	const options = {
 		method: 'get',
-		url: `${backend.value}/report/read.php`,
+		url: `${backend.value}/api/report/read.php`,
 		headers: {
 			'Authorization':`bearer ${token.value}`
 		}

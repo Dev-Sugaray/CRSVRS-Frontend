@@ -13,7 +13,7 @@ const { token } = storeToRefs(authStore);
 export const read = (payload)=>{
 	const options = {
 		method: 'get',
-		url: `${backend.value}/admin/read/${payload ? payload : ""}`,
+		url: `${backend.value}/api/admin/read/${payload ? payload : ""}`,
 		headers: {
 			'Authorization':`bearer ${token.value}`
 		}
@@ -32,7 +32,7 @@ export const read = (payload)=>{
 export const create = payload =>{
 	const options = {
 		method: 'post',
-		url: `${backend.value}/admin/create.php`,
+		url: `${backend.value}/api/admin/create.php`,
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization':`bearer ${token.value}`
@@ -57,7 +57,7 @@ export const create = payload =>{
 export const update = (payload) => {
 	const options = {
 		method: 'POST',
-		url: `${backend.value}/admin/update.php`,
+		url: `${backend.value}/api/admin/update.php`,
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization':`bearer ${token.value}`
@@ -80,7 +80,7 @@ export const update = (payload) => {
 export const Delete = (payload) => {
 	const options = {
 		method: 'POST',
-		url: `${backend.value}/admin/delete.php`,
+		url: `${backend.value}/api/admin/delete.php`,
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization':`bearer ${token.value}`
@@ -104,7 +104,7 @@ export const Delete = (payload) => {
 export const resetPassword = (payload) => {
 	const options = {
 		method: 'POST',
-		url: `${backend.value}/admin/reset_password.php`,
+		url: `${backend.value}/api/admin/reset_password.php`,
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `bearer ${token.value}`
@@ -125,7 +125,7 @@ export const resetPassword = (payload) => {
 export const globalResetPassword = (payload) => {
 	const options = {
 		method: 'POST',
-		url: `${backend.value}/admin/reset_admin_password.php`,
+		url: `${backend.value}/api/admin/reset_admin_password.php`,
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `bearer ${token.value}`

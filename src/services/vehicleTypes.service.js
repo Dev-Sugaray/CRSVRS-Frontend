@@ -13,7 +13,7 @@ const { token } = storeToRefs(authStore);
 export const read = (payload)=>{
 	const options = {
 		method: 'get',
-		url: `${backend.value}/vehicle_type/read/`,
+		url: `${backend.value}/api/vehicle_type/read/`,
 		headers: {
 			'Authorization':`bearer ${token.value}`
 		}
@@ -32,7 +32,7 @@ export const read = (payload)=>{
 export const create = payload =>{
 	const options = {
 		method: 'post',
-		url: `${backend.value}/vehicle_type/create.php`,
+		url: `${backend.value}/api/vehicle_type/create.php`,
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization':`bearer ${token.value}`
@@ -57,7 +57,7 @@ export const create = payload =>{
 export const update = (payload) => {
 	const options = {
 		method: 'POST',
-		url: `${backend.value}/vehicle_type/update.php`,
+		url: `${backend.value}/api/vehicle_type/update.php`,
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization':`bearer ${token.value}`
@@ -80,7 +80,7 @@ export const update = (payload) => {
 export const Delete = (payload) => {
 	const options = {
 		method: 'POST',
-		url: `${backend.value}/vehicle_type/delete.php`,
+		url: `${backend.value}/api/vehicle_type/delete.php`,
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization':`bearer ${token.value}`

@@ -21,7 +21,7 @@ export const login = (payload)=>{
 			reject(e);
 		})
 		req.withCredentials = true;
-		req.open('POST', `${backend.value}/admin/login`);
+		req.open('POST', `${backend.value}/api/admin/login`);
 		req.setRequestHeader("Content-Type","application/json");
 		req.send(payload);
 	})

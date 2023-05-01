@@ -1,6 +1,6 @@
 export default {
 	apiUrl: {
-		development: "http://localhost/mac/vehicle_system/",
+		development: "http://localhost/mac/vehicle_system",
 		production: "/"
 	}
 }
