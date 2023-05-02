@@ -12,6 +12,8 @@ export const useAppStore = defineStore('app', ()=>{
 	const processLoaderVisible = ref(false);
 	const processLoaderMessage = ref('')
 
+	const online = ref(false);
+
 	const appAlert = msg =>{
 		alertMessage.value = msg;
 		alertVisible.value = true;
@@ -38,7 +40,8 @@ export const useAppStore = defineStore('app', ()=>{
 		processLoaderVisible, 
 		processLoaderMessage,
 		toggleProcessLoader,
-		isMenuActive
+		isMenuActive,
+		online
 	}
 }, 
 {
