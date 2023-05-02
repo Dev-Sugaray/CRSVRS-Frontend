@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-	<button v-ripple="'rgba(255,255,255,.6)'" :class="'cui-button-'.concat(props.type)" class="cui-button p-2 rounded">
+	<button :class="'cui-button-'.concat(props.type)" class="cui-button p-2 rounded">
 		<slot></slot>
 	</button>
 </template>
@@ -29,6 +29,10 @@ const props = defineProps({
 		font-weight: light;
 		border: none;
 		outline: none;
+	}
+
+	.cui-button:hover {
+		background: var(--cui-blue-very-transparent);
 	}
 
 	.cui-button-danger {
