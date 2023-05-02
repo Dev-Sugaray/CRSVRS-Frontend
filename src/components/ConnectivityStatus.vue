@@ -5,7 +5,7 @@ const appStore = useAppStore();
 const { online } = storeToRefs(appStore);
 </script>
 <template>
-	<div v-if="!online">
+	<div class="connectivity" v-if="!online">
 		
 		You are offline
 		<br>
@@ -15,7 +15,7 @@ const { online } = storeToRefs(appStore);
 </template>
 
 <style scoped>
-div {
+.connectivity {
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -25,7 +25,7 @@ div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 10000000000000000000000000000000000000000000;
+	z-index: 100000000000000000000000000000;
 	font-weight: bolder;
 	font-size: 4rem;
 	text-align: center;
