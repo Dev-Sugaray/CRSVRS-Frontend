@@ -27,3 +27,21 @@ label {
 	overflow-y: auto;
 	height: 70vh;
 }
+
+.sm {
+	display: none;
+}
+
+@media screen and (max-width: 767px){
+	.hidable-on-sm {
+		display: none;
+	}
+
+	.lg {
+		display: none;
+	}
+
+	.sm {
+		display: block;
+	}
+}

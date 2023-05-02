@@ -37,19 +37,27 @@ const resetPasswordClick = (id)=>{
 		<cui-body>
 
 			<div class="row">
-				<div class="col-4">
-					<cui-button v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" data-bs-target="#addAdmin"><i class="fa fa-plus"></i> Add new</cui-button> &nbsp;
-					<cui-button @click="readAdmin()"><i class="fa fa-spinner"></i> Refresh</cui-button>
+				<div class="col-1">
+					<cui-button v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" data-bs-target="#addAdmin"><i class="fa fa-plus"></i> <span class="hidable-on-sm">Add new</span></cui-button>
+				</div>
+				<div class="col-1">
+					<cui-button @click="readAdmin()"><i class="fa fa-spinner"></i> <span class="hidable-on-sm">Refresh</span></cui-button>
 				</div>
 				<div class="col-6">
 					<cui-input data-aos="zoom-in" :store="adminStore" stateKey="searchStr" placeholder="Search admins"></cui-input>
 				</div>
 				<div class="col-1">
-					<select v-model="range" class="p-2 rounded range">
+					<select v-model="range" class="p-2 rounded range lg">
 						<option value="5">Show 5</option>
 						<option value="10">Show 10</option>
 						<option value="20">Show 20</option>
 						<option value="50">Show 50</option>
+					</select>
+					<select v-model="range" class="p-2 rounded range sm">
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="50">50</option>
 					</select>
 				</div>
 				
@@ -77,19 +85,19 @@ const resetPasswordClick = (id)=>{
 							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#reset_password'.concat(admin.admin_id)">
 									<i class="fa fa-key"></i>
-									Reset password
+									<span class="hidable-on-sm"> Reset password</span>
 								</cui-button>
 							</div>
 							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#edit_admin'.concat(admin.admin_id)">
 									<i class="fa fa-pen"></i>
-									Edit
+									<span class="hidable-on-sm"> Edit</span>
 								</cui-button>
 							</div>
 							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button type='danger' v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#delete_admin'.concat(admin.admin_id)">
 									<i class="fa fa-trash"></i>
-									Delete
+									<span class="hidable-on-sm"> Delete</span>
 								</cui-button>
 							</div>
 						</div>
