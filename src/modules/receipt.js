@@ -68,10 +68,10 @@ receiptHTML.innerHTML = `<head>
         </td>
     </tr>
     <tr>
-        <td colspan="2"  style="text-align: right;">
+        <td colspan="3"  style="text-align: left;">
             <img class="qr-code" alt="" style="margin-right: 2rem">
             <hr>
-            <span style="margin-left: 2rem; display: inline-block">COMMISSIONER OF TRANSPORT</span>
+            <span style="margin-left: 0rem; display: inline-block">COMMISSIONER OF TRANSPORT</span>
         </td>
     </tr>
 </table>
@@ -101,13 +101,6 @@ export const generateReceipt = async (payload)=>{
     receiptHTML.querySelector('#phone2').innerHTML = payload.phone2;
     // Add the vehicle_security_registration_number
     receiptHTML.querySelector('#vehicle_security_registration_number').innerHTML = payload.vehicle_security_registration_no;
-    // Add the license number
-    // receiptHTML.querySelector('#license_no').innerHTML = payload.license_no;
-    // // Add the chassis number
-    // receiptHTML.querySelector('#chassis_no').innerHTML = payload.chassis_no;
-    // Add the Local Government of Operation
-    // receiptHTML.querySelector('#lga').innerHTML = payload.lga;
-    // Add the vehicle type
     receiptHTML.querySelector('#vehicle_type').innerHTML = payload.vehicle_type;
     // Add the revenue head
     receiptHTML.querySelector('#revenue_head').innerHTML = payload.revenue_head;
@@ -118,7 +111,7 @@ export const generateReceipt = async (payload)=>{
     // Add the amount
     receiptHTML.querySelector('#amount').innerHTML = Number(payload.amount).toLocaleString('en-US');
 
-    const qrPayload = `This receipt was issued on the  ${payload.issue_date} to ${payload.full_name}, from ${payload.lga}, with phone number ${payload.phone}. The vehicle chassis number is ${payload.chassis_no}. The vehicle license number is ${payload.license_no}. To verify this information visit the link ${backend.value}/pages/verify/driver/${payload.phone}`;
+    const qrPayload = `This receipt was issued on the  ${payload.issue_date} to ${payload.full_name}, from ${payload.lga}, with phone number ${payload.phone}. The vehicle Security Registration Number is ${payload.vehicle_security_registration_no}. The vehicle chassis number is ${payload.chassis_no}. The vehicle license number is ${payload.license_no}. To verify this information visit the link ${backend.value}/pages/verify/driver/${payload.phone}`;
     const qrCode = generateQRCode(qrPayload);
 
     // Add the qrcode photo
