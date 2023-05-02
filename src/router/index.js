@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { useAuthStore } from '@/store/auth.store';
 import { useAppStore } from '@/store/app.store';
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from 'pinia';
+import Nprogress from 'nprogress';
 
 const routes = [
 	{
@@ -143,9 +144,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to)=>{
+	Nprogress.start();
 	// This is to disable the menu once the user changes route
 	const appStore = useAppStore();
 	const { isMenuActive } = storeToRefs(appStore);
+	
 	isMenuActive.value = false;
 
 	// This handles navigation guard for unauthorized access
@@ -160,6 +163,10 @@ router.beforeEach((to)=>{
 	}else {
 		return true;
 	}
+})
+
+router.afterEach(()=>{
+	Nprogress.done();
 })
 
 export default router
