@@ -63,7 +63,7 @@ a {
 	background-color: ;
 	width: 100%;
 	color: var(--cui-blue);
-	transition: background-color 500ms ease-in;
+	transition: background-color 200ms ease-in;
 }
 
 a:hover {
