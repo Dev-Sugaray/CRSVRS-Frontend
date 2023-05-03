@@ -97,10 +97,26 @@ const router = useRouter();
                         <li class="m-1 p-2 rounded"><b>Certificate status:</b> {{ driverToView.status }}</li>
 					</ul>
 				</div>
-				<div class="container">
-					<cui-button @click="router.back()" class="w-2"><i class="fa fa-arrow-left"></i></cui-button>&nbsp;
-					<cui-button @click="generateDriverReceipt" class="w-2">Print receipt</cui-button>&nbsp;
-					<cui-button @click="generateDriverCertificate" class="w-2">Print certificate</cui-button>
+				<div class="container ">
+					<cui-button @click="router.back()" class="w-2 m-1">
+						<i class="fa fa-arrow-left"></i>
+					</cui-button>
+					<cui-button @click="generateDriverReceipt" class="w-2 m-1">
+						<span class="lg">Print receipt</span>
+						<span class="sm">
+							<i class="fa fa-receipt"></i>
+							<span> Receipt</span>
+						</span>
+						
+					</cui-button>
+					<cui-button @click="generateDriverCertificate" class="w-2 m-1">
+						<span class="lg">Print certificate</span>
+						<span class="sm">
+							<i class="fa fa-certificate"></i>
+							<span> Certificate</span>
+						</span>
+						
+					</cui-button>
 				</div>
 			</div>
 		</cui-body>

@@ -67,16 +67,19 @@ readOwner();
 		<cui-body>
 
 			<div class="d-flex align-items-center justify-content-between">
-				<div>
+				<div class="col">
 					<cui-button data-bs-toggle="modal" data-bs-target="#addOwner"><i class="fa fa-plus"></i> <span class="hidable-on-sm">Add new</span></cui-button>
 				</div>
-				<div>
+				<div class="col">
 					<cui-button @click="readOwner()"><i class="fa fa-spinner"></i> <span class="hidable-on-sm">Refresh</span></cui-button>
 				</div>
-				<div>
+				<div class="col-8 lg">
 					<cui-input :store="ownerStore" stateKey="searchStr" placeholder="Search vehicle owners"></cui-input>
 				</div>
-				<div>
+				<div class="col-6 sm">
+					<cui-input :store="ownerStore" stateKey="searchStr" placeholder="Search vehicle owners"></cui-input>
+				</div>
+				<div class="col m-1">
 					<select v-model="range" class="p-2 rounded range lg">
 						<option value="5">Show 5</option>
 						<option value="10">Show 10</option>
@@ -301,22 +304,19 @@ readOwner();
 				</div>
 				<div class="modal-body">
 				
-					<cui-button @click="addDriver(owner.vehicle_owner_id)">
+					<cui-button class="m-1" @click="addDriver(owner.vehicle_owner_id)">
 						<i class="fa fa-car"></i>
 						Add driver
 					</cui-button>
-					&nbsp;
-					<cui-button @click="moreOwnerInfo(owner.vehicle_owner_id)">
+					<cui-button class="m-1" @click="moreOwnerInfo(owner.vehicle_owner_id)">
 						<i class="fa fa-eye"></i>
 						More
 					</cui-button>
-					&nbsp;
-					<cui-button @click="editOwner(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
+					<cui-button class="m-1" @click="editOwner(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
 						<i class="fa fa-pen"></i>
 						Edit
 					</cui-button>
-					&nbsp;
-					<cui-button type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_owner'.concat(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
+					<cui-button class="m-1" type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_owner'.concat(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
 						<i class="fa fa-trash"></i>
 						Delete
 					</cui-button>

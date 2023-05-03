@@ -23,8 +23,8 @@ const percentage = computed(() => {
 	left: 0;
 	width: 100%;
 	height: 3px;
-	z-index: 1000000000000000000000000000000000000000000000;
-	background-color: var(--cui-blue-very-transparent);
+	z-index: 1000000000000000 !important;
+	background-color: rgba(3,1,105);
 }
 
 .progress {

@@ -64,7 +64,13 @@ const updateBtnClick = ()=>{
 			</div>
 		</div>
 		<div class="container p-2 mt-4">
-			<cui-button @click="router.back()" class="w-6">Go back</cui-button>&nbsp;<cui-button @click="updateBtnClick" class="w-6">Edit owner</cui-button>
+			<cui-button @click="router.back()" class="w-6">
+				<i class="fa fa-arrow-left"></i>
+			</cui-button>&nbsp;
+			<cui-button @click="updateBtnClick" class="w-6">
+				<i class="fa fa-pen"></i>
+				<span> Edit owner</span>
+			</cui-button>
 		</div>
 	</cui-body>
 </template>

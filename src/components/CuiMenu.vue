@@ -97,28 +97,42 @@ a i {
 }
 
 @media only screen and (max-width: 767px) {
+	@keyframes {
+
+	}
+
+
 	.cui-menu {
-		display: none;
+		display: block;
 		position: fixed;
 		height: 100%;
 		left: 0;
 		width: 100%;
 		max-width: 20rem;
+		margin-left: -100%;
+		transition: margin-left 300ms ease-in;
+	}
+
+	.cui-menu-overlay {
+		position: fixed;
+		left: 0;
+		width: 100%;
+		bottom: 0;
+		top: 0;
+		margin-left: -100%;
+		background-color: rgba(0,0,0,.8);
+		backdrop-filter: blur(2px);
+		z-index: 1000;
+		transition: margin-left 350ms ease-in;
 	}
 
 	.cui-menu-overlay.menu_active {
-		position: fixed;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		top: 0;
-		background-color: rgba(0,0,0,.8);
-		backdrop-filter: blur(2px);
-		z-index: 1000000000;
+		margin-left: 0;
 	}
 
 	.cui-menu.menu_active {
 		display: block;
+		margin-left: 0;
 	}
 }
 

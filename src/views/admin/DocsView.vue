@@ -24,13 +24,13 @@ onMounted(()=>{
 		<cui-body class="container overflow-auto rounded docs sm" v-if="docs.length" v-html="docs">
 			
 		</cui-body>
-		<cui-body class="container" v-else>
+		<cui-body class="container overflow-auto sm no-docs" v-else>
 			<h1>No docs yet please refresh</h1>
 		</cui-body>
 		<cui-body class="container overflow-scroll rounded docs lg" v-if="docs.length" v-html="docs">
 			
 		</cui-body>
-		<cui-body class="container" v-else>
+		<cui-body class="container overflow-scroll lg" v-else>
 			<h1>No docs yet please refresh</h1>
 		</cui-body>
 	</div>
@@ -59,5 +59,9 @@ onMounted(()=>{
 
 	.docs.sm {
 		overflow-x: none !important;
+	}
+
+	.no-docs {
+		width: calc(100% - 4rem);
 	}
 </style>

@@ -35,10 +35,21 @@ onMounted(()=>{
 
 			<div class="d-flex align-items-center justify-content-between">
 				<div class="col">
-					<cui-button data-bs-toggle="modal" data-bs-target="#addLGA"><i class="fa fa-plus"></i><span class="lg"> Add new</span></cui-button> &nbsp;
-					<cui-button @click="readLGA()"><i class="fa fa-spinner"></i><span class="lg"> Refresh</span></cui-button>
+					<cui-button data-bs-toggle="modal" data-bs-target="#addLGA">
+						<i class="fa fa-plus"></i>
+						<span class="lg"> Add new</span>
+					</cui-button>
 				</div>
-				<div class="col-6">
+				<div class="col">
+					<cui-button @click="readLGA()">
+						<i class="fa fa-spinner"></i>
+						<span class="lg"> Refresh</span>
+					</cui-button>
+				</div>
+				<div class="col-8 lg">
+					<cui-input :store="lgaStore" stateKey="searchStr" placeholder="Search lgas"></cui-input>
+				</div>
+				<div class="col-6 sm">
 					<cui-input :store="lgaStore" stateKey="searchStr" placeholder="Search lgas"></cui-input>
 				</div>
 				<div class="col m-1">

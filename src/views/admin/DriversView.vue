@@ -81,7 +81,10 @@ const renewDriverBtnClick = async ()=>{
 				<div class="col m-1">
 					<cui-button @click="readDriver()"><i class="fa fa-spinner"></i><span class="lg"> Refresh</span> </cui-button>&nbsp;
 				</div>
-				<div class="col-7 m-1">
+				<div class="col-9 m-1 lg">
+					<cui-input :store="driverStore" stateKey="searchStr" placeholder="Search drivers"></cui-input>
+				</div>
+				<div class="col-6 m-1 sm">
 					<cui-input :store="driverStore" stateKey="searchStr" placeholder="Search drivers"></cui-input>
 				</div>
 				<div class="col m-1">
@@ -187,19 +190,19 @@ const renewDriverBtnClick = async ()=>{
 				</div>
 				<div class="modal-body">
 		
-					<cui-button data-bs-toggle="modal" data-bs-target="#renew_driver" data-aos-anchor-placement="top-bottom" @click="setCredentials(driver.driver_id, driver.surname.concat(' ').concat(driver.othernames))">
+					<cui-button class="m-1" data-bs-toggle="modal" data-bs-target="#renew_driver" data-aos-anchor-placement="top-bottom" @click="setCredentials(driver.driver_id, driver.surname.concat(' ').concat(driver.othernames))">
 						<i class="fa fa-redo"></i>
 						<span> Renew</span>
 					</cui-button>
-					<cui-button @click="moreDriverInfo(driver.driver_id)">
+					<cui-button class="m-1" @click="moreDriverInfo(driver.driver_id)">
 						<i class="fa fa-eye"></i>
 						<span> More</span>
 					</cui-button>
-					<cui-button v-if="credentials.admin_type != 'admin'" @click="editDriver(driver.driver_id)">
+					<cui-button class="m-1" v-if="credentials.admin_type != 'admin'" @click="editDriver(driver.driver_id)">
 						<i class="fa fa-pen"></i>
 						<span> Edit</span>
 					</cui-button>
-					<cui-button v-if="credentials.admin_type != 'admin'" type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_driver'.concat(driver.driver_id)">
+					<cui-button class="m-1" v-if="credentials.admin_type != 'admin'" type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_driver'.concat(driver.driver_id)">
 						<i class="fa fa-trash"></i>
 						<span> Delete</span>
 					</cui-button>

@@ -36,7 +36,7 @@ const wrapperClick = (ev)=>{
 	bottom: 0;
 	background-color: var(--cui-light-gray-transparent);
 	backdrop-filter: blur(1px);
-	z-index: 10000000000;
+	z-index: 100000;
 }
 
 .app-modal {

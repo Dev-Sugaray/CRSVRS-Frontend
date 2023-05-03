@@ -49,7 +49,7 @@ const router = useRouter();
 					</ul>
 				</div>
 				<div class="container">
-					<cui-button @click="router.back()"><i class="fa fa-arrow-left"></i> Go back</cui-button>
+					<cui-button @click="router.back()"><i class="fa fa-arrow-left"></i></cui-button>
 				</div>
 			</div>
 		</cui-body>
