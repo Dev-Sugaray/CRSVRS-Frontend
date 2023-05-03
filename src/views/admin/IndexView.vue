@@ -13,15 +13,15 @@ const { loginAdmin } = authStore;
 </script>
 
 <template>
-	<div class="row align-items-center overflow-hidden">
-		<div class="col-lg-6 lg w-sm-12 col-md-6 col-sm-12 col-xs-12 d-flex align-items-center img-wrap">
+	<div class="d-flex align-items-center overflow-hidden">
+		<div class="col-lg-6 lg col-md-6 col-sm-12 col-xs-12 d-flex align-items-center img-wrap">
 			<div class="img-container">
 				<div class="d-flex align-items-center justify-content-center">
 					<h1 class="text-center h2">Cross River State Vehicle Security Number Registration System</h1>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6 w-sm-12 col-md-6 col-sm-12 col-xs-12 d-flex align-items-center justify-content-center">
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-flex align-items-center justify-content-center">
 			<div class="container form-container">
 				<div>
 					<div class="text-center">
