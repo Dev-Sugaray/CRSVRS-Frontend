@@ -13,43 +13,19 @@ import { getDriverImage } from '@/modules/getImage';
 // Pinia dependencies
 import { storeToRefs } from 'pinia';
 // // Vue dependencies
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 // // Pinia stores
 import { useDriverStore } from '@/store/driver.store';
 
 const driverStore = useDriverStore();
-const { driverToView, lgas, vehicleTypes } = storeToRefs(driverStore);
-const { getLGAs, getVehicleTypes } = driverStore;
-
-
-
-const driverLGA = computed(()=>{
-	const res = lgas.value.filter((lga)=> lga.lga_id == driverToView.value.lga_id)[0];
-	return res;
-})
-
-const driverVehicleType = computed(()=>{
-	const res = vehicleTypes.value.filter((vehicleType)=> vehicleType.vehicle_type_id == driverToView.value.vehicle_type_id)[0];
-	return res;
-})
-
-
-
+const { driverToView } = storeToRefs(driverStore);
 const img = ref(null);
 
 onMounted(()=>{
-
-    getVehicleTypes();
-    getLGAs();
 	getDriverImage(driverToView.value.photo).then((data)=> {
 		img.value = data;
 	})
 })
-
-// const img1 = await extractImage(coatOfArm);
-// console.log({img1});
-// const img2 = await extractImage(crossRiverLogo);
-
 const generateDriverCertificate = ()=>{
 	const payload = {
 		full_name: `${driverToView.value.surname} ${driverToView.value.othernames}`,
@@ -110,8 +86,8 @@ const router = useRouter();
 						<li class="m-1 p-2 rounded"><b>Phone:</b> {{ driverToView.phone }}</li>
 						<li class="m-1 p-2 rounded"><b>Alternative phone number:</b> {{ driverToView.phone2 }}</li>
 						<li class="m-1 p-2 rounded"><b>Vehicle security registration no:</b> {{ driverToView.vehicle_security_registration_no }}</li>
-						<li class="m-1 p-2 rounded"><b>LGA:</b> {{ driverLGA.lga }}</li>
-						<li class="m-1 p-2 rounded"><b>Vehicle type:</b> {{ driverVehicleType.vehicle_type }}</li>
+						<li class="m-1 p-2 rounded"><b>LGA:</b> {{ driverToView.lga }}</li>
+						<li class="m-1 p-2 rounded"><b>Vehicle type:</b> {{ driverToView.vehicle_type }}</li>
                         <li class="m-1 p-2 rounded"><b>Chassis number:</b> {{ driverToView.chassis_no }}</li>
                         <li class="m-1 p-2 rounded"><b>License number:</b> {{ driverToView.license_no }}</li>
                         <li class="m-1 p-2 rounded"><b>Revenue head:</b> {{ driverToView.revenue_head }}</li>
