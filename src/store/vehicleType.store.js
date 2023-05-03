@@ -2,7 +2,7 @@ import { read, create, update, Delete } from '@/services/vehicleTypes.service';
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import { defineStore, storeToRefs } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 
@@ -23,6 +23,9 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 	// Getters
 	const filteredVehicleTypes = computed(()=>{
 		const arr = vehicleTypes.value.filter((vehicleType)=> JSON.stringify(vehicleType).toLowerCase().indexOf(searchStr.value.toLowerCase()) != -1);
+		arr.sort((a, b) => {
+			return a.vehicle_type.localeCompare(b.vehicle_type);
+		});
 		return arr;
 	});
 
@@ -64,6 +67,15 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 			showIndex.value--;
 		}
 	}
+
+	watch(filteredVehicleTypes, (newValue) => {
+		if (newValue.length > 0) {
+			const index = paginatedVehicleTypes.value.findIndex(page => page.includes(newValue[0]));
+			if (index !== -1) {
+				showIndex.value = index;
+			}
+		}
+	});
 
 	const readVehicleType = async (id)=>{
 		toggleProcessLoader('Getting vehicle types');

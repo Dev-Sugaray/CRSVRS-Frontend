@@ -2,7 +2,7 @@ import { read, create, update, Delete } from '@/services/lga.service';
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import { defineStore, storeToRefs } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 export const useLGAStore = defineStore("lga", ()=>{
 
@@ -23,6 +23,13 @@ export const useLGAStore = defineStore("lga", ()=>{
 	// Getters
 	const filteredLGAs = computed(()=>{
 		const arr = lgas.value.filter((lga)=> JSON.stringify(lga).toLowerCase().indexOf(searchStr.value.toLowerCase()) != -1);
+		arr.sort((a, b) => {
+			if (a.lga === b.lga) {
+				return a.lga_inital.localeCompare(b.lga_inital);
+			} else {
+				return a.lga.localeCompare(b.lga);
+			}
+		});
 		return arr;
 	});
 
@@ -64,6 +71,16 @@ export const useLGAStore = defineStore("lga", ()=>{
 			showIndex.value--;
 		}
 	}
+
+		// Update showIndex whenever a new search is performed
+	watch(filteredLGAs, (newValue) => {
+		if (newValue.length > 0) {
+			const index = paginatedLGAs.value.findIndex(page => page.includes(newValue[0]));
+			if (index !== -1) {
+				showIndex.value = index;
+			}
+		}
+	});
 
 	const readLGA = async (id)=>{
 		toggleProcessLoader('Getting lgas');

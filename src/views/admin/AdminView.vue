@@ -25,6 +25,7 @@ onMounted(()=>{
 	readAdmin();
 })
 
+
 const resetPasswordClick = (id)=>{
 	resetAdminPassword(id);
 }

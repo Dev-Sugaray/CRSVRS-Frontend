@@ -1,11 +1,13 @@
 <script setup>
 import { useAppStore } from '@/store/app.store';
 import { storeToRefs } from 'pinia';
+import { ref } from 'vue';
 const appStore = useAppStore();
 const { online } = storeToRefs(appStore);
+const isProduction = ref(process.env.NODE_ENV == 'production');
 </script>
 <template>
-	<div class="connectivity" v-if="!online">
+	<div class="connectivity" v-if="(online == false) && (isProduction == true)">
 		
 		You are offline
 		<br>

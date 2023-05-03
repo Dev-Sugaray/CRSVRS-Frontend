@@ -1,7 +1,7 @@
 import { read } from '@/services/report.service';
 import { useAppStore } from '@/store/app.store';
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 export const useReportStore = defineStore("report", ()=>{
 
@@ -19,6 +19,9 @@ export const useReportStore = defineStore("report", ()=>{
 	// Getters
 	const filteredReports = computed(()=>{
 		const arr = reports.value.filter((admin)=> JSON.stringify(admin).toLowerCase().indexOf(searchStr.value.toLowerCase()) != -1);
+		arr.sort((a, b) => {
+			return a.paydate.localeCompare(b.paydate);
+		});
 		return arr;
 	});
 
@@ -45,6 +48,16 @@ export const useReportStore = defineStore("report", ()=>{
 		const current =  paginatedReports.value[showIndex.value];
 		return current;
 	})
+
+		// Update showIndex whenever a new search is performed
+	watch(filteredReports, (newValue) => {
+		if (newValue.length > 0) {
+			const index = paginatedReports.value.findIndex(page => page.includes(newValue[0]));
+			if (index !== -1) {
+				showIndex.value = index;
+			}
+		}
+	});
 
 	const increaseShowIndex = ()=>{
 		const maxValue = paginatedReports.value.length-1;

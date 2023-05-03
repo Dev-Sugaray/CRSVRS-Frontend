@@ -2,7 +2,7 @@ import { read, create, update, Delete, globalResetPassword} from '@/services/adm
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import { defineStore, storeToRefs } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 export const useAdminStore = defineStore("admin", ()=>{
 
@@ -23,6 +23,13 @@ export const useAdminStore = defineStore("admin", ()=>{
 	// Getters
 	const filteredAdmins = computed(()=>{
 		const arr = admins.value.filter((admin)=> JSON.stringify(admin).toLowerCase().indexOf(searchStr.value.toLowerCase()) != -1);
+		arr.sort((a, b) => {
+			if (a.surname === b.surname) {
+				return a.othernames.localeCompare(b.othernames);
+			} else {
+				return a.surname.localeCompare(b.surname);
+			}
+		});
 		return arr;
 	});
 
@@ -69,6 +76,17 @@ export const useAdminStore = defineStore("admin", ()=>{
 			showIndex.value--;
 		}
 	}
+
+
+	// Update showIndex whenever a new search is performed
+	watch(filteredAdmins, (newValue) => {
+		if (newValue.length > 0) {
+			const index = paginatedAdmins.value.findIndex(page => page.includes(newValue[0]));
+			if (index !== -1) {
+				showIndex.value = index;
+			}
+		}
+	});
 
 	const readAdmin = async (id)=>{
 		toggleProcessLoader('Getting admins');

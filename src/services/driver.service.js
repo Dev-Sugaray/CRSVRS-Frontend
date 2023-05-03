@@ -98,3 +98,26 @@ export const Delete = (payload) => {
 	})
 	
 }
+
+export const renew = (payload) => {
+	const options = {
+		method: 'POST',
+		url: `${backend.value}/api/driver/renew.php`,
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization':`bearer ${token.value}`
+		},
+		data: payload
+	}
+
+	return new Promise((resolve, reject)=>{
+
+		axios(options).then( res =>{
+			const { data } = res;
+			resolve(data);
+		}, (err)=>{
+			reject(err);
+		});
+	})
+	
+}

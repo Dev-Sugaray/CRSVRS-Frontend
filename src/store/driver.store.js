@@ -1,10 +1,10 @@
-import { read, create, update, Delete } from '@/services/driver.service';
+import { read, create, update, Delete, renew } from '@/services/driver.service';
 import * as lga from '@/services/lga.service';
 import * as vehicleType from '@/services/vehicleTypes.service';
 import { useAppStore } from '@/store/app.store';
 import { useAuthStore } from '@/store/auth.store';
 import { defineStore, storeToRefs } from 'pinia';
-import { ref, computed, markRaw } from 'vue';
+import { ref, computed, markRaw, watch } from 'vue';
 import router from '@/router/index';
 
 export const useDriverStore = defineStore("driver", ()=>{
@@ -27,6 +27,13 @@ export const useDriverStore = defineStore("driver", ()=>{
 	// Getters
 	const filteredDrivers = computed(()=>{
 		const arr = drivers.value.filter((driver)=> JSON.stringify(driver).toLowerCase().indexOf(searchStr.value.toLowerCase()) != -1);
+		arr.sort((a, b) => {
+			if (a.surname === b.surname) {
+				return a.othernames.localeCompare(b.othernames);
+			} else {
+				return a.surname.localeCompare(b.surname);
+			}
+		});
 		return arr;
 	});
 
@@ -85,6 +92,16 @@ export const useDriverStore = defineStore("driver", ()=>{
 		.catch((e)=> console.log(e));
 	}
 
+		// Update showIndex whenever a new search is performed
+	watch(filteredDrivers, (newValue) => {
+		if (newValue.length > 0) {
+			const index = paginatedDrivers.value.findIndex(page => page.includes(newValue[0]));
+			if (index !== -1) {
+				showIndex.value = index;
+			}
+		}
+	});
+
 	// Credentials for the new driver to add
 
 	const driverToAddVehicleOwnerId = ref('');
@@ -130,38 +147,25 @@ export const useDriverStore = defineStore("driver", ()=>{
 					// Add driver to drivers arr
 					const { result } = json;
 					drivers.value.push(result);
+					
+					driverToAddVehicleOwnerId.value = "";
+					driverToAddSurname.value = "";
+					driverToAddOthernames.value = "";
+					driverToAddPhone.value = "";
+					driverToAddPhone2.value = "";
+					driverToAddPassword.value = "";
+					driverToAddChassisNumber.value = "";
+					driverToAddLicenseNumber.value = "";
+					driverToAddVehicleType.value = "";
+					driverToAddLGA.value = "";
+					driverToAddAmount.value;
+				
+					driverToView.value = result;
+					router.push('/more_driver_info');
 
-					// Reset information
-
-					read()
-						.then((json)=>{
-							if(json.status == true){
-								drivers.value = json.result;
-
-								
-								driverToAddVehicleOwnerId.value = "";
-								driverToAddSurname.value = "";
-								driverToAddOthernames.value = "";
-								driverToAddPhone.value = "";
-								driverToAddPhone2.value = "";
-								driverToAddPassword.value = "";
-								driverToAddChassisNumber.value = "";
-								driverToAddLicenseNumber.value = "";
-								driverToAddVehicleType.value = "";
-								driverToAddLGA.value = "";
-								driverToAddAmount.value;
-							
-								driverToView.value = drivers.value.filter(driver => driver.driver_id == result.driver_id)[0];
-								router.push('/more_driver_info');
-
-								appAlert("Successfully created driver");
-								toggleProcessLoader('');
-							}else {
-								appAlert(json.message);
-								toggleProcessLoader('');
-							}
-						})
-					.catch((e)=> console.log(e));
+					appAlert("Successfully created driver");
+					toggleProcessLoader('');
+	
 
 				}else {
 					appAlert(json.message);
@@ -244,6 +248,31 @@ export const useDriverStore = defineStore("driver", ()=>{
 					toggleProcessLoader('');
 
 					document.querySelector("#delete_driver_btn_".concat(id)).click();
+				}else {
+					appAlert(json.message);
+					toggleProcessLoader('');
+				}
+			})
+			.catch((e)=> console.log(e));
+	}
+
+	const renewDriver = async (payload)=>{
+		toggleProcessLoader('Renewing driver');
+
+		const body = {...payload, operator_id: credentials.value.admin_id};
+
+		await renew(body)
+			.then((json)=>{
+				if(json.status == true){
+					appAlert(json.message);
+					// delete driver from drivers arr
+					drivers.value.push(json.result);
+					toggleProcessLoader('');
+
+					document.querySelector("#renew_driver_btn").click();
+
+					driverToView.value = json.result;
+					router.push('/more_driver_info');
 				}else {
 					appAlert(json.message);
 					toggleProcessLoader('');
@@ -346,6 +375,7 @@ export const useDriverStore = defineStore("driver", ()=>{
 		editDriverPhoto,
 		driverToView,
 		increaseShowIndex,
-		decreaseShowIndex
+		decreaseShowIndex,
+		renewDriver
 	}
 })

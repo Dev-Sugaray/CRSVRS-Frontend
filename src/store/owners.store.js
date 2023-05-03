@@ -1,7 +1,7 @@
 import { read, create, update, Delete } from '@/services/owners.service';
 import { useAppStore } from '@/store/app.store';
 import { defineStore, storeToRefs } from 'pinia';
-import { ref, computed, markRaw } from 'vue';
+import { ref, computed, markRaw, watch } from 'vue';
 import { useAuthStore } from './auth.store';
 import router from '@/router/index';
 
@@ -27,6 +27,13 @@ export const useOwnerStore = defineStore("owner", ()=>{
 	// Getters
 	const filteredOwners = computed(()=>{
 		const arr = owners.value.filter((owner)=> JSON.stringify(owner).toLowerCase().indexOf(searchStr.value.toLowerCase()) != -1);
+		arr.sort((a, b) => {
+			if (a.surname === b.surname) {
+				return a.othernames.localeCompare(b.othernames);
+			} else {
+				return a.surname.localeCompare(b.surname);
+			}
+		});
 		return arr;
 	});
 
@@ -71,6 +78,16 @@ export const useOwnerStore = defineStore("owner", ()=>{
 			showIndex.value--;
 		}
 	}
+
+		// Update showIndex whenever a new search is performed
+	watch(filteredOwners, (newValue) => {
+		if (newValue.length > 0) {
+			const index = paginatedOwners.value.findIndex(page => page.includes(newValue[0]));
+			if (index !== -1) {
+				showIndex.value = index;
+			}
+		}
+	});
 
 	const ownerToEditId = ref(null);
 
