@@ -37,17 +37,18 @@ const resetPasswordClick = (id)=>{
 		<cui-menu></cui-menu>
 		<cui-body>
 
-			<div class="row">
-				<div class="col-1">
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="m-1">
 					<cui-button v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" data-bs-target="#addAdmin"><i class="fa fa-plus"></i> <span class="hidable-on-sm">Add new</span></cui-button>
 				</div>
-				<div class="col-1">
+				<div class="m-1">
 					<cui-button @click="readAdmin()"><i class="fa fa-spinner"></i> <span class="hidable-on-sm">Refresh</span></cui-button>
+					
 				</div>
-				<div class="col-6">
-					<cui-input data-aos="zoom-in" :store="adminStore" stateKey="searchStr" placeholder="Search admins"></cui-input>
+				<div class="m-1">
+					<cui-input class="w-100" :store="adminStore" stateKey="searchStr" placeholder="Search admins"></cui-input>
 				</div>
-				<div class="col-1">
+				<div class="m-1">
 					<select v-model="range" class="p-2 rounded range lg">
 						<option value="5">Show 5</option>
 						<option value="10">Show 10</option>
@@ -61,7 +62,6 @@ const resetPasswordClick = (id)=>{
 						<option value="50">50</option>
 					</select>
 				</div>
-				
 			</div>
 			
 			<div class="container table-wrapper">
@@ -69,36 +69,44 @@ const resetPasswordClick = (id)=>{
 				<div class="table">
 					<div class="table-header row align-items-center pt-2 pb-2">
 						<div class="table-header-col col">Fullname</div>
-						<div class="table-header-col col">Type</div>
+						<div class="table-header-col col lg">Type</div>
+						<div class="table-header-col col"></div>
 						<div class="table-header-col col"></div>
 						<div class="table-header-col col"></div>
 						<div class="table-header-col col"></div>
 					</div>
 					<div class="table-body">
 						<div 
-							class="table-row row bg-light rounded shadow align-items-center mt-2"
+							class="table-row d-flex justify-content-between align-items-center bg-light rounded shadow align-items-center mt-2"
 							v-for="admin in showAdmin"
 							:key="admin.id"
 						>
-							<div data-aos="zoom-in" class="table-row-col col col">{{ admin.surname }} {{ admin.othernames }} <br><small class="phone_number">{{ admin.phone }}</small></div>
-							<div data-aos="slide-right" class="table-row-col col col">{{ admin.admin_type }}</div>
+							<div data-aos="zoom-in" class="table-row-col col col">{{ admin.surname }} {{ admin.othernames }} <br><small class="phone_number lg">{{ admin.phone }}</small></div>
+							<div data-aos="slide-right" class="table-row-col col col lg">{{ admin.admin_type }}</div>
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
-							<div data-aos="zoom-in" class="table-row-col col col">
+							
+							<div data-aos="zoom-in" class="table-row-col col col lg">
 								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#reset_password'.concat(admin.admin_id)">
 									<i class="fa fa-key"></i>
 									<span class="hidable-on-sm"> Reset password</span>
 								</cui-button>
 							</div>
-							<div data-aos="zoom-in" class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col lg">
 								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#edit_admin'.concat(admin.admin_id)">
 									<i class="fa fa-pen"></i>
 									<span class="hidable-on-sm"> Edit</span>
 								</cui-button>
 							</div>
-							<div data-aos="zoom-in" class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col lg">
 								<cui-button type='danger' v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#delete_admin'.concat(admin.admin_id)">
 									<i class="fa fa-trash"></i>
 									<span class="hidable-on-sm"> Delete</span>
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col text-right sm">
+								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#actions'.concat(admin.admin_id)">
+									<i class="fa fa-ellipsis-v"></i>
+									<span> Actions</span>
 								</cui-button>
 							</div>
 						</div>
@@ -120,6 +128,41 @@ const resetPasswordClick = (id)=>{
 	</div>
 
 	<!-- Button trigger modal -->
+
+<!-- action admin modal -->
+	<div v-for="admin in admins" data-backdrop="static" :key="admin.admin_id" class="modal fade" :id="'actions'.concat(admin.admin_id)">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="h5">Actions for {{ admin.surname }} {{ admin.othernames }}</h1>
+				</div>
+				<div class="modal-body">
+		
+					<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#reset_password'.concat(admin.admin_id)">
+						<i class="fa fa-key"></i>
+						<span> Reset password</span>
+					</cui-button>
+					&nbsp;
+					<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#edit_admin'.concat(admin.admin_id)">
+						<i class="fa fa-pen"></i>
+						<span> Edit</span>
+					</cui-button>
+					&nbsp;
+					<cui-button type='danger' v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#delete_admin'.concat(admin.admin_id)">
+						<i class="fa fa-trash"></i>
+						<span> Delete</span>
+					</cui-button>
+			
+				</div>
+				<div class="modal-footer">
+					<div class="container mt-5 text-center">
+						<cui-button data-bs-dismiss="modal" class="" :id="'delete_admin_btn_'.concat(admin.admin_id)">Cancel</cui-button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- End of action admin modal -->
 
 
 <!-- Add admin modal -->

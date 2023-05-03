@@ -13,10 +13,10 @@ import RevenueBarChart from '@/components/RevenueBarChart';
 		<cui-menu></cui-menu>
 		<cui-body>
 			<div class="row">
-				<div class="container w-50 col">
+				<div class="container col-lg-6 col-md-12 col-sm-12 col-xs-12">
 					<report-bar-chart></report-bar-chart>
 				</div>
-				<div class="container w-50 col">
+				<div class="container col-lg-6 col-md-12 col-sm-12 col-xs-12">
 					<revenue-bar-chart></revenue-bar-chart>
 				</div>
 			</div>

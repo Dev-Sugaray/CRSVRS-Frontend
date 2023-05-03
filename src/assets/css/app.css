@@ -38,7 +38,7 @@ label {
 	}
 
 	.lg {
-		display: none;
+		display: none !important;
 	}
 
 	.sm {
@@ -66,4 +66,12 @@ label {
 [data-aos=zoom-in] {
   animation: zoomIn 0.6s ease-in-out;
   /* Other styles for the element */
+}
+
+.align-items-center {
+	align-items: center;
+}
+
+.text-right {
+	text-align: right;
 }

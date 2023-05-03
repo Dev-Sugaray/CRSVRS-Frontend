@@ -29,6 +29,9 @@ const { credentials } = storeToRefs(authStore);
 
 
 const addDriver = (ownerId)=>{
+	// Toggle the actions modal
+	const actionsDismissBtn = document.querySelector('#actions_dismiss_btn'.concat(ownerId));
+	actionsDismissBtn.click();
 	// Set the owner id
 	driverToAddVehicleOwnerId.value = ownerId;
 	// Reset the add driver image
@@ -38,13 +41,18 @@ const addDriver = (ownerId)=>{
 }
 
 const editOwner = (id)=>{
-	
+	// Toggle the actions modal
+	const actionsDismissBtn = document.querySelector('#actions_dismiss_btn'.concat(id));
+	actionsDismissBtn.click();
 	ownerToEditId.value = id;
 	router.push('/edit_owner');
 
 }
 
 const moreOwnerInfo = (ownerId)=>{
+	// Toggle the actions modal
+	const actionsDismissBtn = document.querySelector('#actions_dismiss_btn'.concat(ownerId));
+	actionsDismissBtn.click();
 	ownerToView.value = owners.value.filter(owner => owner.vehicle_owner_id == ownerId)[0];
 	router.push('/more_owner_info');
 }
@@ -58,20 +66,28 @@ readOwner();
 		<cui-menu></cui-menu>
 		<cui-body>
 
-			<div class="row">
-				<div class="col-4">
-					<cui-button data-bs-toggle="modal" data-bs-target="#addOwner"><i class="fa fa-plus"></i> Add new</cui-button> &nbsp;
-					<cui-button @click="readOwner()"><i class="fa fa-spinner"></i> Refresh</cui-button>
+			<div class="d-flex align-items-center justify-content-between">
+				<div>
+					<cui-button data-bs-toggle="modal" data-bs-target="#addOwner"><i class="fa fa-plus"></i> <span class="hidable-on-sm">Add new</span></cui-button>
 				</div>
-				<div class="col-6">
+				<div>
+					<cui-button @click="readOwner()"><i class="fa fa-spinner"></i> <span class="hidable-on-sm">Refresh</span></cui-button>
+				</div>
+				<div>
 					<cui-input :store="ownerStore" stateKey="searchStr" placeholder="Search vehicle owners"></cui-input>
 				</div>
-				<div class="col-1">
-					<select v-model="range" class="p-2 rounded range">
+				<div>
+					<select v-model="range" class="p-2 rounded range lg">
 						<option value="5">Show 5</option>
 						<option value="10">Show 10</option>
 						<option value="20">Show 20</option>
 						<option value="50">Show 50</option>
+					</select>
+					<select v-model="range" class="p-2 rounded range sm">
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="50">50</option>
 					</select>
 				</div>
 				
@@ -82,7 +98,7 @@ readOwner();
 				<div class="table">
 					<div class="table-header row align-items-center pt-2 pb-2">
 						<div class="table-header-col col">Fullname</div>
-						<div class="table-header-col col">Date registered</div>
+						<div class="table-header-col col lg">Date registered</div>
 						<div class="table-header-col col"></div>
 						<div class="table-header-col col"></div>
 						<div class="table-header-col col"></div>
@@ -95,31 +111,37 @@ readOwner();
 							:key="owner.vehicle_owner_id"
 						>
 							<div data-aos="zoom-in" class="table-row-col col col">{{ owner.surname }} {{ owner.othernames }} <br><small class="phone_number">{{ owner.phone }}</small></div>
-							<div class="table-row-col col col">{{ new Date(owner.date_registered).toDateString() }}</div>
+							<div class="table-row-col col col lg">{{ new Date(owner.date_registered).toDateString() }}</div>
 							
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
-							<div data-aos="zoom-in" class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col lg">
 								<cui-button @click="addDriver(owner.vehicle_owner_id)">
 									<i class="fa fa-car"></i>
 									Add driver
 								</cui-button>
 							</div>
-							<div data-aos="zoom-in" class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col lg">
 								<cui-button @click="moreOwnerInfo(owner.vehicle_owner_id)">
 									<i class="fa fa-eye"></i>
 									More
 								</cui-button>
 							</div>
-							<div data-aos="zoom-in" class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col lg">
 								<cui-button @click="editOwner(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
 									<i class="fa fa-pen"></i>
 									Edit
 								</cui-button>
 							</div>
-							<div data-aos="zoom-in" class="table-row-col col col">
+							<div data-aos="zoom-in" class="table-row-col col col lg">
 								<cui-button type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_owner'.concat(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
 									<i class="fa fa-trash"></i>
 									Delete
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col sm text-right">
+								<cui-button data-bs-toggle="modal" :data-bs-target="'#actions'.concat(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
+									<i class="fa fa-ellipsis-v"></i>
+									Actions
 								</cui-button>
 							</div>
 						</div>
@@ -269,6 +291,46 @@ readOwner();
 	</div>
 <!-- End of show owner modal -->
 
+
+<!-- actions owner modal -->
+	<div v-for="owner in owners" data-backdrop="static" :key="owner.vehicle_owner_id" class="modal fade" :id="'actions'.concat(owner.vehicle_owner_id)">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="h5">Actions for {{ owner.surname }} {{ owner.othernames }}</h1>
+				</div>
+				<div class="modal-body">
+				
+					<cui-button @click="addDriver(owner.vehicle_owner_id)">
+						<i class="fa fa-car"></i>
+						Add driver
+					</cui-button>
+					&nbsp;
+					<cui-button @click="moreOwnerInfo(owner.vehicle_owner_id)">
+						<i class="fa fa-eye"></i>
+						More
+					</cui-button>
+					&nbsp;
+					<cui-button @click="editOwner(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
+						<i class="fa fa-pen"></i>
+						Edit
+					</cui-button>
+					&nbsp;
+					<cui-button type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_owner'.concat(owner.vehicle_owner_id)" v-if="credentials.admin_type != 'admin'">
+						<i class="fa fa-trash"></i>
+						Delete
+					</cui-button>
+				
+				</div>
+				<div class="modal-footer">
+					<div class="container mt-5 text-center">
+						<cui-button data-bs-dismiss="modal" :id="'actions_dismiss_btn'.concat(owner.vehicle_owner_id)">Cancel</cui-button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- End of actions owner modal -->
 
 <!-- delete owner modal -->
 	<div v-for="owner in owners" data-backdrop="static" :key="owner.vehicle_owner_id" class="modal fade" :id="'delete_owner'.concat(owner.vehicle_owner_id)">

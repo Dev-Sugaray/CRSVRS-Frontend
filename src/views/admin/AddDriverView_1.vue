@@ -8,12 +8,16 @@ import DriverPhoto from '@/components/DriverPhoto';
 import { storeToRefs } from 'pinia';
 // Vue dependencies
 import { onMounted } from 'vue';
+// Vue-router
+import { useRouter } from 'vue-router';
 // Pinia stores
 import { useDriverStore } from '@/store/driver.store';
 
 const driverStore = useDriverStore();
 const { driverToAddSurname, driverToAddOthernames, revenueHead, driverToAddLicenseNumber, driverToAddPhone, driverToAddPhone2, driverToAddChassisNumber,  driverToAddLGA, driverToAddAmount, driverToAddVehicleType, lgas, vehicleTypes } = storeToRefs(driverStore);
 const { createDriver, getLGAs, getVehicleTypes } = driverStore;
+
+const router = useRouter();
 
 onMounted(()=> {
 	getLGAs();
@@ -96,7 +100,8 @@ onMounted(()=> {
 			</div>
 		</div>
 		<div class="container p-2 mt-4">
-			<cui-button @click="createDriver" class="w-100">Add driver</cui-button>
+			<cui-button  @click="router.back()">Go back</cui-button>&nbsp;
+			<cui-button @click="createDriver">Add driver</cui-button>
 		</div>
 	</cui-body>
 </template>

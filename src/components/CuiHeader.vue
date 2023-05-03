@@ -25,7 +25,7 @@ const route = useRoute();
 		</div>
 		<div class="header-item" style="text-align: right">
 			<div @click="logoutAdmin" class="logout-btn p-3 rounded" v-ripple="'rgba(0,0,0,.2)'">
-				<i class='fa fa-power-off fa-1x'></i>&nbsp;Logout
+				<i class='fa fa-power-off fa-1x'></i>&nbsp;<span class="lg">Logout</span>
 			</div>
 		</div>
 	</header>
