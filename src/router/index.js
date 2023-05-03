@@ -135,6 +135,15 @@ const routes = [
 			displayName: 'Reset password',
 			requireAuth: true
 		}
+	},
+	{
+		path: '/docs',
+		name: 'docs',
+		component: ()=> import(/**/ '../views/admin/DocsView.vue'),
+		meta: {
+			displayName: 'Documentation',
+			requireAuth: true
+		}
 	}
 ]
 

@@ -10,10 +10,17 @@ const isActive = (path)=>{
 
 const appStore = useAppStore();
 const { isMenuActive } = storeToRefs(appStore);
+
+const closeMenu = async (ev)=>{
+	const { target } = ev;
+	if(target.classList.contains('cui-menu-overlay')){
+		isMenuActive.value = false;
+	}
+}
 </script>
 
 <template>
-	<div :class="{menu_active: isMenuActive}" class="cui-menu-overlay">
+	<div :class="{menu_active: isMenuActive}" class="cui-menu-overlay" @click="closeMenu">
 		<div :class="{menu_active: isMenuActive}" class="cui-menu pt-0">
 			<div class="logo p-4 pt-0">
 				<img src="@/assets/img/logo_without_bg.png">
@@ -27,6 +34,7 @@ const { isMenuActive } = storeToRefs(appStore);
 				<li :class="{ active: isActive('/vehicle_type')}"><router-link  class="p-3 rounded" to="/vehicle_type"><i class="fa fa-car"></i> Vehicle types</router-link></li>
 				<li :class="{ active: isActive('/reset_password')}"><router-link  class="p-3 rounded" to="/reset_password"><i class="fa fa-key"></i> Reset password</router-link></li>
 				<li :class="{ active: isActive('/report')}"><router-link  class="p-3 rounded" to="/report"><i class="fa fa-analytics"></i> Report</router-link></li>
+				<li :class="{ active: isActive('/docs')}"><router-link  class="p-3 rounded" to="/docs"><i class="fa fa-book"></i> Docs</router-link></li>
 			</ul>
 		</div>
 	</div>
@@ -64,6 +72,8 @@ a {
 	width: 100%;
 	color: var(--cui-blue);
 	transition: background-color 200ms ease-in;
+	padding-top: 9px !important;
+	padding-bottom: 9px !important;
 }
 
 a:hover {

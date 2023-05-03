@@ -5,10 +5,19 @@
 
 * {
 	font-family: 'Sofia Pro';
+	user-select: none;
+}
+
+body {
+	overflow: none;
 }
 
 label {
 	font-weight: bold;
+}
+
+.oveflow-scroll {
+	overflow-y: visible;
 }
 
 .cui-input {
@@ -26,6 +35,10 @@ label {
 .table-wrapper {
 	overflow-y: auto;
 	height: 70vh;
+}
+
+.text-bold {
+	font-weight: bolder;
 }
 
 .sm {
@@ -74,4 +87,12 @@ label {
 
 .text-right {
 	text-align: right;
+}
+
+.overflow-auto {
+	overflow: auto;
+}
+
+.cui-white {
+	background-color: var(--cui-white);
 }

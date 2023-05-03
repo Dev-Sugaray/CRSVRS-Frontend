@@ -31,5 +31,6 @@ const isProduction = ref(process.env.NODE_ENV == 'production');
 	font-weight: bolder;
 	font-size: 4rem;
 	text-align: center;
+	display: none;
 }
 </style>

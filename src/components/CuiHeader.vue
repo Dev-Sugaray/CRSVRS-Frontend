@@ -15,15 +15,15 @@ const route = useRoute();
 
 <template>
 	<header class="cui-header">
-		<div class="header-item text-left"> 
+		<div class="header-item text-left cui-white"> 
 			<div class="menu-btn p-3" @click="isMenuActive = true" v-ripple="'rgba(0,0,0,.2)'">
 				<i class="fa fa-bars fa-1x"></i>
 			</div>
 		</div>
-		<div class="header-item" data-aos="slide-right">
+		<div class="header-item cui-white" data-aos="slide-right">
 			<b>{{ route.meta.displayName }}</b>
 		</div>
-		<div class="header-item" style="text-align: right">
+		<div class="header-item cui-white" style="text-align: right">
 			<div @click="logoutAdmin" class="logout-btn p-3 rounded" v-ripple="'rgba(0,0,0,.2)'">
 				<i class='fa fa-power-off fa-1x'></i>&nbsp;<span class="lg">Logout</span>
 			</div>
@@ -39,6 +39,7 @@ const route = useRoute();
 	justify-content: space-between;
 	position: absolute;
 	left: 10rem;
+	background-color: var(--cui-white);
 }
 
 .menu-btn {

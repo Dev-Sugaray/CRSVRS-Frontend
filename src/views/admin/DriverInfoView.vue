@@ -97,7 +97,7 @@ const router = useRouter();
 	<div>
 		<cui-header></cui-header>
 		<cui-menu></cui-menu>
-		<cui-body>
+		<cui-body class="overflow-auto">
 			<h1 class="mt-1 mb-1 bg-light rounded h3 p-3">Driver information</h1>
 			<div class="container mt-2 rounded bg-light p-1" style="overflow-y: auto">
 				<div class="container">
@@ -122,9 +122,9 @@ const router = useRouter();
 					</ul>
 				</div>
 				<div class="container">
-					<cui-button @click="router.back()">Go back</cui-button>&nbsp;
-					<cui-button @click="generateDriverReceipt">Print receipt</cui-button>&nbsp;
-					<cui-button @click="generateDriverCertificate">Print certificate</cui-button>
+					<cui-button @click="router.back()" class="w-2"><i class="fa fa-arrow-left"></i></cui-button>&nbsp;
+					<cui-button @click="generateDriverReceipt" class="w-2">Print receipt</cui-button>&nbsp;
+					<cui-button @click="generateDriverCertificate" class="w-2">Print certificate</cui-button>
 				</div>
 			</div>
 		</cui-body>

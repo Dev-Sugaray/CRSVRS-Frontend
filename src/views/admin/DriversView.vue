@@ -28,7 +28,8 @@ const editDriver = (id)=>{
 	
 	driverToEditId.value = id;
 	router.push('/edit_driver');
-
+	const btn = document.querySelector(`#actions_btn${id}`);
+	btn.click();
 }
 
 
@@ -40,6 +41,8 @@ onMounted(()=>{
 const moreDriverInfo = (driverId)=>{
 	driverToView.value = drivers.value.filter(driver => driver.driver_id == driverId)[0];
 	router.push('/more_driver_info');
+	const btn = document.querySelector(`#actions_btn${driverId}`);
+	btn.click();
 }
 
 const renewalCredentials = ref({
@@ -51,6 +54,8 @@ const renewalCredentials = ref({
 const setCredentials = async (id, fullname)=>{
 	renewalCredentials.value.id = id;
 	renewalCredentials.value.fullname = fullname;
+	const btn = document.querySelector(`#actions_btn${id}`);
+	btn.click();
 }
 
 const renewDriverBtnClick = async ()=>{
@@ -72,18 +77,26 @@ const renewDriverBtnClick = async ()=>{
 		<cui-menu></cui-menu>
 		<cui-body>
 
-			<div class="row">
-				<div class="col-4">
-					<cui-button @click="readDriver()"><i class="fa fa-spinner"></i> Refresh</cui-button>&nbsp;
-					<select v-model="range" class="p-2 rounded range">
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="col m-1">
+					<cui-button @click="readDriver()"><i class="fa fa-spinner"></i><span class="lg"> Refresh</span> </cui-button>&nbsp;
+				</div>
+				<div class="col-7 m-1">
+					<cui-input :store="driverStore" stateKey="searchStr" placeholder="Search drivers"></cui-input>
+				</div>
+				<div class="col m-1">
+					<select v-model="range" class="p-2 rounded range lg">
 						<option value="5">Show 5</option>
 						<option value="10">Show 10</option>
 						<option value="20">Show 20</option>
 						<option value="50">Show 50</option>
 					</select>
-				</div>
-				<div class="col-6">
-					<cui-input :store="driverStore" stateKey="searchStr" placeholder="Search drivers"></cui-input>
+					<select v-model="range" class="p-2 rounded range sm">
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="50">50</option>
+					</select>
 				</div>
 			</div>
 			
@@ -110,32 +123,38 @@ const renewDriverBtnClick = async ()=>{
 							<div aos-init data-aos="zoom-in" class="table-row-col col col" data-aos-anchor-placement="top-bottom">{{ driver.surname }} {{ driver.othernames }} <br><small class="phone_number">{{ driver.phone }}</small></div>
 							<div aos-init data-aos="zoom-in" class="table-row-col col col lg" data-aos-anchor-placement="top-bottom">{{ driver.vehicle_security_registration_no }}</div>
 							<div aos-init data-aos="zoom-in" class="table-row-col col col lg" data-aos-anchor-placement="top-bottom">{{ driver.chassis_no }}</div>
-							<div aos-init data-aos="zoom-in" :class="['table-header-col col', driver.status.toLowerCase() == 'active' ? 'text-success' : 'text-danger']" data-aos-anchor-placement="top-bottom">{{ driver.status }}</div>
+							<div aos-init data-aos="zoom-in" :class="['table-header-col col', driver.status == 'Active' ? 'text-success' : 'text-danger']" data-aos-anchor-placement="top-bottom">{{ driver.status }}</div>
 							<div aos-init data-aos="zoom-in" class="table-header-col col lg" data-aos-anchor-placement="top-bottom">{{ driver.expiry_date_description }}</div>
 							
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
-							<div aos-init data-aos="zoom-in" class="table-row-col col col" data-aos-anchor-placement="top-bottom">
+							<div aos-init data-aos="zoom-in" class="table-row-col col col lg" data-aos-anchor-placement="top-bottom">
 								<cui-button data-bs-toggle="modal" data-bs-target="#renew_driver" data-aos-anchor-placement="top-bottom" @click="setCredentials(driver.driver_id, driver.surname.concat(' ').concat(driver.othernames))">
 									<i class="fa fa-redo"></i>
-									<span class="hidable-on-sm"> Renew</span>
+									<span> Renew</span>
 								</cui-button>
 							</div>
-							<div aos-init data-aos="zoom-in" class="table-row-col col col" data-aos-anchor-placement="top-bottom">
+							<div aos-init data-aos="zoom-in" class="table-row-col col col lg" data-aos-anchor-placement="top-bottom">
 								<cui-button @click="moreDriverInfo(driver.driver_id)">
 									<i class="fa fa-eye"></i>
-									<span class="lg"> More</span>
+									<span> More</span>
 								</cui-button>
 							</div>
-							<div aos-init data-aos="zoom-in" class="table-row-col col col" data-aos-anchor-placement="top-bottom">
+							<div aos-init data-aos="zoom-in" class="table-row-col col col lg" data-aos-anchor-placement="top-bottom">
 								<cui-button v-if="credentials.admin_type != 'admin'" @click="editDriver(driver.driver_id)">
 									<i class="fa fa-pen"></i>
-									<span class="lg"> Edit</span>
+									<span> Edit</span>
 								</cui-button>
 							</div>
-							<div aos-init data-aos="zoom-in" class="table-row-col col col" data-aos-anchor-placement="top-bottom">
+							<div aos-init data-aos="zoom-in" class="table-row-col col col lg" data-aos-anchor-placement="top-bottom">
 								<cui-button v-if="credentials.admin_type != 'admin'" type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_driver'.concat(driver.driver_id)">
 									<i class="fa fa-trash"></i>
-									<span class="lg"> Delete</span>
+									<span> Delete</span>
+								</cui-button>
+							</div>
+							<div data-aos="zoom-in" class="table-row-col col col text-right sm">
+								<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#actions'.concat(driver.driver_id)">
+									<i class="fa fa-ellipsis-v"></i>
+									<span> Actions</span>
 								</cui-button>
 							</div>
 						</div>
@@ -157,6 +176,46 @@ const renewDriverBtnClick = async ()=>{
 	</div>
 
 	<!-- Button trigger modal -->
+
+
+<!-- action admin modal -->
+	<div v-for="driver in drivers" data-backdrop="static" :key="driver.driver_id" class="modal fade" :id="'actions'.concat(driver.driver_id)">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="h5">Actions for {{ driver.surname }} {{ driver.othernames }}</h1>
+				</div>
+				<div class="modal-body">
+		
+					<cui-button data-bs-toggle="modal" data-bs-target="#renew_driver" data-aos-anchor-placement="top-bottom" @click="setCredentials(driver.driver_id, driver.surname.concat(' ').concat(driver.othernames))">
+						<i class="fa fa-redo"></i>
+						<span> Renew</span>
+					</cui-button>
+					<cui-button @click="moreDriverInfo(driver.driver_id)">
+						<i class="fa fa-eye"></i>
+						<span> More</span>
+					</cui-button>
+					<cui-button v-if="credentials.admin_type != 'admin'" @click="editDriver(driver.driver_id)">
+						<i class="fa fa-pen"></i>
+						<span> Edit</span>
+					</cui-button>
+					<cui-button v-if="credentials.admin_type != 'admin'" type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_driver'.concat(driver.driver_id)">
+						<i class="fa fa-trash"></i>
+						<span> Delete</span>
+					</cui-button>
+			
+				</div>
+				<div class="modal-footer">
+					<div class="container mt-5 text-center">
+						<cui-button data-bs-dismiss="modal" :id="'actions_btn'.concat(driver.driver_id)">Cancel</cui-button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- End of action driver modal -->
+
+
 
 <!-- Renew driver modal -->
 	<div class="modal fade" id="renew_driver" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">

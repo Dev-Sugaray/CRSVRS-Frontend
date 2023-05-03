@@ -37,7 +37,7 @@ const { loginAdmin } = authStore;
 						<cui-input :store='authStore' stateKey='password' type="password" placeholder="Password"></cui-input>
 					</div>
 					<div class="container mt-5 text-center">
-						<cui-button @click="loginAdmin" class="w-50">Login</cui-button>
+						<cui-button @click="loginAdmin" class="w-100">Login</cui-button>
 					</div>
 				</div>	
 			</div>

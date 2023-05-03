@@ -12,6 +12,10 @@ import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 // Pinia stores
 import { useOwnerStore } from '@/store/owners.store';
+// Vue-router
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const ownerStore = useOwnerStore();
 const { owners, ownerToEditId, ownerPhotoToEdit } = storeToRefs(ownerStore);
@@ -35,32 +39,32 @@ const updateBtnClick = ()=>{
 <template>
 	<cui-header></cui-header>
 	<cui-menu></cui-menu>
-	<cui-body>
+	<cui-body class="overflow-auto">
 		<div class="container-fluid text-center">
 			<owner-photo mode="edit"></owner-photo>
 		</div>
 		<div class="row">
-			<div class="container mt-2  col">
+			<div class="container mt-2  col-lg-6 col-md-6 col-sm-12 col-xs-12">
 				<label>Surname</label>
 				<input class="p-2 rounded cui-input w-100"  v-model="payload.surname" type="text" placeholder="Surname">
 			</div>
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 				<label>Othernames</label>
 				<input class="p-2 rounded cui-input w-100" v-model="payload.othernames" type="text" placeholder="Othernames">
 			</div>
 		</div>
 		<div class="row">
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 				<label>Phone</label>
 				<input class="p-2 rounded cui-input w-100" v-model="payload.phone" type="text" placeholder="phone">
 			</div>
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 				<label>Phone 2</label>
 				<input class="p-2 rounded cui-input w-100" v-model="payload.phone2" type="text" placeholder="phone 2">
 			</div>
 		</div>
 		<div class="container p-2 mt-4">
-			<cui-button @click="updateBtnClick" class="w-100">Edit owner</cui-button>
+			<cui-button @click="router.back()" class="w-6">Go back</cui-button>&nbsp;<cui-button @click="updateBtnClick" class="w-6">Edit owner</cui-button>
 		</div>
 	</cui-body>
 </template>

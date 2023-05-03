@@ -38,17 +38,20 @@ const resetPasswordClick = (id)=>{
 		<cui-body>
 
 			<div class="d-flex justify-content-between align-items-center">
-				<div class="m-1">
+				<div class="col m-1">
 					<cui-button v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" data-bs-target="#addAdmin"><i class="fa fa-plus"></i> <span class="hidable-on-sm">Add new</span></cui-button>
 				</div>
-				<div class="m-1">
+				<div class="col m-1">
 					<cui-button @click="readAdmin()"><i class="fa fa-spinner"></i> <span class="hidable-on-sm">Refresh</span></cui-button>
 					
 				</div>
-				<div class="m-1">
+				<div class="col-8 m-1 lg">
 					<cui-input class="w-100" :store="adminStore" stateKey="searchStr" placeholder="Search admins"></cui-input>
 				</div>
-				<div class="m-1">
+				<div class="col-6 m-1 sm">
+					<cui-input class="w-100" :store="adminStore" stateKey="searchStr" placeholder="Search admins"></cui-input>
+				</div>
+				<div class="col m-1">
 					<select v-model="range" class="p-2 rounded range lg">
 						<option value="5">Show 5</option>
 						<option value="10">Show 10</option>
@@ -73,7 +76,7 @@ const resetPasswordClick = (id)=>{
 						<div class="table-header-col col"></div>
 						<div class="table-header-col col"></div>
 						<div class="table-header-col col"></div>
-						<div class="table-header-col col"></div>
+
 					</div>
 					<div class="table-body">
 						<div 

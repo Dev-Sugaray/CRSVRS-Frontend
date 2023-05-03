@@ -34,7 +34,7 @@ const router = useRouter();
 	<div>
 		<cui-header></cui-header>
 		<cui-menu></cui-menu>
-		<cui-body>
+		<cui-body class="overflow-auto">
 			<h1 class="mt-1 mb-1 bg-light rounded h3 p-3">Vehicle owner information</h1>
 			<div class="container mt-2 rounded bg-light p-2">
 				<div class="container">
@@ -49,7 +49,7 @@ const router = useRouter();
 					</ul>
 				</div>
 				<div class="container">
-					<cui-button @click="router.back()">Go back</cui-button>
+					<cui-button @click="router.back()"><i class="fa fa-arrow-left"></i> Go back</cui-button>
 				</div>
 			</div>
 		</cui-body>

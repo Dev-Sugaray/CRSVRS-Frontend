@@ -35,20 +35,28 @@ onMounted(()=>{
 		<cui-menu></cui-menu>
 		<cui-body>
 
-			<div class="row">
-				<div class="col-4">
-					<cui-button data-bs-toggle="modal" data-bs-target="#addVehicleType"><i class="fa fa-plus"></i> Add new</cui-button> &nbsp;
-					<cui-button @click="readVehicleType()"><i class="fa fa-spinner"></i> Refresh</cui-button>
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="col">
+					<cui-button data-bs-toggle="modal" data-bs-target="#addVehicleType"><i class="fa fa-plus"></i> <span class="lg"> Add new</span></cui-button>
 				</div>
-				<div class="col-6">
+				<div class="col">
+					<cui-button @click="readVehicleType()"><i class="fa fa-spinner"></i><span class="lg"> Refresh</span></cui-button>
+				</div>
+				<div class="col-7">
 					<cui-input :store="vehicleTypeStore" stateKey="searchStr" placeholder="Search vehicle types"></cui-input>
 				</div>
-				<div class="col-1">
-					<select v-model="range" class="p-2 rounded range">
+				<div class="col m-1">
+					<select v-model="range" class="p-2 rounded range lg">
 						<option value="5">Show 5</option>
 						<option value="10">Show 10</option>
 						<option value="20">Show 20</option>
 						<option value="50">Show 50</option>
+					</select>
+					<select v-model="range" class="p-2 rounded range sm">
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="50">50</option>
 					</select>
 				</div>
 				
@@ -57,8 +65,8 @@ onMounted(()=>{
 			<div class="container table-wrapper">
 				
 				<div class="table">
-					<div class="table-header row align-items-center pt-2 pb-2">
-						<div class="table-header-col col">Vehicle Type</div>
+					<div class="table-header d-flex justify-content-between align-items-center pt-2 pb-2">
+						<div class="table-header-col col-8">Vehicle Type</div>
 						<div class="table-header-col col"></div>
 						<div class="table-header-col col"></div>
 					</div>
@@ -68,18 +76,18 @@ onMounted(()=>{
 							v-for="vehicleType in showVehicleType"
 							:key="vehicleType.vehicle_type_id"
 						>
-							<div data-aos="zoom-in" class="table-row-col col col">{{ vehicleType.vehicle_type }}</div>
+							<div data-aos="zoom-in" class="table-row-col col col-8">{{ vehicleType.vehicle_type }}</div>
 							<!-- For mobile view will add a new button that will show more information and hide the amount of information that needs to be shown on the frontend -->
 							<div data-aos="zoom-in" class="table-row-col col col text-right">
 								<cui-button  v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#edit_vehicleType'.concat(vehicleType.vehicle_type_id)">
 									<i class="fa fa-pen"></i>
-									Edit
+									<span class="lg"> Edit</span>
 								</cui-button>
 							</div>
 							<div data-aos="zoom-in" class="table-row-col col col">
 								<cui-button  v-if="credentials.admin_type != 'admin'" type='danger' data-bs-toggle="modal" :data-bs-target="'#delete_vehicleType'.concat(vehicleType.vehicle_type_id)">
 									<i class="fa fa-trash"></i>
-									Delete
+									<span class="lg"> Delete</span>
 								</cui-button>
 							</div>
 						</div>

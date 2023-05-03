@@ -11,12 +11,13 @@
 <style scoped>
 	.cui-body {
 		color: var(--cui-black);
-		background-color: var(--cui-blue-very-transparent);
+		background-color: var(--cui-blue-very-extreme-transparent);
 		position: absolute;
 		left: 11rem;
 		right: 10px;
 		top: 4rem;
 		bottom: 10px;
+		overflow: none;
 	}
 
 	@media only screen and (max-width: 767px) {

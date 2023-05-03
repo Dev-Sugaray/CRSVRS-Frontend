@@ -29,36 +29,36 @@ onMounted(()=> {
 <template>
 	<cui-header></cui-header>
 	<cui-menu></cui-menu>
-	<cui-body>
+	<cui-body class="overflow-auto">
 		<div class="container-fluid text-center">
 			<driver-photo></driver-photo>
 		</div>
 		<div class="row">
-			<div class="container mt-2  col">
+			<div class="container mt-2  col-lg-4 col-md-6 col-sm-12 col-xs-12">
 				<label>Surname</label>
 				<input class="p-2 rounded cui-input w-100"  v-model="driverToAddSurname" type="text" placeholder="Surname">
 			</div>
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-4 col-md-6 col-sm-12 col-xs-12">
 				<label>Othernames</label>
 				<input class="p-2 rounded cui-input w-100" v-model="driverToAddOthernames" type="text" placeholder="Othernames">
 			</div>
 		</div>
 		<div class="row">
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-4 col-md-6 col-sm-12 col-xs-12">
 				<label>Phone</label>
 				<input class="p-2 rounded cui-input w-100" v-model="driverToAddPhone" type="text" placeholder="phone">
 			</div>
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-4 col-md-6 col-sm-12 col-xs-12">
 				<label>Phone 2</label>
 				<input class="p-2 rounded cui-input w-100" v-model="driverToAddPhone2" type="text" placeholder="phone 2">
 			</div>
 		</div>
 		<div class="row">
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-4 col-md-6 col-sm-12 col-xs-12">
 				<label>Chassis number</label>
 				<input class="p-2 rounded cui-input w-100" v-model="driverToAddChassisNumber" type="text" placeholder="Chassis number">
 			</div>
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-4 col-md-6 col-sm-12 col-xs-12">
 				<label>LGA</label>
 				<select class="p-2 rounded cui-select w-100" v-model="driverToAddLGA">
 					<option
@@ -73,11 +73,11 @@ onMounted(()=> {
 			</div>
 		</div>
 		<div class="row">
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-4 col-md-6 col-sm-12 col-xs-12">
 				<label>Amount</label>
 				<input class="p-2 rounded cui-input w-100" v-model="driverToAddAmount" type="number" placeholder="Amount">
 			</div>
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-4 col-md-6 col-sm-12 col-xs-12">
 				<label>Vehicle type</label>
 				<select class="p-2 rounded cui-select w-100" v-model="driverToAddVehicleType">
 					<option
@@ -90,18 +90,18 @@ onMounted(()=> {
 			</div>
 		</div>
 		<div class="row">
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-4 col-md-6 col-sm-12 col-xs-12">
 				<label>License number</label>
 				<input class="p-2 rounded cui-input w-100" v-model="driverToAddLicenseNumber" type="text" placeholder="License number">
 			</div>
-			<div class="container mt-2 col">
+			<div class="container mt-2 col-lg-4 col-md-6 col-sm-12 col-xs-12">
 				<label>Revenue head</label>
 				<input class="p-2 rounded cui-input w-100" v-model="revenueHead" readonly>
 			</div>
 		</div>
 		<div class="container p-2 mt-4">
-			<cui-button  @click="router.back()">Go back</cui-button>&nbsp;
-			<cui-button @click="createDriver">Add driver</cui-button>
+			<cui-button  @click="router.back()" class="w-6">Go back</cui-button>&nbsp;
+			<cui-button @click="createDriver" class="w-6">Add driver</cui-button>
 		</div>
 	</cui-body>
 </template>
