@@ -23,7 +23,8 @@ const { toggleProcessLoader } = appStore;
 const chartData = ref(null)
 
 const chartOptions = ref({
-    responsive: true
+    responsive: true,
+    indexAxis: 'y'
 })
 
 const loaded = ref(false)

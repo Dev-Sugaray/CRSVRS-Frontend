@@ -20,6 +20,10 @@ label {
 	overflow-y: visible;
 }
 
+.overflow-hidden {
+	overflow: none;
+}
+
 .cui-input {
 	color: var(--cui-gray);
 	background-color: var(--cui-white);
