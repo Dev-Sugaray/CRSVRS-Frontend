@@ -145,6 +145,7 @@ const router = createRouter({
 
 router.beforeEach((to)=>{
 	Nprogress.start();
+
 	// This is to disable the menu once the user changes route
 	const appStore = useAppStore();
 	const { isMenuActive } = storeToRefs(appStore);

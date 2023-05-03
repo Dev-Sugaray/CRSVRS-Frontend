@@ -4,9 +4,6 @@ import './registerServiceWorker'
 import router from './router'
 // Vue-ripple-directive
 import Ripple from 'vue3-whr-ripple-directive'
-// Animate on scroll library
-import AOS from 'aos'
-import 'aos/dist/aos.css';
 // Boostrap
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,9 +42,4 @@ app.use(router);
 app.directive('ripple', Ripple);
 // Mount
 app.mount('#app');
-// Mixins
-app.mixin({
-    mounted() {
-        AOS.init()
-    }
-})
+
