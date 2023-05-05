@@ -36,8 +36,8 @@ onMounted(async ()=> {
 
     const json = await read()
     const { result } = json;
-    const data = result.map(obj => obj.total_payer).splice(0,6);
-    const labels = result.map(obj => obj.paydate_description).splice(0,6);
+    const data = result.map(obj => obj.total_payer).splice(0,7);
+    const labels = result.map(obj => obj.paydate_description).splice(0,7);
 
     chartData.value = {
         labels: labels,
