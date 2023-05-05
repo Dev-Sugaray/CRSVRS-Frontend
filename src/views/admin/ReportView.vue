@@ -8,11 +8,26 @@ import CuiInput from '@/components/CuiInput';
 import { storeToRefs } from 'pinia';
 // Pinia stores
 import { useReportStore } from '@/store/report.store';
+import { useAppStore } from '@/store/app.store';
+
 const reportStore = useReportStore();
 const { showReport, range, showIndex, paginatedReports } = storeToRefs(reportStore);
 const { readReport, increaseShowIndex, decreaseShowIndex  } = reportStore;
 
+const appStore = useAppStore();
+const { appAlert } = appStore;
+
 readReport();
+
+const copyToClipboard = (text)=>{
+	// check browser support
+	if(navigator.clipboard == undefined){
+		appAlert('Your broswer does not support copying to clipboard');
+	}else {
+		navigator.clipboard.writeText(text);
+		appAlert(`Copied ${text} to clipboard`);
+	}
+}
 </script>
 
 <template>
@@ -117,27 +132,15 @@ readReport();
                     <div><b>Total sum:</b>&#x20A6;{{ Number(report.total_sum).toLocaleString("en-US") }}</div>
                     <div><b>Paydate description:</b>{{ report.paydate_description }}</div>
                     <div><b>Portal charge:</b>&#x20A6;{{ Number(report.portal_charge).toLocaleString("en-US") }}</div>
-                    <hr>
-                    <h6 class="text-bold h6">Portal beneficiaries</h6>
-                    <hr>
-					<div class="container">
-						<div v-for="shareHolder, index in report.share_holder" :key="'share_holder_'.concat(index)">
-							<b>Bank name:</b> {{ shareHolder.bank_name }}
-							<br>
-							<b>Account name:</b>  {{ shareHolder.account_name }}
-							<br>
-							<b>Account number:</b>  {{ shareHolder.account_no }}
-							<br>
-							<b>Settlement amount:</b>  &#x20A6;{{ Number(shareHolder.settlement_amount).toLocaleString('en-US') }}
-							<br>
-							<hr>
-						</div>
-                    </div>
+					
 				</div>
 				
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
 						<cui-button data-bs-dismiss="modal" type="danger" class="w-50">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-toggle="modal" :data-bs-target="'#report_modal_'.concat(report.paydate)">
+							<span class="sm"> See beneficiaries</span>
+						</cui-button>
 					</div>
 				</div>
 			</div>
@@ -155,19 +158,27 @@ readReport();
 					<h1 class="h5">Portal charge beneficiaries</h1>
 				</div>
 
-				<div class="container">
-                    <div v-for="shareHolder, index in report.share_holder" :key="'share_holder_'.concat(index)">
-                        <b>Bank name:</b> {{ shareHolder.bank_name }}
-                        <br>
-                        <b>Account name:</b>  {{ shareHolder.account_name }}
-                        <br>
-                        <b>Account number:</b>  {{ shareHolder.account_no }}
-                        <br>
-                        <b>Settlement amount:</b>  &#x20A6;{{ Number(shareHolder.settlement_amount).toLocaleString('en-US') }}
-                        <br>
-                        <hr>
+				<div class="container overflow-auto" style="max-height: 60vh">
+						<div v-for="shareHolder, index in report.share_holder" :key="'share_holder_'.concat(index)">
+							<p class="m-1 p-1 rounded d-flex justify-content-between align-items-center">
+								<span><b>Bank name:</b> {{ shareHolder.bank_name }}</span>
+								<cui-button @click="copyToClipboard(shareHolder.bank_name)" class="rounded border-2"><i class="fa fa-clone"></i></cui-button>
+							</p>
+							<p class="m-1 p-1 rounded d-flex justify-content-between align-items-center">
+								<span><b>Account name:</b>  {{ shareHolder.account_name }}</span>
+								<cui-button @click="copyToClipboard(shareHolder.account_name)" class="ronded border-2"><i class="fa fa-clone"></i></cui-button>
+							</p>
+							<p class="m-1 p-1 rounded d-flex justify-content-between align-items-center">
+								<span><b>Account number:</b>  {{ shareHolder.account_no }}</span>
+								<cui-button @click="copyToClipboard(shareHolder.account_no)" class="rounded border-2"><i class="fa fa-clone"></i></cui-button>
+							</p>
+							<p class="m-1 p-1 rounded d-flex justify-content-between align-items-center">
+								<span><b>Settlement amount:</b>  &#x20A6;{{ Number(shareHolder.settlement_amount).toLocaleString('en-US') }}</span>
+								<cui-button @click="copyToClipboard(shareHolder.settlement_amount)" class="rounded border-2"><i class="fa fa-clone"></i></cui-button>
+							</p>
+							<hr>
+						</div>
                     </div>
-                </div>
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
 						<cui-button data-bs-dismiss="modal" type="danger" class="w-50">Cancel</cui-button>&nbsp;
