@@ -101,14 +101,13 @@ a i {
 
 	}
 
-
 	.cui-menu {
 		display: block;
 		position: fixed;
 		height: 100%;
 		left: 0;
-		width: 100%;
-		max-width: 20rem;
+		width: 70%;
+		max-width: 13rem;
 		margin-left: -100%;
 		transition: margin-left 300ms ease-in;
 	}
