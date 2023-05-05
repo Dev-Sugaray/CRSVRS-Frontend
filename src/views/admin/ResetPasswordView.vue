@@ -67,10 +67,11 @@ const resetAdminPassword = ()=>{
 						<label>Confirm new password</label>
 						<input class="p-2 rounded cui-input w-100" v-model="confirmNewPassword" type="text" placeholder="confirm new password">
 					</div>
+					<div class="container p-2 mt-4">
+						<cui-button @click="resetAdminPassword" class="w-100">Reset password</cui-button>
+					</div>
 				</div>
-				<div class="container p-2 mt-4">
-					<cui-button @click="resetAdminPassword" class="w-100">Reset password</cui-button>
-				</div>
+				
 			</div>
 		</div>	
 	</cui-body>
