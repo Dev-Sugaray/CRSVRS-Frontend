@@ -123,6 +123,7 @@ const resetPasswordClick = (id)=>{
 					v-for="i, index in paginatedAdmins"
 					:key="'pag_'.concat(index)"
 					@click="showIndex = index"
+					:class="[showIndex == index ? 'active_pagination_item' : '']"
 				>{{index+1}}</cui-button>
 
 				<cui-button @click="increaseShowIndex" class="m-1"><i class="fa fa-chevron-right"></i></cui-button>

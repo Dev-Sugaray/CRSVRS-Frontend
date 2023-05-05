@@ -108,3 +108,9 @@ label {
 .cui-white {
 	background-color: var(--cui-white);
 }
+
+.active_pagination_item {
+	background-color: var(--cui-light-blue) !important;
+	outline: 2px solid white !important;
+	box-shadow: 0px 2px 5px black !important;
+}
