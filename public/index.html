@@ -11,6 +11,48 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <div class="loading" id="app_loader">
+      <img src="img/icons/android-chrome-512x512.png">
+      <div class="loader">
+        <div class="loader-cursor"></div>
+      </div>
+    </div>
+    <style type="text/css">
+      .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .loading img {
+        width: 15rem;
+        height: 15rem;
+      }
+
+      @keyframes loading{
+        from {
+          margin-left: -10rem;
+          margin-right: 10rem;
+        }
+        to {
+          margin-left: 10rem;
+           margin-right: -10rem;
+        }
+      }
+
+      .loader-cursor {
+        height: 5px;
+        width: 3rem;
+        background-color: rgb(3,1,105);
+        animation: loading 1s ease infinite alternate;
+      }
+    </style>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>

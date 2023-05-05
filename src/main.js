@@ -40,6 +40,9 @@ app.use(pinia);
 app.use(router);
 // Directives
 app.directive('ripple', Ripple);
+// Remove the app loader
+const appLoader = document.querySelector("#app_loader");
+appLoader.style.display = "none";
 // Mount
 app.mount('#app');
 
