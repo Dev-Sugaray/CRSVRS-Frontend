@@ -21,11 +21,11 @@ const closeMenu = async (ev)=>{
 
 <template>
 	<div :class="{menu_active: isMenuActive}" class="cui-menu-overlay" @click="closeMenu">
-		<div :class="{menu_active: isMenuActive}" class="cui-menu pt-0">
+		<div :class="{menu_active: isMenuActive}" class="cui-menu pt-0  overflow-auto">
 			<div class="logo p-4 pt-0">
 				<img src="@/assets/img/logo_without_bg.png">
 			</div>
-			<ul>
+			<ul class="overflow-auto">
 				<li :class="{ active: isActive('/dashboard')}"><router-link  to="/dashboard" class="p-3 rounded"><i class="fa fa-tachometer"></i> Dashboard</router-link></li>
 				<li :class="{ active: isActive('/admin')}"><router-link  class="p-3 rounded" to="/admin"><i class="fa fa-user"></i> Admin</router-link></li>
 				<li :class="{ active: isActive('/owners')}"><router-link  class="p-3 rounded" to="/owners"><i class="fa fa-users"></i>Vehicle owners</router-link></li>
