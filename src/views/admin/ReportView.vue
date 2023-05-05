@@ -137,7 +137,7 @@ const copyToClipboard = (text)=>{
 				
 				<div class="modal-footer">
 					<div class="container mt-5 text-center">
-						<cui-button data-bs-dismiss="modal" type="danger" class="w-50">Cancel</cui-button>&nbsp;
+						<cui-button data-bs-dismiss="modal" type="danger" class="">Cancel</cui-button>&nbsp;
 						<cui-button data-bs-toggle="modal" :data-bs-target="'#report_modal_'.concat(report.paydate)">
 							<span class="sm"> See beneficiaries</span>
 						</cui-button>
