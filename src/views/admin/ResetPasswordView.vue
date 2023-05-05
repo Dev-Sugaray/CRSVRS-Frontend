@@ -52,23 +52,27 @@ const resetAdminPassword = ()=>{
 	<cui-header></cui-header>
 	<cui-menu></cui-menu>
 	<cui-body>
-		<div class="container">
-			<div class="container mt-2  col">
-				<label>Old password</label>
-				<input class="p-2 rounded cui-input w-100"  v-model="oldPassword" type="text" placeholder="old password">
+		<div class="row justify-content-center">
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+				<div class="container">
+					<div class="container mt-2  col">
+						<label>Old password</label>
+						<input class="p-2 rounded cui-input w-100"  v-model="oldPassword" type="text" placeholder="old password">
+					</div>
+					<div class="container mt-2 col">
+						<label>New password</label>
+						<input class="p-2 rounded cui-input w-100" v-model="newPassword" type="text" placeholder="new password">
+					</div>
+					<div class="container mt-2 col">
+						<label>Confirm new password</label>
+						<input class="p-2 rounded cui-input w-100" v-model="confirmNewPassword" type="text" placeholder="confirm new password">
+					</div>
+				</div>
+				<div class="container p-2 mt-4">
+					<cui-button @click="resetAdminPassword" class="w-100">Reset password</cui-button>
+				</div>
 			</div>
-			<div class="container mt-2 col">
-				<label>New password</label>
-				<input class="p-2 rounded cui-input w-100" v-model="newPassword" type="text" placeholder="new password">
-			</div>
-            <div class="container mt-2 col">
-				<label>Confirm new password</label>
-				<input class="p-2 rounded cui-input w-100" v-model="confirmNewPassword" type="text" placeholder="confirm new password">
-			</div>
-		</div>
-		<div class="container p-2 mt-4">
-			<cui-button @click="resetAdminPassword" class="w-100">Reset password</cui-button>
-		</div>
+		</div>	
 	</cui-body>
 </template>
 
