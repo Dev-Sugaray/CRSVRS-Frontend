@@ -141,17 +141,15 @@ const resetPasswordClick = (id)=>{
 				</div>
 				<div class="modal-body">
 		
-					<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#reset_password'.concat(admin.admin_id)">
+					<cui-button class="m-1" data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#reset_password'.concat(admin.admin_id)">
 						<i class="fa fa-key"></i>
 						<span> Reset password</span>
 					</cui-button>
-					&nbsp;
-					<cui-button data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#edit_admin'.concat(admin.admin_id)">
+					<cui-button class="m-1" data-bs-toggle="modal" v-if="credentials.admin_type != 'admin'" :data-bs-target="'#edit_admin'.concat(admin.admin_id)">
 						<i class="fa fa-pen"></i>
 						<span> Edit</span>
 					</cui-button>
-					&nbsp;
-					<cui-button type='danger' v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#delete_admin'.concat(admin.admin_id)">
+					<cui-button class="m-1" type='danger' v-if="credentials.admin_type != 'admin'" data-bs-toggle="modal" :data-bs-target="'#delete_admin'.concat(admin.admin_id)">
 						<i class="fa fa-trash"></i>
 						<span> Delete</span>
 					</cui-button>
