@@ -103,11 +103,13 @@ certificateHTML.innerHTML = `<head>
     html {
 
     }
+    table {
+    	margin-left: 20px;
+    }
     #coat-of-arm, #driver-image, #cross-river-logo {
         width: 10rem;
         height: 10rem;
     }
-
     .qr-code {
         height: 10rem;
         width: 10rem;
