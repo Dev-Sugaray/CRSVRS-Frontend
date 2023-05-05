@@ -18,6 +18,8 @@ const props = defineProps({
 	}
 })
 
+driverToAddPhoto.value = "";
+driverPhotoToEdit.value = "";
 
 const { open, onChange } = useFileDialog()
 onChange((files) => {
@@ -37,12 +39,32 @@ const choosePhoto = ()=>{
 </script>
 <template>
 	<div v-if="props.mode == 'edit'">
-		<img src="@/assets/img/profile.svg" @click="choosePhoto" class="photo d-inline-block" v-if="driverPhotoToEdit.length == 0">
-		<img :src="driverPhotoToEdit" @click="open" class="photo d-inline-block" v-else>
+		<img 
+			src="@/assets/img/profile.svg" 
+			@click="choosePhoto" 
+			class="photo d-inline-block"
+			v-if="driverPhotoToEdit.length == 0"
+		>
+		<img 
+			:src="driverPhotoToEdit"
+			@click="open" 
+			class="photo d-inline-block" 
+			v-else
+		>
 	</div>
 	<div v-else>
-		<img src="@/assets/img/profile.svg" @click="choosePhoto" class="photo d-inline-block" v-if="driverToAddPhoto.length == 0">
-		<img :src="driverToAddPhoto" @click="open" class="photo d-inline-block" v-else>
+		<img 
+			src="@/assets/img/profile.svg" 
+			@click="choosePhoto" 
+			class="photo d-inline-block" 
+			v-if="driverToAddPhoto.length == 0"
+		>
+		<img 
+			:src="driverToAddPhoto" 
+			@click="open" 
+			class="photo d-inline-block" 
+			v-else
+		>
 	</div>
 	
 </template>

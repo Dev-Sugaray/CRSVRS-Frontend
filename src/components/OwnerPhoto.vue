@@ -18,6 +18,8 @@ const props = defineProps({
 	}
 })
 
+ownerToAddPhoto.value = "";
+ownerPhotoToEdit.value = "";
 
 const { open, onChange } = useFileDialog()
 onChange((files) => {
