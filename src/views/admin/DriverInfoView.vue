@@ -16,14 +16,21 @@ import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 // // Pinia stores
 import { useDriverStore } from '@/store/driver.store';
+import { useAppStore } from '@/store/app.store';
 
 const driverStore = useDriverStore();
 const { driverToView } = storeToRefs(driverStore);
 const img = ref(null);
 
+const appStore = useAppStore();
+const { appAlert } = appStore;
+
 onMounted(()=>{
 	getDriverImage(driverToView.value.photo).then((data)=> {
 		img.value = data;
+	}).catch((e)=>{
+		console.log(e);
+		appAlert('Failed to fetch driver photo');
 	})
 })
 const generateDriverCertificate = ()=>{

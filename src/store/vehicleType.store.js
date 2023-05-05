@@ -91,7 +91,11 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-		.catch((e)=> console.log(e));
+		.catch((e)=>{ 
+			toggleProcessLoader('');
+			appAlert('An error occured, please try again');
+			console.log(e);
+		});
 	}
 
 	// Credentials for the new vehicleType to add
@@ -132,7 +136,11 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const updateVehicleType = async (id)=>{
@@ -165,7 +173,11 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const deleteVehicleType = async (id)=>{
@@ -193,7 +205,11 @@ export const useVehicleTypeStore = defineStore("vehicleType", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 

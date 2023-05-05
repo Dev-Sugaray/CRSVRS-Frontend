@@ -109,7 +109,11 @@ export const useOwnerStore = defineStore("owner", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-		.catch((e)=> console.log(e));
+		.catch((e)=>{ 
+			toggleProcessLoader('');
+			appAlert('An error occured, please try again');
+			console.log(e);
+		});
 	}
 
 	// Credentials for the new owner to add
@@ -159,7 +163,11 @@ export const useOwnerStore = defineStore("owner", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const updateOwner = async (payload)=>{
@@ -187,7 +195,11 @@ export const useOwnerStore = defineStore("owner", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const deleteOwner = async (id)=>{
@@ -214,7 +226,11 @@ export const useOwnerStore = defineStore("owner", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const addOwnerPhoto = (file)=>{

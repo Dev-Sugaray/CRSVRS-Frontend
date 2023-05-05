@@ -102,7 +102,11 @@ export const useAdminStore = defineStore("admin", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-		.catch((e)=> console.log(e));
+		.catch((e)=>{ 
+			toggleProcessLoader('');
+			appAlert('An error occured, please try again');
+			console.log(e);
+		});
 	}
 
 	// Credentials for the new admin to add
@@ -151,7 +155,11 @@ export const useAdminStore = defineStore("admin", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const updateAdmin = async (id)=>{
@@ -169,7 +177,11 @@ export const useAdminStore = defineStore("admin", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const deleteAdmin = async (id)=>{
@@ -196,7 +208,11 @@ export const useAdminStore = defineStore("admin", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const newPassword = ref('');
@@ -225,7 +241,11 @@ export const useAdminStore = defineStore("admin", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 

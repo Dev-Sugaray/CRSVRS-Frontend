@@ -89,7 +89,11 @@ export const useDriverStore = defineStore("driver", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-		.catch((e)=> console.log(e));
+		.catch((e)=>{ 
+			toggleProcessLoader('');
+			appAlert('An error occured, please try again');
+			console.log(e);
+		});
 	}
 
 		// Update showIndex whenever a new search is performed
@@ -172,7 +176,11 @@ export const useDriverStore = defineStore("driver", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const driverToEditId = ref(0);
@@ -226,7 +234,11 @@ export const useDriverStore = defineStore("driver", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const deleteDriver = async (id)=>{
@@ -253,7 +265,11 @@ export const useDriverStore = defineStore("driver", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const renewDriver = async (payload)=>{
@@ -278,7 +294,11 @@ export const useDriverStore = defineStore("driver", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 
@@ -302,7 +322,11 @@ export const useDriverStore = defineStore("driver", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	// Vehicle types
@@ -325,7 +349,11 @@ export const useDriverStore = defineStore("driver", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const addDriverPhoto = (file)=> {

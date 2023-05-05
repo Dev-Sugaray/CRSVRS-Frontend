@@ -14,15 +14,22 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 // // Pinia stores
 import { useOwnerStore } from '@/store/owners.store';
+import { useAppStore } from '@/store/app.store';
 
 const ownerStore = useOwnerStore();
 const { ownerToView } = storeToRefs(ownerStore);
+
+const appStore = useAppStore();
+const { appAlert } = appStore;
 
 const img = ref(null);
 
 onMounted(()=>{
 	getOwnerImage(ownerToView.value.photo).then((data)=> {
 		img.value = data;
+	}).catch((e)=>{
+		console.log(e);
+		appAlert('Failed to fetch vehicle owner photo');
 	})
 })
 

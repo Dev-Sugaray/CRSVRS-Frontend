@@ -85,7 +85,11 @@ export const useReportStore = defineStore("report", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-		.catch((e)=> console.log(e));
+		.catch((e)=>{ 
+			toggleProcessLoader('');
+			appAlert('An error occured, please try again');
+			console.log(e);
+		});
 	}
 
 

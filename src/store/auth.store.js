@@ -38,7 +38,11 @@ export const useAuthStore = defineStore("auth", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-		.catch((e)=> console.log(e));
+		.catch((e)=>{ 
+			toggleProcessLoader('');
+			appAlert('An error occured, please try again');
+			console.log(e);
+		});
 	}
 
 	const logoutAdmin = async ()=> {

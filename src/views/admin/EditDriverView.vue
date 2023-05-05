@@ -12,6 +12,8 @@ import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 // Pinia stores
 import { useDriverStore } from '@/store/driver.store';
+import { useAppStore } from '@/store/app.store';
+
 // Vue-router
 import { useRouter } from 'vue-router';
 
@@ -21,6 +23,10 @@ const driverStore = useDriverStore();
 const { drivers, driverToEditId, lgas, vehicleTypes, driverPhotoToEdit } = storeToRefs(driverStore);
 const { updateDriver, getLGAs, getVehicleTypes } = driverStore;
 
+const appStore = useAppStore();
+const { appAlert } = appStore;
+
+
 const payload = ref(drivers.value.filter((driver)=> driver.driver_id == driverToEditId.value)[0]);
 
 onMounted(()=> {
@@ -28,7 +34,10 @@ onMounted(()=> {
 	getVehicleTypes();
     getDriverImage(payload.value.photo).then((img)=> {
         driverPhotoToEdit.value = img;
-    });
+    }).catch((e)=>{
+		console.log(e);
+		appAlert('Failed to fetch driver photo');
+	});
 })
 
 const updateBtnClick = ()=>{

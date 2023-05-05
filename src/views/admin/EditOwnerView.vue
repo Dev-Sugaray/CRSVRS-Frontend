@@ -12,6 +12,7 @@ import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 // Pinia stores
 import { useOwnerStore } from '@/store/owners.store';
+import { useAppStore } from '@/store/app.store';
 // Vue-router
 import { useRouter } from 'vue-router';
 
@@ -21,13 +22,20 @@ const ownerStore = useOwnerStore();
 const { owners, ownerToEditId, ownerPhotoToEdit } = storeToRefs(ownerStore);
 const { updateOwner } = ownerStore;
 
+const appStore = useAppStore();
+const { appAlert } = appStore;
+
+
 const payload = ref(owners.value.filter((owner)=> owner.vehicle_owner_id == ownerToEditId.value)[0]);
 // console.log(payload.value);
 
 onMounted(()=> {
     getOwnerImage(payload.value.photo).then((img)=> {
         ownerPhotoToEdit.value = img;
-    });
+    }).catch((e)=>{
+		console.log(e);
+		appAlert('Failed to fetch vehicle owner photo');
+	});
 })
 
 const updateBtnClick = ()=>{

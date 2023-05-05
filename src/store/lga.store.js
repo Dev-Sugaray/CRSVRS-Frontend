@@ -96,7 +96,11 @@ export const useLGAStore = defineStore("lga", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-		.catch((e)=> console.log(e));
+		.catch((e)=>{ 
+			toggleProcessLoader('');
+			appAlert('An error occured, please try again');
+			console.log(e);
+		});
 	}
 
 	// Credentials for the new lga to add
@@ -134,7 +138,11 @@ export const useLGAStore = defineStore("lga", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const updateLGA = async (id)=>{
@@ -157,7 +165,11 @@ export const useLGAStore = defineStore("lga", ()=>{
 								toggleProcessLoader('');
 							}
 						})
-					.catch((e)=> console.log(e));
+					.catch((e)=>{ 
+						toggleProcessLoader('');
+						appAlert('An error occured, please try again');
+						console.log(e);
+					});
 
 					
 
@@ -167,7 +179,11 @@ export const useLGAStore = defineStore("lga", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 
 	const deleteLGA = async (id)=>{
@@ -195,7 +211,11 @@ export const useLGAStore = defineStore("lga", ()=>{
 					toggleProcessLoader('');
 				}
 			})
-			.catch((e)=> console.log(e));
+			.catch((e)=>{ 
+				toggleProcessLoader('');
+				appAlert('An error occured, please try again');
+				console.log(e);
+			});
 	}
 	
 
