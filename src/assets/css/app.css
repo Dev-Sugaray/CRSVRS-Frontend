@@ -97,6 +97,10 @@ label {
 	text-align: right;
 }
 
+.text-gray {
+	color: gray;
+}
+
 .overflow-auto {
 	overflow: auto;
 }

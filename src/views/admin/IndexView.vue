@@ -39,6 +39,9 @@ const { loginAdmin } = authStore;
 					<div class="container mt-5 text-center">
 						<cui-button @click="loginAdmin" class="w-100">Login</cui-button>
 					</div>
+					<div class="container mt-5 text-center text-gray">
+						v1.0.0
+					</div>
 				</div>	
 			</div>
 		</div>
