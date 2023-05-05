@@ -19,9 +19,6 @@ export const useReportStore = defineStore("report", ()=>{
 	// Getters
 	const filteredReports = computed(()=>{
 		const arr = reports.value.filter((admin)=> JSON.stringify(admin).toLowerCase().indexOf(searchStr.value.toLowerCase()) != -1);
-		arr.sort((a, b) => {
-			return a.paydate.localeCompare(b.paydate);
-		});
 		return arr;
 	});
 
