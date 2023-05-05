@@ -22,7 +22,7 @@ const { loginAdmin } = authStore;
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 w-sm-100 col-sm-12 col-xs-12 d-flex align-items-center justify-content-center">
-			<div class="container-fluid form-container">
+			<div class="container-fluid form-container d-flex justify-content-center align-items-center">
 				<div>
 					<div class="text-center">
 						<img class="logo" src="../../assets/img/logo_with_bg.jpg" data-aos="slide-right">
@@ -80,6 +80,6 @@ h1 {
 
 .form-container {
 	height: 100vh;
-	overflow: none;
+	overflow-y: auto;
 }
 </style>
