@@ -114,3 +114,7 @@ label {
 	outline: 2px solid white !important;
 	box-shadow: 0px 2px 5px black !important;
 }
+
+.cui-green {
+	background: var(--cui-green);
+}
