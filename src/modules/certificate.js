@@ -148,7 +148,7 @@ export const generateCertificate = async (payload)=>{
     const driverPhoto = await getDriverImage(payload.photo);
     certificateHTML.querySelector('#driver-image').src = driverPhoto;
 
-    const qrPayload = `This certificate belongs to one ${payload.full_name}, from ${payload.lga}, with phone number is ${payload.phone}. The vehicle security registration number is ${payload.vehicle_security_registration_no}. The vehicle chassis number is ${payload.chassis_no}. The vehicle license number is ${payload.license_no}. To verify this information visit the link ${backend.value}/pages/verify/driver/${payload.vehicle_security_registration_no}`;
+    const qrPayload = `This certificate belongs to one ${payload.full_name}, from ${payload.lga}, with phone number is ${payload.phone}. The vehicle security registration number is ${payload.vehicle_security_registration_no}. The vehicle chassis number is ${payload.chassis_no}. The vehicle license number is ${payload.license_no}. To verify this information visit the link ${backend.value}/pages/verify/driver/${payload.driver_id}`;
     const qrCode = generateQRCode(qrPayload);
 
     // Add the qrcode photo
