@@ -118,7 +118,7 @@ export const generateReceipt = async (payload)=>{
     // Add the amount
     receiptHTML.querySelector('#amount').innerHTML = Number(payload.amount).toLocaleString('en-US');
 
-    const qrPayload = `This receipt was issued on the  ${payload.issue_date} to ${payload.full_name}, from ${payload.lga}, with phone number ${payload.phone}. The vehicle Security Registration Number is ${payload.vehicle_security_registration_no}. The vehicle chassis number is ${payload.chassis_no}. The vehicle license number is ${payload.license_no}. To verify this information visit the link ${backend.value}/pages/verify/driver/${payload.phone}`;
+    const qrPayload = `This receipt was issued on the  ${payload.issue_date} to ${payload.full_name}, from ${payload.lga}, with phone number ${payload.phone}. The vehicle Security Registration Number is ${payload.vehicle_security_registration_no}. The vehicle chassis number is ${payload.chassis_no}. The vehicle license number is ${payload.license_no}. To verify this information visit the link ${backend.value}/pages/verify/driver/${payload.vehicle_security_registration_no}`;
     const qrCode = generateQRCode(qrPayload);
 
     // Add the qrcode photo
