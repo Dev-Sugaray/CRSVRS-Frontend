@@ -6,7 +6,9 @@ import CuiBody from '@/components/CuiBody'
 import ReportBarChart from '@/components/ReportBarChart';
 import RevenueBarChart from '@/components/RevenueBarChart';
 import LgaPieChart from '@/components/LgaPieChart';
+import LgaRevenuePieChart from '@/components/LgaRevenuePieChart';
 import VehicleTypePieChart from '@/components/VehicleTypePieChart';
+import VehicleTypeRevenuePieChart from '@/components/VehicleTypeRevenuePieChart';
 import { useDashboardStore } from '@/store/dashboard.store';
 import { storeToRefs } from 'pinia';
 
@@ -69,12 +71,24 @@ readDashboard();
 					</div>
 				</div>
 				
-				<div class="row">
-					<div class="col-lg-6 col-md-6 col-sm-12">
-						<lga-pie-chart></lga-pie-chart>
+				<div class="row mt-4">
+					<div class="col-lg-6 col-md-6 col-sm-12 text-center">
+						<div class="container h5 text-center mt-5 mb-2">
+							Distribution of drivers by local govt.
+						</div>
+						<div container>
+							<lga-pie-chart></lga-pie-chart>
+						</div>
+						
 					</div>
-					<div class="col-lg-6 col-md-6 col-sm-12">
-						<vehicle-type-pie-chart></vehicle-type-pie-chart>
+					<div class="col-lg-6 col-md-6 col-sm-12 text-center">
+						<div class="container h5 text-center mt-5 mb-2">
+							Distribution of drivers by vehicle type
+						</div>
+						<div container>
+							<vehicle-type-pie-chart></vehicle-type-pie-chart>
+						</div>
+						
 					</div>
 				</div>
 		
@@ -104,7 +118,28 @@ readDashboard();
 					</div>
 				</div>
 			</div>
-			
+
+			<h1 class="h4 text-center mt-4">Revenue information</h1>
+			<div class="row mt-4">
+					<div class="col-lg-6 col-md-6 col-sm-12 text-center">
+						<div class="container h5 text-center mt-5 mb-2">
+							Distribution of revenue by local govt.
+						</div>
+						<div container>
+							<lga-revenue-pie-chart></lga-revenue-pie-chart>
+						</div>
+						
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-12 text-center">
+						<div class="container h5 text-center mt-5 mb-2">
+							Distribution of revenue by vehicle type
+						</div>
+						<div container>
+							<vehicle-type-revenue-pie-chart></vehicle-type-revenue-pie-chart>
+						</div>
+						
+					</div>
+				</div>
 		</cui-body>
 	</div>
 </template>

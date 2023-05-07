@@ -44,8 +44,8 @@ onMounted(()=>{
     watchEffect(()=>{
         if(lgaData.value[0] != undefined){
             loaded.value = true;
-            const data = lgaData.value.map(obj => obj.no_of_driver);
-            const labels = lgaData.value.map(obj => obj.lga.concat(' ').concat(`(${obj.no_of_driver})`));
+            const data = lgaData.value.map(obj => obj.amount);
+            const labels = lgaData.value.map(obj => obj.lga.concat(' ').concat(`(N${Number(obj.amount).toLocaleString('en-US')})`));
             const colors = [];
             lgaData.value.forEach((lga)=>{
                 const color = generateRandomColor();

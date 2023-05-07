@@ -16,7 +16,7 @@ import { useDashboardStore } from '@/store/dashboard.store';
 import { storeToRefs } from 'pinia';
 
 const dashboardStore = useDashboardStore();
-const { lgaData } = storeToRefs(dashboardStore);
+const { vehicleTypeData } = storeToRefs(dashboardStore);
 
 const loaded = ref(false);
   
@@ -42,15 +42,15 @@ let chartData = ref(null);
 
 onMounted(()=>{
     watchEffect(()=>{
-        if(lgaData.value[0] != undefined){
+        if(vehicleTypeData.value[0] != undefined){
             loaded.value = true;
-            const data = lgaData.value.map(obj => obj.no_of_driver);
-            const labels = lgaData.value.map(obj => obj.lga.concat(' ').concat(`(${obj.no_of_driver})`));
+            const data = vehicleTypeData.value.map(obj => obj.amount);
+            const labels = vehicleTypeData.value.map(obj => obj.vehicle_type.concat(' ').concat(`(N${Number(obj.amount).toLocaleString('en-US')})`));
             const colors = [];
-            lgaData.value.forEach((lga)=>{
+            vehicleTypeData.value.forEach((vehicle_type)=>{
                 const color = generateRandomColor();
                 colors.push(color);
-                myLegend.value.push({color, lga: lga.lga});
+                myLegend.value.push({color, vehicle_type: vehicle_type.vehicle_type});
             })
 
             chartData.value = {

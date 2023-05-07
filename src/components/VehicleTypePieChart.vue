@@ -45,7 +45,7 @@ onMounted(()=>{
         if(vehicleTypeData.value[0] != undefined){
             loaded.value = true;
             const data = vehicleTypeData.value.map(obj => obj.no_of_driver);
-            const labels = vehicleTypeData.value.map(obj => obj.vehicle_type);
+            const labels = vehicleTypeData.value.map(obj => obj.vehicle_type.concat(' ').concat(`(${obj.no_of_driver})`));
             const colors = [];
             vehicleTypeData.value.forEach((vehicle_type)=>{
                 const color = generateRandomColor();
