@@ -35,6 +35,7 @@ onMounted(()=>{
 })
 const generateDriverCertificate = ()=>{
 	const payload = {
+		driver_id: `${driverToView.value.driver_id}`,
 		full_name: `${driverToView.value.surname} ${driverToView.value.othernames}`,
 		phone: `${driverToView.value.phone}`,
 		phone2: `${driverToView.value.phone2}`,
@@ -55,6 +56,7 @@ const generateDriverCertificate = ()=>{
 
 const generateDriverReceipt = ()=>{
 	const payload = {
+		driver_id: `${driverToView.value.driver_id}`,
 		full_name: `${driverToView.value.surname} ${driverToView.value.othernames}`,
 		phone: `${driverToView.value.phone}`,
 		phone2: `${driverToView.value.phone2}`,
